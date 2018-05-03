@@ -20,13 +20,32 @@
 //#include <stdlib.h>
 
 #include "Main.h"
+#include "renders.h"
+#include "texture.h"
 
 /* VARIABLES GLOBALES */
 
-void init (void) {
+float rotX = 0.0f, rotY = 0.0f;
+
+Render renders;
+
+/* TEXTURAS */
+
+CTexture wood;
+
+void InitGL (GLvoid) {
 	 glClearDepth(1.0f);		// Activamos el valor de inicio del buffer de profundidad
 	 glEnable(GL_DEPTH_TEST);	// Hacemos la prueba de profundidad
 	 glDepthFunc(GL_LEQUAL);	// Tipo de prueba de profundidad a hacer
+
+	 /* TEXTURAS */
+
+	 wood.LoadTGA("texturas/wood.tga");
+	 wood.BuildGLTexture();
+	 wood.ReleaseImage();
+
+	 // glEnable(GL_TEXTURE_2D);
+
 	 return;
 }
 
@@ -72,8 +91,15 @@ void display(void) {
 	// FIN EJES DE REFERENCIA
 
 	glColor3f(1.0, 1.0, 1.0);
-	glutWireSphere(1.0f, 30, 30);
+	//glutWireSphere(1.0f, 30, 30);
 	
+	glRotatef(rotX, 1.0, 0.0, 0.0);
+	glRotatef(rotY, 0.0, 1.0, 0.0);
+
+	glEnable(GL_TEXTURE_2D);
+	renders.cube(10.0, 10.0, 10.0, wood.GLindex, wood.GLindex, wood.GLindex, wood.GLindex, wood.GLindex, wood.GLindex);
+	glDisable(GL_TEXTURE_2D);
+
 	glFlush();
 	glutSwapBuffers ( );
 	return;
@@ -87,10 +113,29 @@ void keyboard(unsigned char key, int x, int y) {
 		case 'x':
 		break;
 	}
-
 	glutPostRedisplay();
 	return;
-}    
+}  
+
+void specialKeys(int key, int x, int y) {
+	switch(key) {
+		case GLUT_KEY_UP:
+			rotX += 2.0f;
+			break;
+		case GLUT_KEY_DOWN:
+			rotX -= 2.0f;
+			break;
+		case GLUT_KEY_LEFT:
+			rotY += 2.0f;
+			break;
+		case GLUT_KEY_RIGHT:
+			rotY -= 2.0f;
+			break;
+		default:
+			break;
+	}
+	glutPostRedisplay();
+}
 
 int main(int argc, char **argv) { 
 	glutInit(&argc, argv); // Se inicializa openGL
@@ -102,11 +147,12 @@ int main(int argc, char **argv) {
 	glutInitWindowPosition (0, 0); // Se posiciona la ventana en la esquina superior izquierda.
 	glutCreateWindow ("Parque de Diversiones"); // Se crea la ventana con su respectivo nombre.
 
-	init(); // Inicializacion del sistema.
+	InitGL(); // Inicializacion del sistema.
 
 	glutDisplayFunc(display); 
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyboard);
+	glutSpecialFunc(specialKeys);
 	glutMainLoop();
 	 
 	return 0; // ANSI C requiere que main retorne un valor entero.
