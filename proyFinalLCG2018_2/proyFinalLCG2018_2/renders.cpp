@@ -152,9 +152,9 @@ void Render::plane(float lenght, float height, int repeat, GLuint texture) {
 	glBindTexture(GL_TEXTURE_2D, texture);
 		glNormal3f(0.0f, 0.0f, 1.0f);
 		glBegin(GL_QUADS);
-			glTexCoord2f(0.0f, 7.0f); glVertex3fv(vertexes[0]);
+			glTexCoord2f(0.0f, 3.0f); glVertex3fv(vertexes[0]);
 			glTexCoord2f(0.0f, 0.0f); glVertex3fv(vertexes[1]);
-			glTexCoord2f(7.0f, 0.0f); glVertex3fv(vertexes[2]);
-			glTexCoord2f(7.0f, 7.0f); glVertex3fv(vertexes[3]);
+			glTexCoord2f(3.0f, 0.0f); glVertex3fv(vertexes[2]);
+			glTexCoord2f(3.0f, 3.0f); glVertex3fv(vertexes[3]);
 		glEnd();
 }

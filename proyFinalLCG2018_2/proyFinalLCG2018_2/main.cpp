@@ -14,6 +14,22 @@
 			VISUAL STUDIO 2017
 */
 
+/*
+	TECLAS
+
+		w/w: Mover camara adelante.
+		s/S: Mover camara atras.
+		a/A: Mover camara izquierda.
+		d/D: Mover camara derecha.
+		q/Q: Mover camara arriba.
+		e/E: Mover camara abajo.
+		<: Rotar camara izquierda.
+		>: Rotar camara derecha.
+		^: Rotar camara arriba.
+		v: Rotar camara abajo.
+
+*/
+
 // BIBLIOTECAS
 
 //#include <GL/glut.h>
@@ -42,6 +58,7 @@ CTexture tabiqueMarron;
 CTexture entradaTabiqueMarron;
 CTexture grass;
 CTexture asfalto;
+CTexture taquilla;
 
 /* CAMARA */
 
@@ -84,6 +101,10 @@ void InitGL (GLvoid) {
 	 asfalto.LoadTGA("texturas/asfalto.tga");
 	 asfalto.BuildGLTexture();
 	 asfalto.ReleaseImage();
+
+	 taquilla.LoadTGA("texturas/taquilla.tga");
+	 taquilla.BuildGLTexture();
+	 taquilla.ReleaseImage();
 
 	 /* CAMARA */
 
@@ -155,17 +176,32 @@ void display(void) {
 		glEnable(GL_ALPHA_TEST);
 		glAlphaFunc(GL_GREATER, 0.1);
 
-		glTranslatef(0.0f, -8.75f, 0.0f);
-		renders.cube(5.0, 2.5, 3.0,
+		glTranslatef(0.0f, -8.0f, 18.5f);
+		renders.cube(5.0, 4.0, 3.0,
 						tabiqueMarron.GLindex, none.GLindex, tabiqueMarron.GLindex,
 						tabiqueMarron.GLindex, entradaTabiqueMarron.GLindex, entradaTabiqueMarron.GLindex);
 
 		glDisable(GL_ALPHA_TEST);
 	glPopMatrix(); // Fin Entrada
 
-	glTranslatef(0.0f, -9.99f, 30.0f);
-	glRotatef(90.0, -1.0f, 0.0f, 0.0f);
-	renders.plane(50.0, 20.0,0, asfalto.GLindex);
+	/* TAQUILLAS */
+
+	glPushMatrix();
+		glTranslatef(3.5f,-9.0f,18.5f);
+			renders.cube(2.0f, 2.0f, 3.0f, tabiqueMarron.GLindex, tabiqueMarron.GLindex,tabiqueMarron.GLindex,
+							tabiqueMarron.GLindex, taquilla.GLindex, tabiqueMarron.GLindex);
+		glTranslatef(-7.0f, 0.0f, 0.0f);
+			renders.cube(2.0f, 2.0f, 3.0f, tabiqueMarron.GLindex, tabiqueMarron.GLindex, tabiqueMarron.GLindex,
+							tabiqueMarron.GLindex, taquilla.GLindex, tabiqueMarron.GLindex);
+	glPopMatrix();
+
+	/* FIN TAQUILLAS */
+
+	glPushMatrix(); // Asfalto
+		glTranslatef(0.0f, -9.99f, 30.0f);
+		glRotatef(90.0, -1.0f, 0.0f, 0.0f);
+		renders.plane(50.0, 20.0,0, asfalto.GLindex);
+	glPopMatrix(); // Fin Asfalto
 
 	glDisable(GL_TEXTURE_2D);
 	
@@ -238,20 +274,6 @@ void keyboard(unsigned char key, int x, int y) {
 void specialKeys(int key, int x, int y) {
 
 	switch(key) {
-		/*case GLUT_KEY_UP:
-			rotX += 2.0f;
-			break;
-		case GLUT_KEY_DOWN:
-			rotX -= 2.0f;
-			break;
-		case GLUT_KEY_LEFT:
-			rotY += 2.0f;
-			break;
-		case GLUT_KEY_RIGHT:
-			rotY -= 2.0f;
-			break;
-		default:
-			break;*/
 		case GLUT_KEY_PAGE_UP:
 			camera.UpDown_Camera(CAMERASPEED);
 			break;
