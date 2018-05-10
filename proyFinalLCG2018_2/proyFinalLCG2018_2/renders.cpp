@@ -1,5 +1,26 @@
 
 #include "renders.h"
+#include "figuras.h"
+#include "math.h"
+
+#define PI 3.14159265359
+#define ANCHO_RIEL 1.5
+#define ANCHO_TUBO_RIEL 0.1
+
+GLfloat rojoSuperman[3] = { 1.0, 0.0, 0.0 };
+GLfloat amarilloSuperman[3] = { 1.0, 1.0, 0.0 };
+
+GLfloat blanco[3] = { 1.0, 1.0, 1.0 };
+
+CFiguras figuras;
+
+float distanciaDosPuntos(float aX, float aY, float aZ, float bX, float bY, float bZ) {
+	return sqrt(pow(bX - aX, 2) + pow(bY - aY, 2) + pow(bZ - aZ, 2));
+}
+
+float radiansToDegrees(float radians) {
+	return (radians * 180) / PI;
+}
 
 void Render::cube(float lenght, float height, float width,
 					GLuint top, GLuint down, GLuint left,
@@ -158,3 +179,120 @@ void Render::plane(float lenght, float height, int repeat, GLuint texture) {
 			glTexCoord2f(3.0f, 3.0f); glVertex3fv(vertexes[3]);
 		glEnd();
 }
+
+
+
+
+/* SUPERMAN */
+
+void Superman::carril(float posX, float posY, float posZ, float rotY, float rotZ, float longRiel1, float longRiel2) {
+
+	float longY, longMY, long1, long2;
+
+	if (rotZ == 0.0) {
+		long1 = longRiel1;
+		long2 = longRiel2;
+	} else {
+		long1 = longRiel1 * sqrt(2);
+		long2 = longRiel2 * sqrt(2);
+	}
+
+	glPushMatrix();
+		glTranslatef(posX, posY, posZ);
+		
+		glRotatef(rotY, 0.0, 1.0, 0.0);
+		glRotatef(rotZ, 0.0, 0.0, 1.0);
+		
+		// RIEL -Z
+
+		glPushMatrix();
+			glTranslatef(0.0, 0.0, -ANCHO_RIEL / 2);
+				glColor3fv(rojoSuperman);
+				figuras.cilindro(ANCHO_TUBO_RIEL, long1, 20, 0);
+				glColor3fv(blanco);
+		glPopMatrix();
+
+		// RIEL Z
+
+		glPushMatrix();
+			glTranslatef(0.0, 0.0, ANCHO_RIEL / 2);
+				glColor3fv(rojoSuperman);
+				figuras.cilindro(ANCHO_TUBO_RIEL, long2, 20, 0);
+				glColor3fv(blanco);
+		glPopMatrix();
+
+		// RIEL Y 45°
+
+		longY = distanciaDosPuntos(-long2 / 2, posY, ANCHO_RIEL / 2, long1 / 2, posY, -ANCHO_RIEL / 2 );
+
+		glPushMatrix();
+			glTranslatef(-(long2 / 2) + 0.5 * ((long1 + long2) / 2), 0.0, 0.0);
+			glRotatef(radiansToDegrees(asin(ANCHO_RIEL / longY)), 0.0, 1.0, 0.0);
+				glColor3fv(amarilloSuperman);
+				figuras.cilindro(ANCHO_TUBO_RIEL, longY, 20, 0);
+				glColor3fv(blanco);
+		glPopMatrix();
+
+		// RIEL Y 45°
+
+		longMY = distanciaDosPuntos(-long1 / 2, posY, -ANCHO_RIEL / 2, long2 / 2, posY, ANCHO_RIEL / 2 );
+
+		glPushMatrix();
+			glTranslatef(-(long1 / 2) + 0.5 * ((long1 + long2) / 2), 0.0, 0.0);
+			glRotatef(radiansToDegrees(asin(ANCHO_RIEL / longMY)), 0.0, -1.0, 0.0);
+				glColor3fv(amarilloSuperman);
+				figuras.cilindro(ANCHO_TUBO_RIEL, longMY, 20, 0);
+				glColor3fv(blanco);
+		glPopMatrix();
+
+	glPopMatrix();
+}
+
+
+
+void Carril::carril(GLfloat Vi[3], GLfloat Vf[3]) {
+	
+	// longitud = distanciaDosPuntos(Vi, Vf);
+
+	Vm[0] = Vi[0] + 0.5*(Vf[0] - Vi[0]);
+	Vm[1] = Vi[1] + 0.5*(Vf[1] - Vi[1]);
+	Vm[2] = Vi[2] + 0.5*(Vf[2] - Vi[2]);
+
+	Vaux[0] = Vf[0];
+	Vaux[1] = Vm[1];
+	Vaux[2] = Vf[2];
+
+	angX1 = radiansToDegrees(atan((absF(Vf[2]) - Vm[2]) / (absF(Vf[0]) - Vm[0])));
+	//angZ1 = radiansToDegrees(atan(distanciaDosPuntos(Vaux,Vf) / distanciaDosPuntos(Vm,Vaux)));
+
+	printf("angX: %f \n angZ: %f\n", angX1, angZ1);
+	printf("longitud: %f\n", longitud);
+	printf("Vm:(%f,%f,%f)\n", Vm[0], Vm[1], Vm[2]);
+
+	glPushMatrix();
+
+	glTranslatef(Vm[0], Vm[1], Vm[2]);
+
+		if (Vf[2] == Vi[2])
+			glRotatef(0.0, 0.0, 1.0, 0.0);
+		else if (Vf[0] == Vi[0])
+			glRotatef(90.0, 0.0, 1.0, 0.0);
+		else if (Vf[0] * Vf[2] > 0.0)
+			glRotatef(-angX1, 0.0, 1.0, 0.0);
+		else
+			glRotatef(angX1, 0.0, 1.0, 0.0);
+
+		if (Vf[1] == Vm[1])
+			glRotatef(0.0, 0.0, 0.0, 1.0);
+		else if (Vf[2] == Vm[2])
+			glRotatef(90.0, 0.0, 0.0, 1.0);
+		else if (Vf[0] * Vf[1] > 0.0)
+			glRotatef(angZ1, 0.0, 0.0, 1.0);
+		else
+			glRotatef(-angZ1, 0.0, 0.0, 1.0);
+
+		figuras.cilindro(0.1,longitud, 20, 0);
+
+	glPopMatrix();
+}
+

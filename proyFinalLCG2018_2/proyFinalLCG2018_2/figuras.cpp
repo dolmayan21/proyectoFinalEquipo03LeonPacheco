@@ -528,6 +528,11 @@ void CFiguras::cilindro(float radio, float altura, int resolucion, GLuint text)
 	float ctext_s = 1.0/resolucion;
 	float ctext_t = 0.0;
 
+	// Cambiamos la definicion de nuestro cilindro para que ahora se dibuje
+	// con respecto a el eje Z y con centro en el centro del cilindro
+
+	glTranslatef(altura / 2, 0, 0);
+	glRotatef(90, 0.0, 0.0, 1.0);
 	
 	for(int i=0; i <resolucion; i++)
 	{
