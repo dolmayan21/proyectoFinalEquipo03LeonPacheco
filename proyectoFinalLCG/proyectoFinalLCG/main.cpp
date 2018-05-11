@@ -291,100 +291,216 @@ void display(void) {
 
 		superman.carrilConexion(41.0, -4.0, 0.0, 0.0, 0); // Centro de la primera vuelta
 
-		glTranslatef(41.75, -4.0, -0.75); // Centro de la esquina vetical primera vuelta
+		glPushMatrix();
 
-		superman.carrilConexion(0.0, 0.0, 0.0, 90.0, 1);
+			glTranslatef(41.75, -4.0, -0.75); // Centro de la esquina vetical primera vuelta
 
-		superman.carril(0.0, 0.0, -2.0, 90.0, 0.0, 1.0, 1.0);
-		superman.carril(0.0, 0.0, -3.0, 90.0, 0.0, 1.0, 1.0);
-		superman.carril(0.0, 0.0, -4.0, 90.0, 0.0, 1.0, 1.0);
-		superman.carril(0.0, 0.0, -5.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carrilConexion(0.0, 0.0, 0.0, 90.0, 1);
 
-		superman.carril(0.0, 0.5, -6.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 1.5, -7.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 2.5, -8.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 3.5, -9.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 4.5, -10.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 5.5, -11.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 6.5, -12.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 7.5, -13.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 8.5, -14.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 9.5, -15.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 10.5, -16.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 11.5, -17.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 12.5, -18.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 13.5, -19.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 14.5, -20.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 15.5, -21.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 16.5, -22.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 17.5, -23.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 18.5, -24.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 19.5, -25.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 20.5, -26.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 21.5, -27.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 22.5, -28.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 23.5, -29.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 24.5, -30.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 25.5, -31.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 26.5, -32.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 27.5, -33.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 28.5, -34.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 29.5, -35.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 30.5, -36.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 31.5, -37.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 0.0, -2.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 0.0, -3.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 0.0, -4.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 0.0, -5.0, 90.0, 0.0, 1.0, 1.0);
 
-		superman.carril(0.0, 32.0, -38.0, 90.0, 0.0, 1.0, 1.0);
-		superman.carril(0.0, 32.0, -39.0, 90.0, 0.0, 1.0, 1.0);
-		superman.carril(0.0, 32.0, -40.0, 90.0, 0.0, 1.0, 1.0);
-		superman.carril(0.0, 32.0, -41.0, 90.0, 0.0, 1.0, 1.0);
-		superman.carril(0.0, 32.0, -42.0, 90.0, 0.0, 1.0, 1.0);
-		superman.carril(0.0, 32.0, -43.0, 90.0, 0.0, 1.0, 1.0);
-		superman.carril(0.0, 32.0, -44.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 0.5, -6.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 1.5, -7.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 2.5, -8.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 3.5, -9.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 4.5, -10.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 5.5, -11.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 6.5, -12.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 7.5, -13.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 8.5, -14.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 9.5, -15.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 10.5, -16.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 11.5, -17.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 12.5, -18.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 13.5, -19.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 14.5, -20.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 15.5, -21.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 16.5, -22.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 17.5, -23.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 18.5, -24.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 19.5, -25.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 20.5, -26.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 21.5, -27.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 22.5, -28.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 23.5, -29.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 24.5, -30.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 25.5, -31.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 26.5, -32.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 27.5, -33.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 28.5, -34.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 29.5, -35.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 30.5, -36.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 31.5, -37.0, 90.0, 45.0, 1.0, 1.0);
 
-		superman.carril(0.0, 31.5, -45.0, 90.0, -45.0, 1.0, 1.0);
-		superman.carril(0.0, 30.5, -46.0, 90.0, -45.0, 1.0, 1.0);
-		superman.carril(0.0, 29.5, -47.0, 90.0, -45.0, 1.0, 1.0);
-		superman.carril(0.0, 28.5, -48.0, 90.0, -45.0, 1.0, 1.0);
-		superman.carril(0.0, 27.5, -49.0, 90.0, -45.0, 1.0, 1.0);
-		superman.carril(0.0, 26.5, -50.0, 90.0, -45.0, 1.0, 1.0);
-		superman.carril(0.0, 25.5, -51.0, 90.0, -45.0, 1.0, 1.0);
-		superman.carril(0.0, 24.5, -52.0, 90.0, -45.0, 1.0, 1.0);
-		superman.carril(0.0, 23.5, -53.0, 90.0, -45.0, 1.0, 1.0);
-		superman.carril(0.0, 22.5, -54.0, 90.0, -45.0, 1.0, 1.0);
-		superman.carril(0.0, 21.5, -55.0, 90.0, -45.0, 1.0, 1.0);
-		superman.carril(0.0, 20.5, -56.0, 90.0, -45.0, 1.0, 1.0);
-		superman.carril(0.0, 19.5, -57.0, 90.0, -45.0, 1.0, 1.0);
-		superman.carril(0.0, 18.5, -58.0, 90.0, -45.0, 1.0, 1.0);
-		superman.carril(0.0, 17.5, -59.0, 90.0, -45.0, 1.0, 1.0);
-		superman.carril(0.0, 16.5, -60.0, 90.0, -45.0, 1.0, 1.0);
-		superman.carril(0.0, 15.5, -61.0, 90.0, -45.0, 1.0, 1.0);
-		superman.carril(0.0, 14.5, -62.0, 90.0, -45.0, 1.0, 1.0);
-		superman.carril(0.0, 13.5, -63.0, 90.0, -45.0, 1.0, 1.0);
-		superman.carril(0.0, 12.5, -64.0, 90.0, -45.0, 1.0, 1.0);
-		superman.carril(0.0, 11.5, -65.0, 90.0, -45.0, 1.0, 1.0);
-		superman.carril(0.0, 10.5, -66.0, 90.0, -45.0, 1.0, 1.0);
+			superman.carril(0.0, 32.0, -38.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 32.0, -39.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 32.0, -40.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 32.0, -41.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 32.0, -42.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 32.0, -43.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 32.0, -44.0, 90.0, 0.0, 1.0, 1.0);
 
-		superman.carril(0.0, 10.0, -67.0, 90.0, 0.0, 1.0, 1.0);
-		superman.carril(0.0, 10.0, -68.0, 90.0, 0.0, 1.0, 1.0);
-		superman.carril(0.0, 10.0, -69.0, 90.0, 0.0, 1.0, 1.0);
-		superman.carril(0.0, 10.0, -70.0, 90.0, 0.0, 1.0, 1.0);
-		superman.carril(0.0, 10.0, -71.0, 90.0, 0.0, 1.0, 1.0);
-		superman.carril(0.0, 10.0, -72.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 31.5, -45.0, 90.0, -45.0, 1.0, 1.0);
+			superman.carril(0.0, 30.5, -46.0, 90.0, -45.0, 1.0, 1.0);
+			superman.carril(0.0, 29.5, -47.0, 90.0, -45.0, 1.0, 1.0);
+			superman.carril(0.0, 28.5, -48.0, 90.0, -45.0, 1.0, 1.0);
+			superman.carril(0.0, 27.5, -49.0, 90.0, -45.0, 1.0, 1.0);
+			superman.carril(0.0, 26.5, -50.0, 90.0, -45.0, 1.0, 1.0);
+			superman.carril(0.0, 25.5, -51.0, 90.0, -45.0, 1.0, 1.0);
+			superman.carril(0.0, 24.5, -52.0, 90.0, -45.0, 1.0, 1.0);
+			superman.carril(0.0, 23.5, -53.0, 90.0, -45.0, 1.0, 1.0);
+			superman.carril(0.0, 22.5, -54.0, 90.0, -45.0, 1.0, 1.0);
+			superman.carril(0.0, 21.5, -55.0, 90.0, -45.0, 1.0, 1.0);
+			superman.carril(0.0, 20.5, -56.0, 90.0, -45.0, 1.0, 1.0);
+			superman.carril(0.0, 19.5, -57.0, 90.0, -45.0, 1.0, 1.0);
+			superman.carril(0.0, 18.5, -58.0, 90.0, -45.0, 1.0, 1.0);
+			superman.carril(0.0, 17.5, -59.0, 90.0, -45.0, 1.0, 1.0);
+			superman.carril(0.0, 16.5, -60.0, 90.0, -45.0, 1.0, 1.0);
+			superman.carril(0.0, 15.5, -61.0, 90.0, -45.0, 1.0, 1.0);
+			superman.carril(0.0, 14.5, -62.0, 90.0, -45.0, 1.0, 1.0);
+			superman.carril(0.0, 13.5, -63.0, 90.0, -45.0, 1.0, 1.0);
+			superman.carril(0.0, 12.5, -64.0, 90.0, -45.0, 1.0, 1.0);
+			superman.carril(0.0, 11.5, -65.0, 90.0, -45.0, 1.0, 1.0);
+			superman.carril(0.0, 10.5, -66.0, 90.0, -45.0, 1.0, 1.0);
 
-		superman.carril(0.0, 10.5, -73.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 11.5, -74.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 12.5, -75.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 13.5, -76.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 14.5, -77.0, 90.0, 45.0, 1.0, 1.0);
-		superman.carril(0.0, 15.5, -78.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 10.0, -67.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 10.0, -68.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 10.0, -69.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 10.0, -70.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 10.0, -71.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 10.0, -72.0, 90.0, 0.0, 1.0, 1.0);
 
-		superman.carril(0.0, 16.0, -79.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 10.5, -73.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 11.5, -74.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 12.5, -75.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 13.5, -76.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 14.5, -77.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(0.0, 15.5, -78.0, 90.0, 45.0, 1.0, 1.0);
 
-		// SEGUNDA CONEXION
+			superman.carril(0.0, 16.0, -79.0, 90.0, 0.0, 1.0, 1.0);
 
-		superman.carrilConexion(0.0, 16.0, -81.0, -90.0, 1);
-		superman.carrilConexion(0.75, 16.0, -81.75, 180.0, 0); // Centro figura 
+			// SEGUNDA CONEXION
 
+			superman.carrilConexion(0.0, 16.0, -81.0, -90.0, 1);
+			superman.carrilConexion(0.75, 16.0, -81.75, 180.0, 0); // Centro figura 
+
+			superman.carril(2.75, 16.0, -81.75, 0.0, 0.0, 1.0, 1.0);
+			superman.carril(3.75, 16.0, -81.75, 0.0, 0.0, 1.0, 1.0);
+			superman.carril(4.75, 16.0, -81.75, 0.0, 0.0, 1.0, 1.0);
+			superman.carril(5.75, 16.0, -81.75, 0.0, 0.0, 1.0, 1.0);
+			superman.carril(6.75, 16.0, -81.75, 0.0, 0.0, 1.0, 1.0);
+			superman.carril(7.75, 16.0, -81.75, 0.0, 0.0, 1.0, 1.0);
+			superman.carril(8.75, 16.0, -81.75, 0.0, 0.0, 1.0, 1.0);
+			superman.carril(9.75, 16.0, -81.75, 0.0, 0.0, 1.0, 1.0);
+			superman.carril(10.75, 16.0, -81.75, 0.0, 0.0, 1.0, 1.0);
+			superman.carril(11.75, 16.0, -81.75, 0.0, 0.0, 1.0, 1.0);
+			superman.carril(12.75, 16.0, -81.75, 0.0, 0.0, 1.0, 1.0);
+			superman.carril(13.75, 16.0, -81.75, 0.0, 0.0, 1.0, 1.0);
+
+			// TERCERA CONEXION
+		
+			superman.carrilConexion(15.75, 16.0, -81.75, 0.0, 0);
+			superman.carrilConexion(16.5, 16.0, -82.5, 90.0, 1);
+
+		glPopMatrix();
+
+		glPushMatrix();
+			glTranslatef(58.25, 12.0, -83.25); // Centro de la conexion || a Z
+
+			superman.carril(0.0, 0.0, -2.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 0.0, -3.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 0.0, -4.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 0.0, -5.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 0.0, -6.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 0.0, -7.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 0.0, -8.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 0.0, -9.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 0.0, -10.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 0.0, -11.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 0.0, -12.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 0.0, -13.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 0.0, -14.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 0.0, -15.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 0.0, -16.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(0.0, 0.0, -17.0, 90.0, 0.0, 1.0, 1.0);
+
+			superman.carrilConexion(0.0, 0.0, -19.0, -90.0, 0);
+			superman.carrilConexion(-0.75, 0.0, -19.75, 180.0, 1);
+
+			superman.carril(-2.75, 0.0, -19.75, 0.0, 0.0, 1.0, 1.0);
+			superman.carril(-3.75, 0.0, -19.75, 0.0, 0.0, 1.0, 1.0);
+			superman.carril(-4.75, 0.0, -19.75, 0.0, 0.0, 1.0, 1.0);
+			superman.carril(-5.75, 0.0, -19.75, 0.0, 0.0, 1.0, 1.0);
+			superman.carril(-6.75, 0.0, -19.75, 0.0, 0.0, 1.0, 1.0);
+			
+			superman.carrilConexion(-8.75, 0.0, -19.75, 180.0, 0);
+			superman.carrilConexion(-9.5, 0.0, -19.0, -90.0, 1);
+
+			superman.carril(-9.5, 0.0, -17.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, 0.0, -16.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, 0.0, -15.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, 0.0, -14.0, 90.0, 0.0, 1.0, 1.0);
+
+			superman.carril(-9.5, -0.5, -13.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(-9.5, -1.5, -12.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(-9.5, -2.5, -11.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(-9.5, -3.5, -10.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(-9.5, -4.5, -9.0, 90.0, 45.0, 1.0, 1.0);
+			superman.carril(-9.5, -5.5, -8.0, 90.0, 45.0, 1.0, 1.0);
+
+			superman.carril(-9.5, -6.0, -7.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, -6.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, -5.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, -4.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, -3.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, -2.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, -1.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 0.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 1.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 2.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 3.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 4.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 5.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 6.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 7.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 8.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 9.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 10.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 11.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 12.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 13.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 14.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 15.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 16.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 17.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 18.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 19.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 20.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 21.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 22.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 23.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 24.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 25.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 26.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 27.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 28.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 29.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 30.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 31.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 32.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 33.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 34.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 35.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 36.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 37.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 38.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 39.0, 90.0, 0.0, 1.0, 1.0);
+			superman.carril(-9.5, -6.0, 40.0, 90.0, 0.0, 1.0, 1.0);
+			
+		glPopMatrix();
 
 	glPopMatrix();
 
@@ -509,7 +625,7 @@ void animation() {
 	if (sideSkyBox >= 1.0)
 		sideSkyBox = 0.0;
 	else
-		sideSkyBox += 0.00001;
+		sideSkyBox += 0.00005;
 
 	glutPostRedisplay();
 }

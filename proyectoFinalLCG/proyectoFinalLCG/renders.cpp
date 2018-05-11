@@ -249,12 +249,31 @@ void Superman::carril(float posX, float posY, float posZ, float rotY, float rotZ
 }
 
 void Superman::carrilConexion(float posX, float posY, float posZ, float rotY, bool izq ) {
+
+	// DEFAULT
+
+	// ------
+	//
+	// ------------
 	
 	float longY, longMenosY;
 
 	glPushMatrix();
 		
 		glTranslatef(posX, posY, posZ);
+
+			glBegin(GL_LINES);
+				glColor3f(1.0, 0.0, 0.0);
+					glVertex3f(0.0f, 0.0f, 0.0f);
+					glVertex3f(1.5f, 0.0f, 0.0f);
+				glColor3f(0.0, 1.0, 0.0);
+					glVertex3f(0.0f, 0.0f, 0.0f);
+					glVertex3f(0.0f, 1.5f, 0.0f);
+				glColor3f(0.0, 0.0, 1.0);
+					glVertex3f(0.0f, 0.0f, 0.0f);
+					glVertex3f(0.0f, 0.0f, 1.5f);
+				glColor3f(1.0, 1.0, 1.0);
+			glEnd();
 			
 			if (izq == true)
 				glRotatef(180.0, 0.0, 0.0, 1.0);
