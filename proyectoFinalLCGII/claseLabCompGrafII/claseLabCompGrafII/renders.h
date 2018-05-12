@@ -20,7 +20,8 @@ class Superman {
 		
 		void carril(float posX, float posY, float posZ, float rotY, float rotZ, float long1, float long2);
 		void carrilConexion(float posX, float posY, float posZ, float rotY, bool izq);
-		void soporte(float posX, float posY, float posZ, float alto);
+		void carrilVertical(float longRiel1, float longRiel2, float ancho);
+		void soporte(float posX, float posY, float posZ, float alturaSoporte, float alturaIndv, float largo, float ancho);
 };
 
 

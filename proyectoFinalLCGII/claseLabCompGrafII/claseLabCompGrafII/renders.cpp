@@ -10,7 +10,7 @@
 
 GLfloat rojoSuperman[3] = { 1.0, 0.0, 0.0 };
 GLfloat amarilloSuperman[3] = { 1.0, 1.0, 0.0 };
-GLfloat azulSuperman[3] = { 0.0, 1.0, 1.0 };
+GLfloat azulSuperman[3] = { 0.2, 0.25, 0.80 };
 
 GLfloat blanco[3] = { 1.0, 1.0, 1.0 };
 
@@ -250,6 +250,56 @@ void Superman::carril(float posX, float posY, float posZ, float rotY, float rotZ
 	glPopMatrix();
 }
 
+void Superman::carrilVertical(float long1, float long2, float ancho) {
+
+	float longY, longMY;
+
+	glPushMatrix();
+
+			glRotatef(90, 0.0, 1.0, 0.0);
+			glRotatef(90, 0.0, 0.0, 1.0);
+			
+			glColor3fv(azulSuperman);
+
+			// RIEL -Z
+
+			glPushMatrix();
+				glTranslatef(0.0, 0.0, -ancho / 2);
+					figuras.cilindro(ANCHO_TUBO_RIEL, long1, 20, 0);
+			glPopMatrix();
+
+			// RIEL Z
+
+			glPushMatrix();
+				glTranslatef(0.0, 0.0, ancho / 2);
+					figuras.cilindro(ANCHO_TUBO_RIEL, long2, 20, 0);
+			glPopMatrix();
+
+			// RIEL Y 45°
+
+			longY = distanciaDosPuntos(-long2 / 2, 0.0, ancho / 2, long1 / 2, 0.0, -ancho / 2 );
+
+			glPushMatrix();
+				glTranslatef(-(long2 / 2) + 0.5 * ((long1 + long2) / 2), 0.0, 0.0);
+				glRotatef(radiansToDegrees(asin(ancho / longY)), 0.0, 1.0, 0.0);
+					figuras.cilindro(ANCHO_TUBO_RIEL, longY, 20, 0);
+			glPopMatrix();
+
+			// RIEL Y -45°
+
+			longMY = distanciaDosPuntos(-long1 / 2, 0.0, -ancho / 2, long2 / 2, 0.0, ancho / 2 );
+
+			glPushMatrix();
+				glTranslatef(-(long1 / 2) + 0.5 * ((long1 + long2) / 2), 0.0, 0.0);
+				glRotatef(radiansToDegrees(asin(ancho / longMY)), 0.0, -1.0, 0.0);
+					figuras.cilindro(ANCHO_TUBO_RIEL, longMY, 20, 0);
+			glPopMatrix();
+
+			glColor3fv(blanco);
+
+	glPopMatrix();
+}
+
 void Superman::carrilConexion(float posX, float posY, float posZ, float rotY, bool izq ) {
 
 	// DEFAULT
@@ -330,33 +380,43 @@ void Superman::carrilConexion(float posX, float posY, float posZ, float rotY, bo
 }
 
 
-void Superman::soporte(float posX, float posY, float posZ, float alto) {
+void Superman::soporte(float posX, float posY, float posZ, float alturaSoporte, float alturaIndv, float largo ,float ancho) {
 
 	glPushMatrix();
 
 	glTranslatef(posX, posY, posZ);
+
+		for (int i = 0; i < alturaSoporte; i++) {
+
+			glColor3fv(azulSuperman);
+
+			glPushMatrix();
 		
-		glColor3fv(azulSuperman);
+				glTranslatef(0.0, alturaIndv/2 + i*alturaIndv, 0.0);
+					glPushMatrix();
+						glTranslatef(0.0, 0.0, ancho/2);
+						carrilVertical(alturaIndv, alturaIndv, largo);
+					glPopMatrix();
 
-		glPushMatrix();
-			glTranslatef(LARGO_CARRIL/2, 0.0, -ANCHO_RIEL / 2);
-			figuras.cilindroVertical(ANCHO_TUBO_RIEL, alto, 20, 0);
-		glPopMatrix();
+					glPushMatrix();
+						glTranslatef(0.0, 0.0, -ancho/2);
+						carrilVertical(alturaIndv, alturaIndv, largo);
+					glPopMatrix();
 
-		glPushMatrix();
-			glTranslatef(-LARGO_CARRIL / 2, 0.0, -ANCHO_RIEL / 2);
-			figuras.cilindroVertical(ANCHO_TUBO_RIEL, alto, 20, 0);
-		glPopMatrix();
+					glPushMatrix();
+						glRotatef(90, 0.0, 1.0, 0.0);
+						glTranslatef(0.0, 0.0, largo/2);
+						carrilVertical(alturaIndv, alturaIndv, ancho);
+					glPopMatrix();
 
-		glPushMatrix();
-			glTranslatef(-LARGO_CARRIL / 2, 0.0, ANCHO_RIEL / 2);
-			figuras.cilindroVertical(ANCHO_TUBO_RIEL, alto, 20, 0);
-		glPopMatrix();
+					glPushMatrix();
+						glRotatef(90, 0.0, 1.0, 0.0);
+						glTranslatef(0.0, 0.0, -largo/2);
+						carrilVertical(alturaIndv, alturaIndv, ancho);
+					glPopMatrix();
 
-		glPushMatrix();
-			glTranslatef(LARGO_CARRIL / 2, 0.0, ANCHO_RIEL / 2);
-			figuras.cilindroVertical(ANCHO_TUBO_RIEL, alto, 20, 0);
-		glPopMatrix();
+			glPopMatrix();
+		}
 
 		glColor3fv(blanco);
 

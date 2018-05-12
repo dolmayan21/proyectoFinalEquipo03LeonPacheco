@@ -607,6 +607,207 @@ void renderSuperman() {
 
 		/* FIN - MONTAÑA RUSA - SUPERMAN */
 	}
+void renderSupermanSoportes() {
+
+	glPushMatrix();
+					
+		superman.soporte(25.25, -30.0, 10.0, 4.0, 1.0, 1.5, 1.5);
+		superman.soporte(33.0, -30.0, 10.0, 4.0, 1.0, 1.0, 1.5);
+		superman.soporte(41.0, -30.0, 10.0, 11.0, 1.0, 1.0, 1.5);
+		superman.soporte(66.75, -30.0, -31.75, 16.0, 2.0, 1.5, 7.0);
+		superman.soporte(66.75, -30.0, -60.25, 10.0, 1.0, 1.5, 6.0);
+		superman.soporte(66.75, -30.0, -72.5, 16.0, 1.0, 1.5, 1.5);
+		superman.soporte(83.25, -30.0, -72.5, 16.0, 1.0, 1.5, 1.5);
+		superman.soporte(83.25, -30.0, -93.0, 16.0, 1.0, 1.5, 1.5);
+		superman.soporte(73.75, -30.0, -93.0, 16.0, 1.0, 1.5, 1.5);
+		superman.soporte(73.75, -30.0, -87.25, 16.0, 1.0, 1.5, 1.0);
+		superman.soporte(73.75, -30.0, -80.25, 10.0, 1.0, 1.5, 1.0);
+		superman.soporte(73.75, -30.0, -30.5, 10.0, 1.0, 1.5, 1.5);
+		superman.soporte(82.5, -30.0, -30.5, 10.0, 1.0, 1.0, 1.5);
+		superman.soporte(90.5, -30.0, -30.5, 17.0, 1.0, 1.0, 1.5);
+		superman.soporte(101.25, -30.0, -30.5, 17.0, 1.0, 1.5, 1.5);
+		superman.soporte(101.25, -30.0, -7.75, 17.0, 1.0, 1.5, 1.0);
+		superman.soporte(101.25, -30.0, 6.25, 4.0, 1.0, 1.5, 1.0);
+		superman.soporte(101.25, -30.0, 18.0, 4.0, 1.0, 1.5, 1.5);
+
+		for (int i = 0; i < 54; i = i + 3)
+			superman.soporte(97.5 - i, -30.0, 18.0, 4.0, 1.0, 1.0, 1.5);
+
+		superman.soporte(43.75, -30.0, 18.0, 4.0, 1.0, 1.5, 1.5);
+		superman.soporte(43.75, -30.0, -14.75, 4.0, 1.0, 1.5, 1.0);
+		superman.soporte(43.75, -30.0, -29.25, 15.0, 1.0, 1.5, 6.0);
+		superman.soporte(43.75, -30.0, -43.75, 4.0, 1.0, 1.5, 1.0);
+		superman.soporte(43.75, -30.0, -49.5, 4.0, 1.0, 1.5, 1.5);
+		superman.soporte(25.25, -30.0, -49.5, 4.0, 1.0, 1.5, 1.5);
+
+		for(int i = 0; i < 57; i = i + 3)
+			superman.soporte(25.25, -30.0, -45.75 + i, 4.0, 1.0, 1.5, 1.0);
+
+	glPopMatrix();
+}
+void renderPuntosCarriles() {
+
+	glPushMatrix();
+		glTranslatef(25.25,-26.0,10.0);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(33.0, -26.0, 10.0);
+		glutSolidSphere(0.3, 20, 20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(41.0, -19.0, 10.0);
+		glutSolidSphere(0.3, 20, 20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(45.0, -19.0, 10.0);
+		glutSolidSphere(0.3, 20, 20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(57.0, -30.0, 10.0);
+		glutSolidSphere(0.3, 20, 20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(66.75,-30.0,10.0);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(66.75, -30.0, 4.25);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(66.75, 2.0, -28.75);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(66.75, 2.0, -34.75);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(66.75, -20.0, -57.75);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(66.75, -20.0, -62.75);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(66.75, -14.0, -69.75);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(66.75, -14.0, -72.5);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(83.25, -14.0, -72.5);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(83.25, -14.0, -93.0);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(73.75, -14.0, -93.0);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(73.75, -14.0, -87.25);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(73.75, -20.0, -80.25);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(73.75, -20.0, -30.5);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(82.5, -20.0, -30.5);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(90.5, -13.0, -30.5);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(101.25, -13.0, -30.5);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(101.25, -13.0, -7.75);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(101.25, -26.0, 6.25);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(101.25, -26.0, 18.0);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(43.75, -26.0, 18.0);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(43.75, -26.0, -14.75);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(43.75, -15.0, -26.75);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(43.75, -15.0, -31.75);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(43.75, -26.0, -43.75);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(43.75, -26.0, -49.5);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+	glPushMatrix();
+		glTranslatef(25.25, -26.0, -49.5);
+		glutSolidSphere(0.3,20,20);
+	glPopMatrix();
+
+}
 			
 void InitGL ( GLvoid )     // Inicializamos parametros
 {
@@ -711,16 +912,16 @@ void display ( void ) {
 
 			/* FIN SKYBOX */
 
-			/* CARRO */
-			
-				glDisable(GL_COLOR_MATERIAL);
-				glPushMatrix(); // CARRO 3DS
-					glScalef(0.3, 0.3, 0.3);
-					kit.GLrender(NULL,_SHADED,1.0); 
-				glPopMatrix(); // FIN CARRO 3DS
-				glEnable(GL_COLOR_MATERIAL);
+			///* CARRO */
+			//
+			//	glDisable(GL_COLOR_MATERIAL);
+			//	glPushMatrix(); // CARRO 3DS
+			//		glScalef(0.3, 0.3, 0.3);
+			//		kit.GLrender(NULL,_SHADED,1.0); 
+			//	glPopMatrix(); // FIN CARRO 3DS
+			//	glEnable(GL_COLOR_MATERIAL);
 
-			/* FIN CARRO */
+			///* FIN CARRO */
 				
 			///* OLDHOUSE */
 
@@ -756,6 +957,14 @@ void display ( void ) {
 		
 			/* FIN EJES DE REFERENCIA */
 
+			/* AREA DE PRUEBAS */
+
+				
+
+				
+				
+			/* FIN AREA DE PRUEBAS */
+
 			/* ENTRADA */
 
 				glPushMatrix();
@@ -788,7 +997,12 @@ void display ( void ) {
 			/* SUPERMAN */
 			
 				glPushMatrix();
-					renderSuperman();
+					/*glDisable(GL_TEXTURE_2D);
+					glDisable(GL_LIGHTING);*/
+						renderSuperman();
+						renderSupermanSoportes();
+					/*glEnable(GL_TEXTURE_2D);
+					glEnable(GL_LIGHTING);*/
 				glPopMatrix();
 			
 			/* FIN SUPERMAN */
