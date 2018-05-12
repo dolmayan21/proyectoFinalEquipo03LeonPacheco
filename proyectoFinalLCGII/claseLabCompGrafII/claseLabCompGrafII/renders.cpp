@@ -7,6 +7,7 @@
 #define ANCHO_RIEL 1.5
 #define ANCHO_TUBO_RIEL 0.1
 #define LARGO_CARRIL 1.0
+#define RESOLUCION 4
 
 GLfloat rojoSuperman[3] = { 1.0, 0.0, 0.0 };
 GLfloat amarilloSuperman[3] = { 1.0, 1.0, 0.0 };
@@ -210,7 +211,7 @@ void Superman::carril(float posX, float posY, float posZ, float rotY, float rotZ
 			glPushMatrix();
 				glTranslatef(0.0, 0.0, -ANCHO_RIEL / 2);
 					glColor3fv(rojoSuperman);
-					figuras.cilindro(ANCHO_TUBO_RIEL, long1, 20, 0);
+					figuras.cilindro(ANCHO_TUBO_RIEL, long1, RESOLUCION);
 					glColor3fv(blanco);
 			glPopMatrix();
 
@@ -219,7 +220,7 @@ void Superman::carril(float posX, float posY, float posZ, float rotY, float rotZ
 			glPushMatrix();
 				glTranslatef(0.0, 0.0, ANCHO_RIEL / 2);
 					glColor3fv(rojoSuperman);
-					figuras.cilindro(ANCHO_TUBO_RIEL, long2, 20, 0);
+					figuras.cilindro(ANCHO_TUBO_RIEL, long2, RESOLUCION);
 					glColor3fv(blanco);
 			glPopMatrix();
 
@@ -231,7 +232,7 @@ void Superman::carril(float posX, float posY, float posZ, float rotY, float rotZ
 				glTranslatef(-(long2 / 2) + 0.5 * ((long1 + long2) / 2), 0.0, 0.0);
 				glRotatef(radiansToDegrees(asin(ANCHO_RIEL / longY)), 0.0, 1.0, 0.0);
 					glColor3fv(amarilloSuperman);
-					figuras.cilindro(ANCHO_TUBO_RIEL, longY, 20, 0);
+					figuras.cilindro(ANCHO_TUBO_RIEL, longY, RESOLUCION);
 					glColor3fv(blanco);
 			glPopMatrix();
 
@@ -243,7 +244,7 @@ void Superman::carril(float posX, float posY, float posZ, float rotY, float rotZ
 				glTranslatef(-(long1 / 2) + 0.5 * ((long1 + long2) / 2), 0.0, 0.0);
 				glRotatef(radiansToDegrees(asin(ANCHO_RIEL / longMY)), 0.0, -1.0, 0.0);
 					glColor3fv(amarilloSuperman);
-					figuras.cilindro(ANCHO_TUBO_RIEL, longMY, 20, 0);
+					figuras.cilindro(ANCHO_TUBO_RIEL, longMY, RESOLUCION);
 					glColor3fv(blanco);
 			glPopMatrix();
 
@@ -265,14 +266,14 @@ void Superman::carrilVertical(float long1, float long2, float ancho) {
 
 			glPushMatrix();
 				glTranslatef(0.0, 0.0, -ancho / 2);
-					figuras.cilindro(ANCHO_TUBO_RIEL, long1, 20, 0);
+					figuras.cilindro(ANCHO_TUBO_RIEL, long1, RESOLUCION);
 			glPopMatrix();
 
 			// RIEL Z
 
 			glPushMatrix();
 				glTranslatef(0.0, 0.0, ancho / 2);
-					figuras.cilindro(ANCHO_TUBO_RIEL, long2, 20, 0);
+					figuras.cilindro(ANCHO_TUBO_RIEL, long2, RESOLUCION);
 			glPopMatrix();
 
 			// RIEL Y 45°
@@ -282,7 +283,7 @@ void Superman::carrilVertical(float long1, float long2, float ancho) {
 			glPushMatrix();
 				glTranslatef(-(long2 / 2) + 0.5 * ((long1 + long2) / 2), 0.0, 0.0);
 				glRotatef(radiansToDegrees(asin(ancho / longY)), 0.0, 1.0, 0.0);
-					figuras.cilindro(ANCHO_TUBO_RIEL, longY, 20, 0);
+					figuras.cilindro(ANCHO_TUBO_RIEL, longY, RESOLUCION);
 			glPopMatrix();
 
 			// RIEL Y -45°
@@ -292,7 +293,7 @@ void Superman::carrilVertical(float long1, float long2, float ancho) {
 			glPushMatrix();
 				glTranslatef(-(long1 / 2) + 0.5 * ((long1 + long2) / 2), 0.0, 0.0);
 				glRotatef(radiansToDegrees(asin(ancho / longMY)), 0.0, -1.0, 0.0);
-					figuras.cilindro(ANCHO_TUBO_RIEL, longMY, 20, 0);
+					figuras.cilindro(ANCHO_TUBO_RIEL, longMY, RESOLUCION);
 			glPopMatrix();
 
 			glColor3fv(blanco);
@@ -337,7 +338,7 @@ void Superman::carrilConexion(float posX, float posY, float posZ, float rotY, bo
 			glPushMatrix();
 				glTranslatef(-ANCHO_RIEL/2, 0.0, -ANCHO_RIEL / 2);
 					glColor3fv(rojoSuperman);
-					figuras.cilindro(ANCHO_TUBO_RIEL, ANCHO_RIEL, 20, 0);
+					figuras.cilindro(ANCHO_TUBO_RIEL, ANCHO_RIEL, RESOLUCION);
 					glColor3fv(blanco);
 			glPopMatrix();
 
@@ -346,7 +347,7 @@ void Superman::carrilConexion(float posX, float posY, float posZ, float rotY, bo
 			glPushMatrix();
 				glTranslatef(0.0, 0.0, ANCHO_RIEL / 2);
 					glColor3fv(rojoSuperman);
-					figuras.cilindro(ANCHO_TUBO_RIEL, ANCHO_RIEL*2, 20, 0);
+					figuras.cilindro(ANCHO_TUBO_RIEL, ANCHO_RIEL*2, RESOLUCION);
 					glColor3fv(blanco);
 			glPopMatrix();
 
@@ -358,7 +359,7 @@ void Superman::carrilConexion(float posX, float posY, float posZ, float rotY, bo
 				glTranslatef(-0.5*ANCHO_RIEL, 0.0, 0.0);
 				glRotatef(radiansToDegrees(asin(ANCHO_RIEL / longY)), 0.0, 1.0, 0.0);
 					glColor3fv(amarilloSuperman);
-					figuras.cilindro(ANCHO_TUBO_RIEL, longY, 20, 0);
+					figuras.cilindro(ANCHO_TUBO_RIEL, longY, RESOLUCION);
 					glColor3fv(blanco);
 			glPopMatrix();
 
@@ -370,7 +371,7 @@ void Superman::carrilConexion(float posX, float posY, float posZ, float rotY, bo
 				// glTranslatef(0.0, 0.0, 0.0);
 				glRotatef(radiansToDegrees(asin(ANCHO_RIEL / longMenosY)), 0.0, -1.0, 0.0);
 					glColor3fv(amarilloSuperman);
-					figuras.cilindro(ANCHO_TUBO_RIEL, longMenosY, 20, 0);
+					figuras.cilindro(ANCHO_TUBO_RIEL, longMenosY, RESOLUCION);
 					glColor3fv(blanco);
 			glPopMatrix();
 
@@ -378,7 +379,6 @@ void Superman::carrilConexion(float posX, float posY, float posZ, float rotY, bo
 
 
 }
-
 
 void Superman::soporte(float posX, float posY, float posZ, float alturaSoporte, float alturaIndv, float largo ,float ancho) {
 
@@ -464,7 +464,7 @@ void Carril::carril(GLfloat Vi[3], GLfloat Vf[3]) {
 		else
 			glRotatef(-angZ1, 0.0, 0.0, 1.0);
 
-		figuras.cilindro(0.1,longitud, 20, 0);
+		figuras.cilindro(0.1,longitud, RESOLUCION);
 
 	glPopMatrix();
 }

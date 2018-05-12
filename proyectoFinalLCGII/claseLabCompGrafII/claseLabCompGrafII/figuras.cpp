@@ -517,7 +517,7 @@ void CFiguras::cono(float altura, float radio, int resolucion, GLuint text)
 	}
 }
 
-void CFiguras::cilindro(float radio, float altura, int resolucion, GLuint text)
+void CFiguras::cilindro(float radio, float altura, int resolucion)
 {
 	
 	float v1[]={0.0, 0.0, 0.0};
@@ -571,13 +571,13 @@ void CFiguras::cilindro(float radio, float altura, int resolucion, GLuint text)
 			glVertex3fv(v5);
 		glEnd();
 
-		glBindTexture(GL_TEXTURE_2D, text);
+		
 		glBegin(GL_POLYGON);
 			glNormal3f( v2[0], 0.0f, v2[2]);
-			glTexCoord2f(ctext_s*i, 0.0f);		glVertex3fv(v2);
-			glTexCoord2f(ctext_s*(i+1), 0.0f);	glVertex3fv(v3);
-			glTexCoord2f(ctext_s*(i+1), 1.0f);	glVertex3fv(v5);
-			glTexCoord2f(ctext_s*i, 1.0f);		glVertex3fv(v4);
+				glVertex3fv(v2);
+				glVertex3fv(v3);
+				glVertex3fv(v5);
+				glVertex3fv(v4);
 		glEnd();
 	}
 }
@@ -663,6 +663,65 @@ void CFiguras::cilindroVerticalCentro(float radio, float altura, int resolucion,
 	// con respecto a el eje Z y con centro en el centro del cilindro
 
 	glTranslatef(0, altura / 2, 0);
+
+	for (int i = 0; i <resolucion; i++)
+	{
+
+		v2[0] = radio * cos(angulo*i);
+		v2[1] = 0;
+		v2[2] = radio * sin(angulo*i);
+
+		v3[0] = radio * cos(angulo*(i + 1));
+		v3[1] = 0;
+		v3[2] = radio * sin(angulo*(i + 1));
+
+		v4[0] = radio * cos(angulo*i);
+		v4[1] = altura;
+		v4[2] = radio * sin(angulo*i);
+
+		v5[0] = radio * cos(angulo*(i + 1));
+		v5[1] = altura;
+		v5[2] = radio * sin(angulo*(i + 1));
+
+		glBegin(GL_POLYGON);
+		glNormal3f(0.0f, -1.0f, 0.0f);
+		glVertex3f(0.0, 0.0, 0.0);
+		glVertex3fv(v2);
+		glVertex3fv(v3);
+		glEnd();
+
+		glBegin(GL_POLYGON);
+		glNormal3f(0.0f, 1.0f, 0.0f);
+		glVertex3f(0.0, altura, 0.0);
+		glVertex3fv(v4);
+		glVertex3fv(v5);
+		glEnd();
+
+		glBindTexture(GL_TEXTURE_2D, text);
+		glBegin(GL_POLYGON);
+		glNormal3f(v2[0], 0.0f, v2[2]);
+		glTexCoord2f(ctext_s*i, 0.0f);		glVertex3fv(v2);
+		glTexCoord2f(ctext_s*(i + 1), 0.0f);	glVertex3fv(v3);
+		glTexCoord2f(ctext_s*(i + 1), 1.0f);	glVertex3fv(v5);
+		glTexCoord2f(ctext_s*i, 1.0f);		glVertex3fv(v4);
+		glEnd();
+	}
+}
+
+void CFiguras::cilindroTextura(float radio, float altura, int resolucion, GLuint text) {
+
+	float v1[] = { 0.0, 0.0, 0.0 };
+	float v2[] = { 0.0, 0.0, 0.0 };
+	float v3[] = { 0.0, 0.0, 0.0 };
+	float v4[] = { 0.0, 0.0, 0.0 };
+	float v5[] = { 0.0, 0.0, 0.0 };
+
+	float angulo = 2 * 3.14 / resolucion;
+
+	//float ctext_s = 1/resolucion-1;
+	float ctext_s = 1.0 / resolucion;
+	float ctext_t = 0.0;
+
 
 	for (int i = 0; i <resolucion; i++)
 	{
