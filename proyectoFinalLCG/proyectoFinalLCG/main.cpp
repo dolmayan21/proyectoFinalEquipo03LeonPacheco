@@ -45,9 +45,6 @@
 #include "cmodel/CModel.h"
 
 
-
-
-
 /* VARIABLES GLOBALES */
 
 float movX = 0.0f, movY = 0.0f, movZ = 0.0f;
@@ -58,6 +55,8 @@ float sideSkyBox = 0.0f;
 Render renders;
 
 Superman superman;
+
+CFiguras figura;
 
 //CFiguras figuras;
 
@@ -593,9 +592,15 @@ void renderSuperman() {
 
 void InitGL (GLvoid) {
 
-	 glClearDepth(1.0f);		// Activamos el valor de inicio del buffer de profundidad
-	 glEnable(GL_DEPTH_TEST);	// Hacemos la prueba de profundidad
-	 glDepthFunc(GL_LEQUAL);	// Tipo de prueba de profundidad a hacer
+	 glClearDepth(1.0f);								// Configuramos Depth Buffer
+	 glEnable(GL_DEPTH_TEST);							// Habilitamos Depth Testing
+	 glDepthFunc(GL_LEQUAL);							// Tipo de Depth Testing a realizar
+	 glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+
+	 glEnable(GL_AUTO_NORMAL);
+	 glEnable(GL_NORMALIZE);
+
+	 glEnable(GL_TEXTURE_2D);
 
 	 /* TEXTURAS */
 
@@ -644,6 +649,8 @@ void InitGL (GLvoid) {
 	 //camera.Position_Camera(0.0f, 1.5f, 3.0f, 0.0f, -1.0f, 0.3f, 0.0f, 1.0f, 0.0f);
 
 	 // glEnable(GL_TEXTURE_2D);
+
+	
 
 	 return;
 }
@@ -713,10 +720,18 @@ void display(void) {
 
 	// ejemplo //
 
+	glDisable(GL_COLOR_MATERIAL);
+
 	glPushMatrix();
 		glScalef(0.2, 0.2, 0.2);
 		carro.GLrender(NULL, _SHADED, 1);
 	glPopMatrix();
+
+	
+	glEnable(GL_COLOR_MATERIAL);
+	//superman.soporte(25.25, -30.0, 10.0, 1.0); // Punto Central montaña rusa
+
+	//superman.soporte(0.0, 0.0, 0.0, 1.0); // Punto Central montaña rusa
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////
