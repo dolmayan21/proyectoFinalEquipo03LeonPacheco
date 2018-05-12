@@ -6,9 +6,11 @@
 #define PI 3.14159265359
 #define ANCHO_RIEL 1.5
 #define ANCHO_TUBO_RIEL 0.1
+#define LARGO_CARRIL 1.0
 
 GLfloat rojoSuperman[3] = { 1.0, 0.0, 0.0 };
 GLfloat amarilloSuperman[3] = { 1.0, 1.0, 0.0 };
+GLfloat azulSuperman[3] = { 0.0, 1.0, 1.0 };
 
 GLfloat blanco[3] = { 1.0, 1.0, 1.0 };
 
@@ -325,6 +327,42 @@ void Superman::carrilConexion(float posX, float posY, float posZ, float rotY, bo
 	glPopMatrix();
 
 
+}
+
+
+void Superman::soporte(float posX, float posY, float posZ, float alto) {
+
+	glPushMatrix();
+
+	glTranslatef(posX, posY, posZ);
+		
+		glColor3fv(azulSuperman);
+
+		glPushMatrix();
+			glTranslatef(LARGO_CARRIL/2, 0.0, -ANCHO_RIEL / 2);
+			figuras.cilindroVertical(ANCHO_TUBO_RIEL, alto, 20, 0);
+		glPopMatrix();
+
+		glPushMatrix();
+			glTranslatef(-LARGO_CARRIL / 2, 0.0, -ANCHO_RIEL / 2);
+			figuras.cilindroVertical(ANCHO_TUBO_RIEL, alto, 20, 0);
+		glPopMatrix();
+
+		glPushMatrix();
+			glTranslatef(-LARGO_CARRIL / 2, 0.0, ANCHO_RIEL / 2);
+			figuras.cilindroVertical(ANCHO_TUBO_RIEL, alto, 20, 0);
+		glPopMatrix();
+
+		glPushMatrix();
+			glTranslatef(LARGO_CARRIL / 2, 0.0, ANCHO_RIEL / 2);
+			figuras.cilindroVertical(ANCHO_TUBO_RIEL, alto, 20, 0);
+		glPopMatrix();
+
+		
+
+		glColor3fv(blanco);
+
+	glPopMatrix();
 }
 
 void Carril::carril(GLfloat Vi[3], GLfloat Vf[3]) {
