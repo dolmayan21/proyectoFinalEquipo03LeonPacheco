@@ -913,13 +913,13 @@ void display ( void ) {
 			/* FIN SKYBOX */
 
 			///* CARRO */
-			//
-			//	glDisable(GL_COLOR_MATERIAL);
-			//	glPushMatrix(); // CARRO 3DS
-			//		glScalef(0.3, 0.3, 0.3);
-			//		kit.GLrender(NULL,_SHADED,1.0); 
-			//	glPopMatrix(); // FIN CARRO 3DS
-			//	glEnable(GL_COLOR_MATERIAL);
+			
+				//glDisable(GL_COLOR_MATERIAL);
+				//glPushMatrix(); // CARRO 3DS
+				//	glScalef(0.3, 0.3, 0.3);
+				//	kit.GLrender(NULL,_SHADED,1.0); 
+				//glPopMatrix(); // FIN CARRO 3DS
+				//glEnable(GL_COLOR_MATERIAL);
 
 			///* FIN CARRO */
 				
@@ -962,7 +962,6 @@ void display ( void ) {
 				
 
 				
-				
 			/* FIN AREA DE PRUEBAS */
 
 			/* ENTRADA */
@@ -997,12 +996,12 @@ void display ( void ) {
 			/* SUPERMAN */
 			
 				glPushMatrix();
-					/*glDisable(GL_TEXTURE_2D);
-					glDisable(GL_LIGHTING);*/
+					glDisable(GL_TEXTURE_2D);
+				/*	glDisable(GL_LIGHTING);*/
 						renderSuperman();
 						renderSupermanSoportes();
-					/*glEnable(GL_TEXTURE_2D);
-					glEnable(GL_LIGHTING);*/
+					glEnable(GL_TEXTURE_2D);
+					/*glEnable(GL_LIGHTING);*/
 				glPopMatrix();
 			
 			/* FIN SUPERMAN */

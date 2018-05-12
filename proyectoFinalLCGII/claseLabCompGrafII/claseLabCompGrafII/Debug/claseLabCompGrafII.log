@@ -1,4 +1,17 @@
-﻿  main.cpp
+﻿  renders.cpp
+c:\users\jepf_\documents\githubrepositories\proyectofinalequipo03leonpacheco\proyectofinallcgii\claselabcompgrafii\claselabcompgrafii\renders.cpp(14): warning C4838: la conversión de 'double' en 'GLfloat' requiere una conversión de restricción
+  figuras.cpp
+c:\users\jepf_\documents\githubrepositories\proyectofinalequipo03leonpacheco\proyectofinallcgii\claselabcompgrafii\claselabcompgrafii\figuras.cpp(24): warning C4838: la conversión de 'double' en 'GLfloat' requiere una conversión de restricción
+c:\users\jepf_\documents\githubrepositories\proyectofinalequipo03leonpacheco\proyectofinallcgii\claselabcompgrafii\claselabcompgrafii\figuras.cpp(103): warning C4838: la conversión de 'double' en 'GLfloat' requiere una conversión de restricción
+c:\users\jepf_\documents\githubrepositories\proyectofinalequipo03leonpacheco\proyectofinallcgii\claselabcompgrafii\claselabcompgrafii\figuras.cpp(156): warning C4838: la conversión de 'double' en 'GLfloat' requiere una conversión de restricción
+c:\users\jepf_\documents\githubrepositories\proyectofinalequipo03leonpacheco\proyectofinallcgii\claselabcompgrafii\claselabcompgrafii\figuras.cpp(365): warning C4101: 'theta': variable local sin referencia
+c:\users\jepf_\documents\githubrepositories\proyectofinalequipo03leonpacheco\proyectofinallcgii\claselabcompgrafii\claselabcompgrafii\figuras.cpp(365): warning C4101: 'phi': variable local sin referencia
+c:\users\jepf_\documents\githubrepositories\proyectofinalequipo03leonpacheco\proyectofinallcgii\claselabcompgrafii\claselabcompgrafii\figuras.cpp(845): warning C4838: la conversión de 'double' en 'GLfloat' requiere una conversión de restricción
+  Generando código...
+cl : Línea de comandos warning D9028: error de recompilación mínimo, revirtiendo a la compilación normal
+  Compilando...
+  main.cpp
+  Generando código...
 CModel.lib(_3dsloader.obj) : warning LNK4099: no se encontr¾ PDB 'vc70.pdb' con 'CModel.lib(_3dsloader.obj)' o en 'C:\Users\jepf_\Documents\GitHubRepositories\proyectoFinalEquipo03LeonPacheco\proyectoFinalLCGII\claseLabCompGrafII\Debug\vc70.pdb'; se vincularß el objeto sin tener en cuenta informaci¾n de depuraci¾n
 CModel.lib(CModel.obj) : warning LNK4099: no se encontr¾ PDB 'vc70.pdb' con 'CModel.lib(CModel.obj)' o en 'C:\Users\jepf_\Documents\GitHubRepositories\proyectoFinalEquipo03LeonPacheco\proyectoFinalLCGII\claseLabCompGrafII\Debug\vc70.pdb'; se vincularß el objeto sin tener en cuenta informaci¾n de depuraci¾n
 CModel.lib(CObject.obj) : warning LNK4099: no se encontr¾ PDB 'vc70.pdb' con 'CModel.lib(CObject.obj)' o en 'C:\Users\jepf_\Documents\GitHubRepositories\proyectoFinalEquipo03LeonPacheco\proyectoFinalLCGII\claseLabCompGrafII\Debug\vc70.pdb'; se vincularß el objeto sin tener en cuenta informaci¾n de depuraci¾n
