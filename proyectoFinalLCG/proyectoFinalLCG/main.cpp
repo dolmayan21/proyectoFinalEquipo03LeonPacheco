@@ -878,9 +878,16 @@ void animation() {
 	glutPostRedisplay();
 }
 
+void audio() {
+	PlaySound("feria.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+
+}
+
 int main(int argc, char **argv) { 
 	glutInit(&argc, argv); // Se inicializa openGL
 
+
+	audio();
 	// Se activa el buffer simple y colores tipo RGB. (GLUT_SINGLE -> GLUT_DOUBLE ?)
 	glutInitDisplayMode (GLUT_DOUBLE | GLUT_RGB| GLUT_DEPTH); 
 
