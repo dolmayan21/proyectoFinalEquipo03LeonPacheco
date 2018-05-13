@@ -59,6 +59,8 @@
 	Render renders;
 	Superman superman;
 	CFiguras figura;
+	CFiguras fig1;
+	CFiguras fig2;
 	CCamera camera;
 	AnimacionSuperman animSuperman;
 
@@ -107,6 +109,8 @@
 	CModel castle;
 	CModel trees;
 	CModel ent;
+	CModel avion;
+
 
 
 /* FIN MODELOS */
@@ -903,6 +907,7 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 	barda._3dsLoad("3ds/f.3ds");
 	barda._3dsLoad("3ds/f.3ds");
 	ent._3dsLoad("3ds/main.3ds");
+	avion._3dsLoad("3ds/airplane.3ds");
 	
 	/* FIN CARGA MODELOS 3DS*/
 
@@ -938,6 +943,17 @@ void display ( void ) {
 
 			/* FIN SKYBOX */
 
+				//		ASFALTO ESTACIONAMIENTO
+				glPushMatrix();
+							
+						glTranslatef(-102.0f, -30.0f, 75.5f);
+						glScalef(35, 0.05, 45);
+						glDisable(GL_LIGHTING);
+						fig1.prisma2(asfalto.GLindex, 0);
+						glEnable(GL_LIGHTING);
+				
+				glPopMatrix();	// TERMINA ASFALTO
+				
 			
 
 			/* EJES DE REFERENCIA */
@@ -970,33 +986,65 @@ void display ( void ) {
 				
 			/* FIN AREA DE PRUEBAS */
 
-			/* ENTRADA */
+			/* ENTRADA 1*/
 
 				glPushMatrix();
 					glEnable(GL_ALPHA_TEST);
 					glAlphaFunc(GL_GREATER, 0.1);
-
-					glTranslatef(0.0f, -28.0f, 28.5f);
-					renders.cube(5.0, 4.0, 3.0,
+					
+					glTranslatef(-60.0f, -28.0f, 21.5f);
+					glRotatef(90, 0, 1, 0);		//		MODIFIQ
+					renders.cube(15.0, 4.0, 3.0,
 									tabiqueMarron.GLindex, none.GLindex, tabiqueMarron.GLindex,
 									tabiqueMarron.GLindex, entradaTabiqueMarron.GLindex, entradaTabiqueMarron.GLindex);
+
 
 					glDisable(GL_ALPHA_TEST);
 				glPopMatrix();
 
-			/* FIN ENTRADA */
+				/* FIN ENTRADA */
+
+				/* ENTRADA 2*/
+				glPushMatrix();
+				glEnable(GL_ALPHA_TEST);
+				glAlphaFunc(GL_GREATER, 0.1);
+
+				glTranslatef(-60.0f, -28.0f, 41.75f);
+				glRotatef(90, 0, 1, 0);		//		MODIFIQ
+				renders.cube(15.0, 4.0, 3.0,
+					tabiqueMarron.GLindex, none.GLindex, tabiqueMarron.GLindex,
+					tabiqueMarron.GLindex, entradaTabiqueMarron.GLindex, entradaTabiqueMarron.GLindex);
+
+
+				glDisable(GL_ALPHA_TEST);
+				glPopMatrix();
+
+
+			/* FIN ENTRADA 2*/
 
 			/* TAQUILLAS */
 
 				glPushMatrix();
-					glTranslatef(3.5f,-29.0f, 28.5f);
-						renders.cube(2.0f, 2.0f, 3.0f, tabiqueMarron.GLindex, tabiqueMarron.GLindex,tabiqueMarron.GLindex,
+					glTranslatef(-60.0f, -28.0f, 11.0f);
+					glRotatef(270, 0, 1, 0);		//		MODIFIQ
+						renders.cube(6.0f, 6.0f, 9.0f, tabiqueMarron.GLindex, tabiqueMarron.GLindex,tabiqueMarron.GLindex,
 										tabiqueMarron.GLindex, taquilla.GLindex, tabiqueMarron.GLindex);
-					glTranslatef(-7.0f, 0.0f, 0.0f);
-						renders.cube(2.0f, 2.0f, 3.0f, tabiqueMarron.GLindex, tabiqueMarron.GLindex, tabiqueMarron.GLindex,
+						glPopMatrix();
+
+				glPushMatrix();
+					glTranslatef(-60.0f, -28.0f, 32.0f);
+					glRotatef(270, 0, 1, 0);		//		MODIFIQ
+						renders.cube(6.0f, 6.0f, 9.0f, tabiqueMarron.GLindex, tabiqueMarron.GLindex, tabiqueMarron.GLindex,
 										tabiqueMarron.GLindex, taquilla.GLindex, tabiqueMarron.GLindex);
 				glPopMatrix();
 
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -28.0f, 52.0f);
+				glRotatef(270, 0, 1, 0);		//		MODIFIQ
+				renders.cube(6.0f, 6.0f, 9.0f, tabiqueMarron.GLindex, tabiqueMarron.GLindex, tabiqueMarron.GLindex,
+					tabiqueMarron.GLindex, taquilla.GLindex, tabiqueMarron.GLindex);
+				glPopMatrix();
 			/* FIN TAQUILLAS */
 
 			/* SUPERMAN */
@@ -1305,8 +1353,33 @@ void display ( void ) {
 
 			// TERMINO BARDA SUPERMAN
 
+// COMIENZA AVIÓN 				
+				glPushMatrix();
+				glTranslatef(24, 0.0, 25);
+				avion.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+						
+//	TERMINA AVIÓN
+	
+//		ARBOLES
+				glPushMatrix();
+				glTranslatef(-112.0f, -30.0f, 40.5f);
+				tree1.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-112.0f, -30.0f, -20.5f);
+				tree1.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+
+
+//		TERMINA ALBOLES
+
+				
 				glEnable(GL_COLOR_MATERIAL); //	DESACTIVAR COLORES PARA MODELOS 3D
 
+			
 		glPopMatrix();		// POP PRINCIPAL
 
 			glColor3f(1.0,1.0,1.0);
@@ -1475,8 +1548,14 @@ void animation() {
 	glutPostRedisplay();
 }
 
+void audio() {
+	PlaySound("feria.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+	}
+
+
 int main ( int argc, char** argv ) {
 	
+//	audio();
 
   glutInit            (&argc, argv); // Inicializamos OpenGL
   glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); // Display Mode (Clores RGB y alpha | Buffer Doble )
