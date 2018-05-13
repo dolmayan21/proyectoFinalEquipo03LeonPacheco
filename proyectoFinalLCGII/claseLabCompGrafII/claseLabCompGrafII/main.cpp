@@ -108,9 +108,14 @@
 	CModel barda;
 	CModel castle;
 	CModel trees;
+	CModel tree;
 	CModel ent;
 	CModel avion;
 
+	CModel barda2;
+	CModel table;
+	CModel people;
+	CModel store;
 
 
 /* FIN MODELOS */
@@ -892,7 +897,7 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 
 	/* FIN CARGA TEXTURAS */
 	
-	/* CARGA MODELOS 3DS */
+/* CARGA MODELOS 3DS */
 
 	kit._3dsLoad("3ds/kitt.3ds");	
 	
@@ -904,12 +909,19 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 
 	banca._3dsLoad("3ds/b.3ds");
 	tree1._3dsLoad("3ds/t.3ds");
+	tree._3dsLoad("3ds/tree.3ds");
 	barda._3dsLoad("3ds/f.3ds");
 	barda._3dsLoad("3ds/f.3ds");
+	barda2._3dsLoad("3ds/fence2.3ds");
 	ent._3dsLoad("3ds/main.3ds");
 	avion._3dsLoad("3ds/airplane.3ds");
-	
-	/* FIN CARGA MODELOS 3DS*/
+
+	table._3dsLoad("3ds/picnic.3ds");
+	people._3dsLoad("3ds/people.3ds");
+
+	store._3dsLoad("3ds/store.3ds");
+
+/* FIN CARGA MODELOS 3DS*/
 
 /* FRAMES SUPERMAN */
 
@@ -1444,15 +1456,366 @@ void display ( void ) {
 				glPopMatrix();
 
 				glPushMatrix();
+   //head
 				glTranslatef(-112.0f, -30.0f, -20.5f);
 				tree1.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
+// ====
+				glTranslatef(-112.0f, -30.0f, -0.5f);
+				tree1.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
 
+				glPushMatrix();
+				glTranslatef(-112.0f, -30.0f, -40.5f);
+				tree1.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-112.0f, -30.0f, -80.5f);
+				tree1.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				//		INDIVIDUALES
+				glPushMatrix();
+				glTranslatef(-0.0f, -30.0f, -85.5f);
+				tree.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-25.0f, -30.0f, -75.5f);
+				tree.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-30.0f, -30.0f, -45.5f);
+				tree.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-0.0f, -30.0f, 85.5f);
+				tree.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-20.0f, -30.0f, 55.5f);
+				tree.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-10.0f, -30.0f, 45.5f);
+				tree.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
 
 //		TERMINA ALBOLES
 
+
+// BARDA PARA ENTRADA
+
 				
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, 57.0f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, 60.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+				
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, 63.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, 67.0f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, 70.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, 74.0f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, 74.0f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, 77.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, 81.0f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, 84.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, 88.0f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, 91.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, 95.0f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, 98.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+
+				//	BARDA DE LA DERECHA
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, 6.0f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, 2.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -1.0f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -4.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -8.0f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -11.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -15.0f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -18.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -22.0f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -25.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -29.0f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -32.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -36.0f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -39.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -43.0f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -46.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -50.0f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -53.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -57.0f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -60.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -64.0f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -67.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -71.0f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -74.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -78.0f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -81.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -85.0f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -88.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -92.0f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -29.5f, -95.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+// FIN BARDA PARA ENTRADA
+
+
+// MESA 
+				glPushMatrix();
+				glTranslatef(-0.0f, -30.0f, 50.5f);
+				glScalef(2.5,2.5,2.5);
+			//	glRotatef(90, 0, 1.0, 0.0);
+				table.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-5.0f, -30.0f, 50.5f);
+				glScalef(2.5, 2.5, 2.5);
+				//	glRotatef(90, 0, 1.0, 0.0);
+				table.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+
+				glPushMatrix();
+				glTranslatef(-10.0f, -30.0f, 50.5f);
+				glScalef(2.5, 2.5, 2.5);
+				//	glRotatef(90, 0, 1.0, 0.0);
+				table.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+//	 FIN DE MESA
+		
+//		INICIO STORE
+				glPushMatrix();
+				glTranslatef(-10.0f, -30.0f, 60.5f);
+				glRotatef(180, 0, 1.0, 0.0);
+				glScalef(4.0,4.0,4.0);
+				store.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+//		FIN STORE
+
 				glEnable(GL_COLOR_MATERIAL); //	DESACTIVAR COLORES PARA MODELOS 3D
 
 			
