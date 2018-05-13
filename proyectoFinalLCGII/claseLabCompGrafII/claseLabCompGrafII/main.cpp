@@ -59,6 +59,8 @@
 	Render renders;
 	Superman superman;
 	CFiguras figura;
+	CFiguras fig1;
+	CFiguras fig2;
 	CCamera camera;
 	AnimacionSuperman animSuperman;
 
@@ -107,6 +109,8 @@
 	CModel castle;
 	CModel trees;
 	CModel ent;
+	CModel avion;
+
 
 
 /* FIN MODELOS */
@@ -903,17 +907,31 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 	barda._3dsLoad("3ds/f.3ds");
 	barda._3dsLoad("3ds/f.3ds");
 	ent._3dsLoad("3ds/main.3ds");
+	avion._3dsLoad("3ds/airplane.3ds");
 	
 	/* FIN CARGA MODELOS 3DS*/
 
 /* FRAMES SUPERMAN */
 
-	animSuperman.keyFrame[0] = { 25.25, 0.0, -25.5, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
-	animSuperman.keyFrame[1] = { 33.0, 0.0, -25.5, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
-	animSuperman.keyFrame[2] = { 33.146446f, 0.0, -24.646446f, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 45.0, 0.0 };
+	animSuperman.keyFrame[0] = { 25.25, 0.0, -25.3f, 0.0, -15.0, 0.0, 0.0, 0.0, -90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[1] = { 25.25, 0.0, -25.3f, 0.0, 9.0, 0.0, 0.0, 0.0, -90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[2] = { 26.25, 0.0, -25.3f, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[3] = { 33.0, 0.0, -25.3f, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[4] = { 33.5, 0.0, -25.0f, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 45.0, 0.0 };
+	animSuperman.keyFrame[5] = { 40.0, 0.0, -18.5f, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 45.0, 0.0 };
+	animSuperman.keyFrame[6] = { 41.0, 0.0, -18.3f, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[7] = { 45.5, 0.0, -18.3f, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[8] = { 46.5, 0.0, -18.9f, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, -45.0, 0.0 };
+	animSuperman.keyFrame[9] = { 56.5, 0.0, -28.9f, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, -45.0, 0.0 };
+	animSuperman.keyFrame[10] = { 57.0, 0.0, -29.3f, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[11] = { 65.75, 0.0, -29.3f, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[12] = { 66.75, 0.0, -29.3f, 0.0, 9.0, 0.0, 0.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[13] = { 66.75, 0.0, -29.3f, 0.0, 4.25, 0.0, 0.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[14] = { 66.75, 0.0, -29.0f, 0.0, 3.75, 0.0, 45.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
 
-	camera.Position_Camera(0,2.5f,3, 0,2.5f,0, 0, 1, 0);
-
+	
+	//camera.Position_Camera(0,2.5f,3, 0,2.5f,0, 0, 1, 0);
+	camera.Position_Camera(45.0, -15.0f, 30.0, 45.0, -15.0f, -30.0, 0.0, 1.0, 0.0);
 	return;
 	
 }
@@ -944,6 +962,17 @@ void display ( void ) {
 
 			/* FIN SKYBOX */
 
+				//		ASFALTO ESTACIONAMIENTO
+				glPushMatrix();
+							
+						glTranslatef(-102.0f, -30.0f, 75.5f);
+						glScalef(35, 0.05, 45);
+						glDisable(GL_LIGHTING);
+						fig1.prisma2(asfalto.GLindex, 0);
+						glEnable(GL_LIGHTING);
+				
+				glPopMatrix();	// TERMINA ASFALTO
+				
 			
 
 			/* EJES DE REFERENCIA */
@@ -972,41 +1001,126 @@ void display ( void ) {
 			/* AREA DE PRUEBAS */
 
 				glPushMatrix();
+				
 					glTranslatef(animSuperman.posX, animSuperman.posY, animSuperman.posZ);
+					glRotatef(animSuperman.rotX, 1.0, 0.0, 0.0);
+					glRotatef(animSuperman.rotY, 0.0, 1.0, 0.0);
 					glRotatef(animSuperman.rotZ, 0.0, 0.0, 1.0);
+					glDisable(GL_TEXTURE_2D);
+					glDisable(GL_LIGHTING);
+							glBegin(GL_LINES);
+								glColor3f(1.0, 0.0, 0.0);
+									glVertex3f(0.0f, 0.0f, 0.0f);
+									glVertex3f(2.0f, 0.0f, 0.0f);
+								glColor3f(0.0, 1.0, 0.0);
+									glVertex3f(0.0f, 0.0f, 0.0f);
+									glVertex3f(0.0f, 2.0f, 0.0f);
+								glColor3f(0.0, 0.0, 1.0);
+									glVertex3f(0.0f, 0.0f, 0.0f);
+									glVertex3f(0.0f, 0.0f, 2.0f);
+								glColor3f(1.0, 1.0, 1.0);
+							glEnd();
+						glEnable(GL_TEXTURE_2D);
+						glEnable(GL_LIGHTING);
 					renders.cube(1.0, 1.0, 1.5, 0, 0, 0, 0, 0, 0);
+					
 				glPopMatrix();
-				
-				
+
+				//glPushMatrix();
+				//	glTranslatef(5.0, 0.0, 0.0);
+				////	glPushMatrix();
+				//	glRotatef(45, 0.0, 0.0, 1.0);
+				//	
+				//	
+				//		
+				//		glDisable(GL_TEXTURE_2D);
+				//		glDisable(GL_LIGHTING);
+				//			glBegin(GL_LINES);
+				//				glColor3f(1.0, 0.0, 0.0);
+				//					glVertex3f(0.0f, 0.0f, 0.0f);
+				//					glVertex3f(2.0f, 0.0f, 0.0f);
+				//				glColor3f(0.0, 1.0, 0.0);
+				//					glVertex3f(0.0f, 0.0f, 0.0f);
+				//					glVertex3f(0.0f, 2.0f, 0.0f);
+				//				glColor3f(0.0, 0.0, 1.0);
+				//					glVertex3f(0.0f, 0.0f, 0.0f);
+				//					glVertex3f(0.0f, 0.0f, 2.0f);
+				//				glColor3f(1.0, 1.0, 1.0);
+				//			glEnd();
+				//		glEnable(GL_TEXTURE_2D);
+				//		glEnable(GL_LIGHTING);
+				//			renders.cube(1.0, 1.0, 1.5, 0, 0, 0, 0, 0, 0);
+				////			glPopMatrix();
+				//glPopMatrix();
+
+
+			/*	glPushMatrix();*/
+			//	glRotatef(45, 0.0, 0.0, 1.0);
+			////	glTranslatef(33.146446f, -22.646446f, 10);
+			//	
+			//	renders.cube(1.0, 1.0, 1.5, 0, 0, 0, 0, 0, 0);
+			//	glPopMatrix();
 			/* FIN AREA DE PRUEBAS */
 
-			/* ENTRADA */
+			/* ENTRADA 1*/
 
 				glPushMatrix();
 					glEnable(GL_ALPHA_TEST);
 					glAlphaFunc(GL_GREATER, 0.1);
-
-					glTranslatef(0.0f, -28.0f, 28.5f);
-					renders.cube(5.0, 4.0, 3.0,
+					
+					glTranslatef(-60.0f, -28.0f, 21.5f);
+					glRotatef(90, 0, 1, 0);		//		MODIFIQ
+					renders.cube(15.0, 4.0, 3.0,
 									tabiqueMarron.GLindex, none.GLindex, tabiqueMarron.GLindex,
 									tabiqueMarron.GLindex, entradaTabiqueMarron.GLindex, entradaTabiqueMarron.GLindex);
+
 
 					glDisable(GL_ALPHA_TEST);
 				glPopMatrix();
 
-			/* FIN ENTRADA */
+				/* FIN ENTRADA */
+
+				/* ENTRADA 2*/
+				glPushMatrix();
+				glEnable(GL_ALPHA_TEST);
+				glAlphaFunc(GL_GREATER, 0.1);
+
+				glTranslatef(-60.0f, -28.0f, 41.75f);
+				glRotatef(90, 0, 1, 0);		//		MODIFIQ
+				renders.cube(15.0, 4.0, 3.0,
+					tabiqueMarron.GLindex, none.GLindex, tabiqueMarron.GLindex,
+					tabiqueMarron.GLindex, entradaTabiqueMarron.GLindex, entradaTabiqueMarron.GLindex);
+
+
+				glDisable(GL_ALPHA_TEST);
+				glPopMatrix();
+
+
+			/* FIN ENTRADA 2*/
 
 			/* TAQUILLAS */
 
 				glPushMatrix();
-					glTranslatef(3.5f,-29.0f, 28.5f);
-						renders.cube(2.0f, 2.0f, 3.0f, tabiqueMarron.GLindex, tabiqueMarron.GLindex,tabiqueMarron.GLindex,
+					glTranslatef(-60.0f, -28.0f, 11.0f);
+					glRotatef(270, 0, 1, 0);		//		MODIFIQ
+						renders.cube(6.0f, 6.0f, 9.0f, tabiqueMarron.GLindex, tabiqueMarron.GLindex,tabiqueMarron.GLindex,
 										tabiqueMarron.GLindex, taquilla.GLindex, tabiqueMarron.GLindex);
-					glTranslatef(-7.0f, 0.0f, 0.0f);
-						renders.cube(2.0f, 2.0f, 3.0f, tabiqueMarron.GLindex, tabiqueMarron.GLindex, tabiqueMarron.GLindex,
+						glPopMatrix();
+
+				glPushMatrix();
+					glTranslatef(-60.0f, -28.0f, 32.0f);
+					glRotatef(270, 0, 1, 0);		//		MODIFIQ
+						renders.cube(6.0f, 6.0f, 9.0f, tabiqueMarron.GLindex, tabiqueMarron.GLindex, tabiqueMarron.GLindex,
 										tabiqueMarron.GLindex, taquilla.GLindex, tabiqueMarron.GLindex);
 				glPopMatrix();
 
+
+				glPushMatrix();
+				glTranslatef(-60.0f, -28.0f, 52.0f);
+				glRotatef(270, 0, 1, 0);		//		MODIFIQ
+				renders.cube(6.0f, 6.0f, 9.0f, tabiqueMarron.GLindex, tabiqueMarron.GLindex, tabiqueMarron.GLindex,
+					tabiqueMarron.GLindex, taquilla.GLindex, tabiqueMarron.GLindex);
+				glPopMatrix();
 			/* FIN TAQUILLAS */
 
 			/* SUPERMAN */
@@ -1315,8 +1429,33 @@ void display ( void ) {
 
 			// TERMINO BARDA SUPERMAN
 
+// COMIENZA AVIÓN 				
+				glPushMatrix();
+				glTranslatef(24, 0.0, 25);
+				avion.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+						
+//	TERMINA AVIÓN
+	
+//		ARBOLES
+				glPushMatrix();
+				glTranslatef(-112.0f, -30.0f, 40.5f);
+				tree1.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-112.0f, -30.0f, -20.5f);
+				tree1.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+
+
+//		TERMINA ALBOLES
+
+				
 				glEnable(GL_COLOR_MATERIAL); //	DESACTIVAR COLORES PARA MODELOS 3D
 
+			
 		glPopMatrix();		// POP PRINCIPAL
 
 			glColor3f(1.0,1.0,1.0);
@@ -1356,32 +1495,32 @@ void keyboard(unsigned char key, int x, int y) {
 		break;
 	case 'w':   //Movimientos de camara
 	case 'W':
-		camera.Move_Camera(CAMERASPEED + 2.2);
+		camera.Move_Camera(CAMERASPEED /*+ 2.2*/);
 		break;
 
 	case 's':
 	case 'S':
-		camera.Move_Camera(-(CAMERASPEED + 2.2));
+		camera.Move_Camera(-(CAMERASPEED/* + 2.2*/));
 		break;
 
 	case 'a':
 	case 'A':
-		camera.Strafe_Camera(-(CAMERASPEED + 2.4));
+		camera.Strafe_Camera(-(CAMERASPEED /*+ 2.4*/));
 		break;
 
 	case 'd':
 	case 'D':
-		camera.Strafe_Camera(CAMERASPEED + 2.4);
+		camera.Strafe_Camera(CAMERASPEED /*+ 2.4*/);
 		break;
 
 	case 'q':
 	case 'Q':
-		camera.UpDown_Camera(CAMERASPEED + 0.5);
+		camera.UpDown_Camera(CAMERASPEED /*+ 0.5*/-0.3);
 		break;
 
 	case 'e':
 	case 'E':
-		camera.UpDown_Camera(-(CAMERASPEED + 0.5));
+		camera.UpDown_Camera(-(CAMERASPEED /*+ 0.5*/ -0.3));
 		break;
 
 	case 'x':
@@ -1505,8 +1644,14 @@ void animation() {
 	glutPostRedisplay();
 }
 
+void audio() {
+	PlaySound("feria.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
+	}
+
+
 int main ( int argc, char** argv ) {
 	
+//	audio();
 
   glutInit            (&argc, argv); // Inicializamos OpenGL
   glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); // Display Mode (Clores RGB y alpha | Buffer Doble )

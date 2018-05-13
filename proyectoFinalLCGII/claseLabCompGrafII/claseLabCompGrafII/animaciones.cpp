@@ -3,10 +3,10 @@
 void AnimacionSuperman::resetElements( void ) {
 
 	posX = 25.25f;
-	posY = -25.5f;
-	posZ = 10.0f;
+	posY = -25.3f;
+	posZ = -15.0f;
 	rotX = 0.0f;
-	rotY = 0.0f;
+	rotY = -90.0f;
 	rotZ = 0.0f;
 
 }
