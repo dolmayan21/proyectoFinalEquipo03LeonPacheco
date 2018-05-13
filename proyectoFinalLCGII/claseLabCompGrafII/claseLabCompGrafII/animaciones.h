@@ -1,6 +1,6 @@
 #pragma once
 
-#define NUM_FRAMES 37
+#define NUM_FRAMES_SUPERMAN 66
 
 class AnimacionSuperman {
 	public:
@@ -17,16 +17,14 @@ class AnimacionSuperman {
 
 	/* FIN VARIABLES A ANIMAR */
 
-		int finalFrameIndex = NUM_FRAMES - 1; // Indice del ultimo frame del arreglo de frames "keyFrame[]"
+		int finalFrameIndex = NUM_FRAMES_SUPERMAN - 1; // Indice del ultimo frame del arreglo de frames "keyFrame[]"
 		int currentFrameIndex = 0; // Indice del primer frame del arreglo de frames "keyFrame[]"
 
-		int maxSteps = 10; // ¿ Interpolacion en cuantos pasos ?
+		int maxSteps = 5; // ¿ Interpolacion en cuantos pasos ?
 		int currSteps = 0; // ¡ Para ir variando el paso !
 
 		bool play = false; // Mientras este en true se reproduce la animacion
 		bool initialPlay = false;
-
-		int frame = 0, time, timebase = 0;
 
 		typedef struct _frame {
 			float posX;
@@ -45,7 +43,7 @@ class AnimacionSuperman {
 			float steps;
 		} FRAME;
 
-		FRAME keyFrame[NUM_FRAMES]; // Arreglo global, aqui se guardan todos los frames
+		FRAME keyFrame[NUM_FRAMES_SUPERMAN]; // Arreglo global, aqui se guardan todos los frames
 
 		void resetElements( void );
 		void interpolation( void );
