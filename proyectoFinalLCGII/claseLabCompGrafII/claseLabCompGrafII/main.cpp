@@ -117,6 +117,10 @@
 	CModel people;
 	CModel store;
 
+	CModel car; 
+	CModel car2;
+	CModel car3;
+
 
 /* FIN MODELOS */
 
@@ -885,7 +889,7 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 		grass.BuildGLTexture();
 		grass.ReleaseImage();
 
-		asfalto.LoadTGA("texturas/asfalto.tga");
+		asfalto.LoadTGA("texturas/asfalto2.tga");
 		asfalto.BuildGLTexture();
 		asfalto.ReleaseImage();
 
@@ -920,6 +924,11 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 	people._3dsLoad("3ds/people.3ds");
 
 	store._3dsLoad("3ds/store.3ds");
+
+	car._3dsLoad("3ds/car.3ds");
+	car2._3dsLoad("3ds/car2.3ds");
+	car3._3dsLoad("3ds/car3.3ds");
+
 
 /* FIN CARGA MODELOS 3DS*/
 
@@ -965,6 +974,8 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 	animSuperman.keyFrame[34] = { 73.75, 0.0, -13.9f, 0.0, -85.75, 0.0, 45.0, 0.0, 270.0, 0.0, 0.0, 0.0 };
 	animSuperman.keyFrame[35] = { 73.75, 0.0, -18.9f, 0.0, -80.75, 0.0, 45.0, 0.0, 270.0, 0.0, 0.0, 0.0 };
 	animSuperman.keyFrame[36] = { 73.75, 0.0, -19.3f, 0.0, -80.25, 0.0, 0.0, 0.0, 270.0, 0.0, 0.0, 0.0 };
+
+	
 
 
 	
@@ -1482,18 +1493,27 @@ void display ( void ) {
 				glPopMatrix();
 
 				glPushMatrix();
-   //head
+
 				glTranslatef(-112.0f, -30.0f, -20.5f);
 				tree1.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
-// ====
+
 				glTranslatef(-112.0f, -30.0f, -0.5f);
+
+				glTranslatef(-112.0f, -30.0f, 10.5f);
 				tree1.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(-112.0f, -30.0f, -40.5f);
+				glTranslatef(-112.0f, -30.0f, -20.5f);
+				tree1.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+//HEAD
+			//	glTranslatef(-112.0f, -30.0f, -40.5f);
+				glTranslatef(-112.0f, -30.0f, -50.5f);
 				tree1.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
@@ -1534,7 +1554,6 @@ void display ( void ) {
 				glPopMatrix();
 
 //		TERMINA ALBOLES
-
 
 // BARDA PARA ENTRADA
 
@@ -1810,14 +1829,20 @@ void display ( void ) {
 
 // MESA 
 				glPushMatrix();
-				glTranslatef(-0.0f, -30.0f, 50.5f);
+				//HEAD
+			//	glTranslatef(-0.0f, -30.0f, 50.5f);
+
+				glTranslatef(0.0f, -30.0f, 70.5f);
 				glScalef(2.5,2.5,2.5);
 			//	glRotatef(90, 0, 1.0, 0.0);
 				table.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(-5.0f, -30.0f, 50.5f);
+
+				//glTranslatef(-5.0f, -30.0f, 50.5f);
+
+				glTranslatef(-10.0f, -30.0f, 65.5f);
 				glScalef(2.5, 2.5, 2.5);
 				//	glRotatef(90, 0, 1.0, 0.0);
 				table.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
@@ -1825,7 +1850,8 @@ void display ( void ) {
 
 
 				glPushMatrix();
-				glTranslatef(-10.0f, -30.0f, 50.5f);
+				//glTranslatef(-10.0f, -30.0f, 50.5f);
+				glTranslatef(-20.0f, -30.0f, 70.5f);
 				glScalef(2.5, 2.5, 2.5);
 				//	glRotatef(90, 0, 1.0, 0.0);
 				table.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
@@ -1835,12 +1861,164 @@ void display ( void ) {
 		
 //		INICIO STORE
 				glPushMatrix();
-				glTranslatef(-10.0f, -30.0f, 60.5f);
+
+				//glTranslatef(-10.0f, -30.0f, 60.5f);
+				glTranslatef(-10.0f, -30.0f, 90.0f);
+
 				glRotatef(180, 0, 1.0, 0.0);
 				glScalef(4.0,4.0,4.0);
 				store.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 //		FIN STORE
+
+//		INICIO Car
+				glPushMatrix();
+				glTranslatef(-112.0f, -30.0f, 60.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				//glScalef(4.0, 4.0, 4.0);
+				car.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-112.0f, -30.0f, 68.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				//glScalef(4.0, 4.0, 4.0);
+				car2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-112.0f, -30.0f, 76.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				//glScalef(4.0, 4.0, 4.0);
+				car3.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+
+				glPushMatrix();
+				glTranslatef(-90.0f, -30.0f, 85.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				//glScalef(4.0, 4.0, 4.0);
+				car.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-90.0f, -30.0f, 90.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				//glScalef(4.0, 4.0, 4.0);
+				car2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-90.0f, -30.0f, 94.5f);
+				glRotatef(90, 0, 1.0, 0.0);
+				//glScalef(4.0, 4.0, 4.0);
+				car3.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+//		FIN Car
+
+// Barda estacionamiento
+				glPushMatrix();
+				glTranslatef(-117.0f, -30.0f, 98.5f);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-111.0f, -30.0f, 98.5f);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-105.0f, -30.0f, 98.5f);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-99.0f, -30.0f, 98.5f);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-93.0f, -30.0f, 98.5f);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-87.0f, -30.0f, 98.5f);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-84.0f, -30.0f, 95.5f);
+				glRotatef(90, 0,1,0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-84.0f, -30.0f, 77.5f);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-84.0f, -30.0f, 71.5f);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-84.0f, -30.0f, 65.5f);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-84.0f, -30.0f, 59.5f);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-84.0f, -30.0f, 53.5f);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-87.0f, -30.0f, 50.5f);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-93.0f, -30.0f, 50.5f);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-99.0f, -30.0f, 50.5f);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-105.0f, -30.0f, 50.5f);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-111.0f, -30.0f, 50.5f);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+//	Fin Barda estacionamiento
+
+
+// COMIENZO DE PERSONAS
+	
+				glPushMatrix();
+				glTranslatef(-20.0f, -30.0f, 70.5f);
+				glScalef(10.0,10.0,10.0);
+				people.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+// FIN DE PERSONAS
 
 				glEnable(GL_COLOR_MATERIAL); //	DESACTIVAR COLORES PARA MODELOS 3D
 
