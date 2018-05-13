@@ -95,7 +95,7 @@
 	CTexture grass;
 	CTexture asfalto;
 	CTexture taquilla;
-
+	CTexture six;
 /* FIN TEXTURAS */
 
 /* MODELOS */
@@ -120,6 +120,19 @@
 	CModel car3;
 
 /* FIN MODELOS */
+
+	//			ANIMACIONES ANIMACION
+
+	//Animación de HURACAN
+	float movKit = 0.0;
+	bool g_fanimacion = false;
+	bool g_fanimacion2 = true;
+	float anim_soporte = 0.0;
+	float anim_soporte2 = 0.0;
+	float gira_carro = 90.0;
+
+
+
 
 void renderSuperman() {
 
@@ -831,6 +844,8 @@ void renderPuntosCarriles() {
 	glPopMatrix();
 
 }
+
+
 			
 void InitGL ( GLvoid )     // Inicializamos parametros
 {
@@ -862,7 +877,7 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 		none.BuildGLTexture();
 		none.ReleaseImage();
 
-		wood.LoadTGA("texturas/wood.tga");
+		wood.LoadTGA("texturas/wood2.tga");
 		wood.BuildGLTexture();
 		wood.ReleaseImage();
 
@@ -894,6 +909,9 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 		taquilla.BuildGLTexture();
 		taquilla.ReleaseImage();
 
+		six.LoadTGA("texturas/six.tga");
+		six.BuildGLTexture();
+		six.ReleaseImage();
 		
 
 	/* FIN CARGA TEXTURAS */
@@ -932,6 +950,7 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 	
 }
 
+
 void display ( void ) {
 
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -957,6 +976,149 @@ void display ( void ) {
 				glPopMatrix();
 
 			/* FIN SKYBOX */
+
+				//	SIMBOLO SIX
+				glPushMatrix();
+				glTranslatef(-85.0f, -29.0f, -20.5f);
+				glRotatef(90, 0,1,0);
+				glDisable(GL_LIGHTING);
+				renders.cube(30.0, 0.2, 30.0,
+					six.GLindex, six.GLindex, six.GLindex, six.GLindex, six.GLindex, six.GLindex);
+				glEnable(GL_LIGHTING);
+				glPopMatrix();
+
+
+				glPushMatrix();
+				glTranslatef(30.0f, -29.0f, -80.5f);
+				glRotatef(-90, 0, 1, 0);
+				glDisable(GL_LIGHTING);
+				renders.cube(20.0, 0.2, 20.0,
+					six.GLindex, six.GLindex, six.GLindex, six.GLindex, six.GLindex, six.GLindex);
+				glEnable(GL_LIGHTING);
+				glPopMatrix();
+							//		SIMBOLOS SIX
+
+				// COMIENZA HURACÁN
+
+				glPushMatrix();
+						glTranslatef(92.0f, -29.0f, 65.5f);
+						glDisable(GL_LIGHTING);
+						renders.cube(25.0, 1.0, 45.0,
+							wood.GLindex, wood.GLindex, wood.GLindex,		//	BASE 
+							wood.GLindex, wood.GLindex, wood.GLindex);
+						glEnable(GL_LIGHTING);
+				glPopMatrix();	
+
+				glPushMatrix();
+				glTranslatef(90.0f, -19.5f, 85.0f);
+				glDisable(GL_LIGHTING);
+				renders.cube(3.0, 20.0, 1.5,
+					wood.GLindex, wood.GLindex, wood.GLindex,		//	SOPORTE IZQUIERDO
+					wood.GLindex, wood.GLindex, wood.GLindex);
+				glEnable(GL_LIGHTING);
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(90.0f, -19.5f, 45.0f);
+				glDisable(GL_LIGHTING);
+				renders.cube(3.0, 20.0, 1.5,
+					wood.GLindex, wood.GLindex, wood.GLindex,		//	SOPORTE DERECHO
+					wood.GLindex, wood.GLindex, wood.GLindex);
+				glEnable(GL_LIGHTING);
+				glPopMatrix();
+						
+					//		CILINDROS
+										
+				glPushMatrix();
+					glTranslatef(90.0f, -10.0f, 85.0f);		// IZQUIERDO
+					glRotatef(90, 0, 1, 0);
+					fig2.cilindro(2.0, 2, 20);
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(90.0f, -10.0f, 45.0f);			// DERECHO
+				glRotatef(90, 0, 1, 0);
+				fig2.cilindro(2.0, 2, 20);
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(90.0f, -10.0f, 46.0f);			// PEQUEÑO DERECHO
+				glRotatef(90, 0, 1, 0);
+				fig2.cilindro(0.5, 2, 20);
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(90.0f, -10.0f, 84.0f);			// PEQUEÑO IZQUIERDO
+				glRotatef(90, 0, 1, 0);
+				fig2.cilindro(0.5, 2, 20);
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(90.0f, -10.0f, 48.0f);		//	DERECHO
+				glRotatef(90, 0, 1, 0);
+				fig2.cilindro(2.0, 2.5, 20);
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(90.0f, -10.0f, 82.0f);			//  IZQUIERDO
+				glRotatef(90, 0, 1, 0);
+				fig2.cilindro(2.0, 2.5, 20);
+				glPopMatrix();
+
+
+				glPushMatrix();
+				glTranslatef(90.0f, -0.0f, 82.0f);			//  IZQUIERDO PARTE DE ARRIBA
+				glRotatef(90, 0, 1, 0);
+				fig2.cilindro(2.0, 2.5, 20);
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(90.0f, -0.0f, 48.0f);			//  DERECHO PARTE DE ARRIBA
+				glRotatef(90, 0, 1, 0);
+				fig2.cilindro(2.0, 2.5, 20);
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(90.0f, -20.0f, 82.0f);			//  IZQUIERDO PARTE DE ARRIBA
+				glRotatef(90, 0, 1, 0);
+				fig2.cilindro(2.0, 2.5, 20);
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(90.0f, -20.0f, 48.0f);			//  DERECHO PARTE DE ARRIBA
+				glRotatef(90, 0, 1, 0);
+				fig2.cilindro(2.0, 2.5, 20);
+				glPopMatrix();
+					//	FIN	CILINDROS
+
+
+				glPushMatrix();
+					glTranslatef(90.0f, -10.0f, 48.0f);
+					
+					//glRotatef(anim_soporte, 1.0, 0.0, 0.0);		//posterior animacion
+					glDisable(GL_LIGHTING);
+					renders.cube(3.0, 23.0, 1.5,
+						wood.GLindex, wood.GLindex, wood.GLindex,		//	SOPORTES DERECHO
+						wood.GLindex, wood.GLindex, wood.GLindex);
+					glEnable(GL_LIGHTING);
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(90.0f, -10.0f, 82.0f);
+
+				//glRotatef(anim_soporte, 1.0, 0.0, 0.0);		//posterior animacion
+				glDisable(GL_LIGHTING);
+				renders.cube(3.0, 23.0, 1.5,
+					wood.GLindex, wood.GLindex, wood.GLindex,		//	SOPORTES IZQUIERDO
+					wood.GLindex, wood.GLindex, wood.GLindex);
+				glEnable(GL_LIGHTING);
+				glPopMatrix();
+				
+				//	TERMINA HURACÁN
+
+
+
+
 
 				//		ASFALTO ESTACIONAMIENTO
 				glPushMatrix();
@@ -1000,6 +1162,8 @@ void display ( void ) {
 
 				
 			/* FIN AREA DE PRUEBAS */
+
+		
 
 			/* ENTRADA 1*/
 
@@ -1370,7 +1534,7 @@ void display ( void ) {
 
 // COMIENZA AVIÓN 				
 				glPushMatrix();
-				glTranslatef(24, 0.0, 25);
+				glTranslatef(24, 10.0, 25);
 				avion.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 						
@@ -1883,8 +2047,8 @@ void display ( void ) {
 // COMIENZO DE PERSONAS
 	
 				glPushMatrix();
-				glTranslatef(-20.0f, -30.0f, 70.5f);
-				glScalef(10.0,10.0,10.0);
+				glTranslatef(-20.0f, -30.0f, 65.5f);
+				glScalef(2.0,2.0,2.0);
 				people.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
@@ -1964,6 +2128,22 @@ void keyboard(unsigned char key, int x, int y) {
 	case 'E':
 		camera.UpDown_Camera(-(CAMERASPEED + 0.5));
 		break;
+
+			//		ANIMACION DEL HURACAN
+
+	case 'r':
+	case 'R':
+		movKit = 0.0;
+		//g_fanimacion2 = true;
+		g_fanimacion = true;
+		gira_carro = 90.0;
+		break;
+
+	case ' ':		//Poner algo en movimiento
+		g_fanimacion ^= true; //Activamos/desactivamos la animacíon
+		break;
+
+			//	FIN ANIMACION DE HURACAN
 
 	case 'x':
 		movX += 1.0;
@@ -2062,6 +2242,23 @@ void animation() {
 		}
 
 	}
+
+	if (g_fanimacion == true)
+	{
+		//movKit += 1;
+		anim_soporte += 3.0;
+		if (movKit == 125) {
+			gira_carro = 90.0;
+			movKit = -125;
+		
+			g_fanimacion = true;
+		}
+
+	}
+
+
+
+
 
 	glutPostRedisplay();
 }
