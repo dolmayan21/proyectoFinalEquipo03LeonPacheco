@@ -133,7 +133,6 @@
     <ClInclude Include="animaciones.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="figuras.h" />
-    <ClInclude Include="include\Main.h" />
     <ClInclude Include="renders.h" />
     <ClInclude Include="texture.h" />
   </ItemGroup>
