@@ -35,6 +35,7 @@
 #include "figuras.h"
 #include "Camera.h"
 #include "renders.h"
+#include "animaciones.h"
 #include "cmodel/CModel.h"
 
 ////Solo para Visual Studio 2015
@@ -57,6 +58,7 @@
 	Superman superman;
 	CFiguras figura;
 	CCamera camera;
+	AnimacionSuperman animSuperman;
 
 /* FIN OBJETOS DE CLASES */
 
@@ -83,6 +85,7 @@
 	CTexture none;
 	CTexture wood;
 	CTexture skyBox;
+	CTexture skyBoxSide;
 	CTexture tabiqueMarron;
 	CTexture entradaTabiqueMarron;
 	CTexture grass;
@@ -847,6 +850,10 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 		skyBox.BuildGLTexture();
 		skyBox.ReleaseImage();
 
+		skyBoxSide.LoadTGA("texturas/skyBoxSide.tga");
+		skyBoxSide.BuildGLTexture();
+		skyBoxSide.ReleaseImage();
+
 		tabiqueMarron.LoadTGA("texturas/tabiqueMarron.tga");
 		tabiqueMarron.BuildGLTexture();
 		tabiqueMarron.ReleaseImage();
@@ -866,6 +873,8 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 		taquilla.LoadTGA("texturas/taquilla.tga");
 		taquilla.BuildGLTexture();
 		taquilla.ReleaseImage();
+
+		
 
 	/* FIN CARGA TEXTURAS */
 	
@@ -906,7 +915,7 @@ void display ( void ) {
 
 				glPushMatrix();
 					glDisable(GL_LIGHTING);
-						renders.skyBox(240.0, 60.0, 200.0, skyBox.GLindex, grass.GLindex, skyBox.GLindex, sideSkyBox);
+						renders.skyBox(240.0, 60.0, 200.0, skyBox.GLindex, grass.GLindex, skyBoxSide.GLindex, sideSkyBox);
 					glEnable(GL_LIGHTING);
 				glPopMatrix();
 
@@ -1133,12 +1142,41 @@ void specialKeys(int key, int x, int y) {
 
 void animation() {
 
-	/* ANIMACION SKYBOX --> MOVIMIENTO DEL CIELO */
+/* ANIMACION SKYBOX --> MOVIMIENTO DEL CIELO */
 
 	if (sideSkyBox >= 1.0)
 		sideSkyBox = 0.0;
 	else
 		sideSkyBox += 0.00005;
+
+/* ANIMACION SUPERMAN */	
+
+	if (animSuperman.play) {
+		if (animSuperman.currSteps >= animSuperman.maxSteps) { /* Termino animacion entre frames? */
+			animSuperman.currentFrameIndex++;
+			if (animSuperman.currentFrameIndex >= animSuperman.finalFrameIndex) { /* Termino la animacion completa? */
+				printf("TERMINA ANIMACION SUPERMAN\n");
+				animSuperman.currentFrameIndex = 0;
+				animSuperman.play = false;
+			} else { /* ¡ No ha terminado la animacion !, me preparo para nueva animacion entre frames*/
+				animSuperman.currSteps = 0; // Reseteo el contador de pasos
+				animSuperman.interpolation(); // Calculo los nuevos incrementos
+			}
+		} else {
+
+			// Dibujo Animación
+
+			animSuperman.posX += animSuperman.keyFrame[animSuperman.currentFrameIndex].posXInc;
+			animSuperman.posY += animSuperman.keyFrame[animSuperman.currentFrameIndex].posYInc;
+			animSuperman.posZ += animSuperman.keyFrame[animSuperman.currentFrameIndex].posZInc;
+			animSuperman.rotX += animSuperman.keyFrame[animSuperman.currentFrameIndex].rotXInc;
+			animSuperman.rotY += animSuperman.keyFrame[animSuperman.currentFrameIndex].rotYInc;
+			animSuperman.rotZ += animSuperman.keyFrame[animSuperman.currentFrameIndex].rotZInc;
+
+			animSuperman.currSteps++;
+		}
+
+	}
 
 	glutPostRedisplay();
 }

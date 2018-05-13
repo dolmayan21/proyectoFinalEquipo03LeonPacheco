@@ -122,6 +122,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="animaciones.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="figuras.cpp" />
     <ClCompile Include="main.cpp" />
@@ -129,6 +130,7 @@
     <ClCompile Include="texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="animaciones.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="figuras.h" />
     <ClInclude Include="renders.h" />
