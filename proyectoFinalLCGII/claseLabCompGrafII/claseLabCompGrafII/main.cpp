@@ -112,7 +112,9 @@
 	CModel ent;
 	CModel avion;
 	CModel barda2;
-
+	CModel table;
+	CModel people;
+	CModel store;
 
 /* FIN MODELOS */
 
@@ -911,7 +913,10 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 	barda2._3dsLoad("3ds/fence2.3ds");
 	ent._3dsLoad("3ds/main.3ds");
 	avion._3dsLoad("3ds/airplane.3ds");
-	
+	table._3dsLoad("3ds/picnic.3ds");
+	people._3dsLoad("3ds/people.3ds");
+
+	store._3dsLoad("3ds/store.3ds");
 	/* FIN CARGA MODELOS 3DS*/
 
 	camera.Position_Camera(0,2.5f,3, 0,2.5f,0, 0, 1, 0);
@@ -1689,6 +1694,41 @@ void display ( void ) {
 				barda2.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 // FIN BARDA PARA ENTRADA
+
+
+// MESA 
+				glPushMatrix();
+				glTranslatef(-0.0f, -30.0f, 50.5f);
+				glScalef(2.5,2.5,2.5);
+			//	glRotatef(90, 0, 1.0, 0.0);
+				table.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(-5.0f, -30.0f, 50.5f);
+				glScalef(2.5, 2.5, 2.5);
+				//	glRotatef(90, 0, 1.0, 0.0);
+				table.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+
+				glPushMatrix();
+				glTranslatef(-10.0f, -30.0f, 50.5f);
+				glScalef(2.5, 2.5, 2.5);
+				//	glRotatef(90, 0, 1.0, 0.0);
+				table.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+//	 FIN DE MESA
+		
+//		INICIO STORE
+				glPushMatrix();
+				glTranslatef(-10.0f, -30.0f, 60.5f);
+				glRotatef(180, 0, 1.0, 0.0);
+				glScalef(4.0,4.0,4.0);
+				store.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+//		FIN STORE
 
 				glEnable(GL_COLOR_MATERIAL); //	DESACTIVAR COLORES PARA MODELOS 3D
 
