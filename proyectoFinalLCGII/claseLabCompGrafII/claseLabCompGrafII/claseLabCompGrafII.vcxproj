@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{4CB2FD38-07D2-46C6-8554-3FD23A9BE2D0}</ProjectGuid>
     <RootNamespace>claseLabCompGrafII</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -122,6 +122,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="animaciones.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="figuras.cpp" />
     <ClCompile Include="main.cpp" />
@@ -129,8 +130,10 @@
     <ClCompile Include="texture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="animaciones.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="figuras.h" />
+    <ClInclude Include="include\Main.h" />
     <ClInclude Include="renders.h" />
     <ClInclude Include="texture.h" />
   </ItemGroup>
