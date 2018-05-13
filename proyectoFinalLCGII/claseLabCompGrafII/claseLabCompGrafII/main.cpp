@@ -96,6 +96,14 @@
 	CModel kit;
 	CModel oldhouse;
 
+	CModel banca;
+	CModel tree1;
+	CModel barda;
+	CModel castle;
+	CModel trees;
+	CModel ent;
+
+
 /* FIN MODELOS */
 
 void renderSuperman() {
@@ -878,6 +886,13 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 	oldhouse.GLIniTextures();
 	oldhouse.ReleaseTextureImages();
 	
+
+	banca._3dsLoad("3ds/b.3ds");
+	tree1._3dsLoad("3ds/t.3ds");
+	barda._3dsLoad("3ds/f.3ds");
+	barda._3dsLoad("3ds/f.3ds");
+	ent._3dsLoad("3ds/main.3ds");
+	
 	/* FIN CARGA MODELOS 3DS*/
 
 	camera.Position_Camera(0,2.5f,3, 0,2.5f,0, 0, 1, 0);
@@ -912,27 +927,7 @@ void display ( void ) {
 
 			/* FIN SKYBOX */
 
-			///* CARRO */
 			
-				//glDisable(GL_COLOR_MATERIAL);
-				//glPushMatrix(); // CARRO 3DS
-				//	glScalef(0.3, 0.3, 0.3);
-				//	kit.GLrender(NULL,_SHADED,1.0); 
-				//glPopMatrix(); // FIN CARRO 3DS
-				//glEnable(GL_COLOR_MATERIAL);
-
-			///* FIN CARRO */
-				
-			///* OLDHOUSE */
-
-			//	glDisable(GL_COLOR_MATERIAL);
-			//	glPushMatrix(); // CARRO 3DS
-			//		glScalef(0.3, 0.3, 0.3);
-			//		oldhouse.GLrender(NULL,_SHADED,1.0); 
-			//	glPopMatrix(); // FIN CARRO 3DS
-			//	glEnable(GL_COLOR_MATERIAL);
-
-			///* FIN OLDHOUSE */
 
 			/* EJES DE REFERENCIA */
 
@@ -963,6 +958,12 @@ void display ( void ) {
 
 				
 			/* FIN AREA DE PRUEBAS */
+
+				
+
+
+
+
 
 			/* ENTRADA */
 
@@ -1006,6 +1007,306 @@ void display ( void ) {
 			
 			/* FIN SUPERMAN */
 
+			//		INICIO DE MODELOS EN 3DS
+
+				glPushMatrix();		// PUSH PRINCIPAL
+				glDisable(GL_COLOR_MATERIAL);		//	ACTIVAR COLORES PARA MODELOS 3D
+
+//		BANCAS
+
+				glPushMatrix();
+					glTranslatef(-28, -28.7, -90);
+					glScalef(1.5, 1.5, 1.5);
+					banca.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+					glTranslatef(-23, -28.7, -90);
+					glScalef(1.5, 1.5, 1.5);
+					banca.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+
+				glPushMatrix();
+					glTranslatef(-18, -28.7, -90);
+					glScalef(1.5, 1.5, 1.5);
+					banca.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+//		TERMINO BANCAS
+
+// BARDAS	SUPERMAN
+
+				glPushMatrix();
+					glTranslatef(45,-30.0,-96);
+					glRotatef(90, 0, 1, 0);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+					glTranslatef(45, -30.0, -90);
+					glRotatef(90, 0, 1, 0);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+					glTranslatef(45, -30.0, -84);
+					glRotatef(90, 0, 1, 0);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+					glTranslatef(45, -30.0, -78);
+					glRotatef(90, 0, 1, 0);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+					glTranslatef(45, -30.0, -72);
+					glRotatef(90, 0, 1, 0);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+					glTranslatef(45, -30.0, -66);
+					glRotatef(90, 0, 1, 0);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+					glTranslatef(45, -30.0, -62);
+					glRotatef(90, 0, 1, 0);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(42, -30.0, -59);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(36, -30.0, -59);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(30, -30.0, -59);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(24, -30.0, -59);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+					glTranslatef(21, -30.0, -56);
+					glRotatef(90, 0, 1, 0);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(21, -30.0, -50);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(21, -30.0, -44);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(21, -30.0, -38);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(21, -30.0, -32);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(21, -30.0, -26);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+
+
+						//	ENTRADA EN SUPERMAN
+				
+				glPushMatrix();
+				glTranslatef(18, -30.0, -23);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(12, -30.0, -23);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(6, -30.0, -23);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+							//		entrada
+				glPushMatrix();
+				glTranslatef(2, -30.0, -17);
+				glRotatef(90, 0,1,0);
+				ent.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(18, -30.0, -11);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(12, -30.0, -11);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(6, -30.0, -11);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+
+						//	TERMINA ENTRADA EN SUPERMAN
+				
+
+
+				glPushMatrix();
+				glTranslatef(21, -30.0, -8);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(21, -30.0, -2);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(21, -30.0, 4);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(21, -30.0, 10);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(21, -30.0, 16);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(21, -30.0, 22);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+					glTranslatef(24, -30.0, 25);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(30, -30.0, 25);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(36, -30.0, 25);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(42, -30.0, 25);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(48, -30.0, 25);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(54, -30.0, 25);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(60, -30.0, 25);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(66, -30.0, 25);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(72, -30.0, 25);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(78, -30.0, 25);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(84, -30.0, 25);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(90, -30.0, 25);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(96, -30.0, 25);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(102, -30.0, 25);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(108, -30.0, 25);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(114, -30.0, 25);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+
+//		TERMINO BARDA SUPERMAN
+
+
+
+				glEnable(GL_COLOR_MATERIAL);		//	DESACTIVAR COLORES PARA MODELOS 3D
+				glPopMatrix();		// POP PRINCIPAL
+
+
+
 			glColor3f(1.0,1.0,1.0);
 		
 		glPopMatrix(); // FIN AREA DE DIBUJO
@@ -1043,32 +1344,32 @@ void keyboard(unsigned char key, int x, int y) {
 		break;
 	case 'w':   //Movimientos de camara
 	case 'W':
-		camera.Move_Camera(CAMERASPEED + 0.2);
+		camera.Move_Camera(CAMERASPEED + 2.2);
 		break;
 
 	case 's':
 	case 'S':
-		camera.Move_Camera(-(CAMERASPEED + 0.2));
+		camera.Move_Camera(-(CAMERASPEED + 2.2));
 		break;
 
 	case 'a':
 	case 'A':
-		camera.Strafe_Camera(-(CAMERASPEED + 0.4));
+		camera.Strafe_Camera(-(CAMERASPEED + 2.4));
 		break;
 
 	case 'd':
 	case 'D':
-		camera.Strafe_Camera(CAMERASPEED + 0.4);
+		camera.Strafe_Camera(CAMERASPEED + 2.4);
 		break;
 
 	case 'q':
 	case 'Q':
-		camera.UpDown_Camera(CAMERASPEED + 0.02);
+		camera.UpDown_Camera(CAMERASPEED + 0.5);
 		break;
 
 	case 'e':
 	case 'E':
-		camera.UpDown_Camera(-(CAMERASPEED + 0.02));
+		camera.UpDown_Camera(-(CAMERASPEED + 0.5));
 		break;
 
 	case 'x':
@@ -1100,11 +1401,11 @@ void specialKeys(int key, int x, int y) {
 
 	switch (key) {
 	case GLUT_KEY_PAGE_UP:
-		camera.UpDown_Camera(CAMERASPEED);
+		camera.UpDown_Camera(CAMERASPEED+0.4);
 		break;
 
 	case GLUT_KEY_PAGE_DOWN:
-		camera.UpDown_Camera(-CAMERASPEED);
+		camera.UpDown_Camera(-(CAMERASPEED+0.4));
 		break;
 
 	case GLUT_KEY_UP:     // Presionamos tecla ARRIBA...
