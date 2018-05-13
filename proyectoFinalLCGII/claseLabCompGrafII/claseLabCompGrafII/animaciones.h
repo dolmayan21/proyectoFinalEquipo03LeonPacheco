@@ -1,6 +1,6 @@
 #pragma once
 
-#define NUM_FRAMES 15
+#define NUM_FRAMES 37
 
 class AnimacionSuperman {
 	public:
