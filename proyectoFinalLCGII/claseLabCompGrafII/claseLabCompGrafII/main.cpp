@@ -906,6 +906,12 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 	
 	/* FIN CARGA MODELOS 3DS*/
 
+/* FRAMES SUPERMAN */
+
+	animSuperman.keyFrame[0] = { 25.25, 0.0, -25.5, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[1] = { 33.0, 0.0, -25.5, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[2] = { 33.146446f, 0.0, -24.646446f, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 45.0, 0.0 };
+
 	camera.Position_Camera(0,2.5f,3, 0,2.5f,0, 0, 1, 0);
 
 	return;
@@ -965,8 +971,12 @@ void display ( void ) {
 
 			/* AREA DE PRUEBAS */
 
+				glPushMatrix();
+					glTranslatef(animSuperman.posX, animSuperman.posY, animSuperman.posZ);
+					glRotatef(animSuperman.rotZ, 0.0, 0.0, 1.0);
+					renders.cube(1.0, 1.0, 1.5, 0, 0, 0, 0, 0, 0);
+				glPopMatrix();
 				
-
 				
 			/* FIN AREA DE PRUEBAS */
 
@@ -1392,6 +1402,25 @@ void keyboard(unsigned char key, int x, int y) {
 	case 'Z':
 		movZ -= 1.0;
 		break;
+	case 'j':
+
+		if (animSuperman.initialPlay == false && (animSuperman.finalFrameIndex >= 1)) { // Si la animacion esta parada y tengo almenos dos frames
+
+			animSuperman.resetElements();
+			animSuperman.interpolation();
+
+			animSuperman.play = true;
+			animSuperman.initialPlay = true;
+			animSuperman.currentFrameIndex = 0;
+			animSuperman.currSteps = 0;
+
+		} else {
+
+			animSuperman.play ^= true;
+
+		}
+
+		break;
 	}
 
 	glutPostRedisplay();
@@ -1451,6 +1480,7 @@ void animation() {
 			if (animSuperman.currentFrameIndex >= animSuperman.finalFrameIndex) { /* Termino la animacion completa? */
 				printf("TERMINA ANIMACION SUPERMAN\n");
 				animSuperman.currentFrameIndex = 0;
+				animSuperman.initialPlay = false;
 				animSuperman.play = false;
 			} else { /* ¡ No ha terminado la animacion !, me preparo para nueva animacion entre frames*/
 				animSuperman.currSteps = 0; // Reseteo el contador de pasos

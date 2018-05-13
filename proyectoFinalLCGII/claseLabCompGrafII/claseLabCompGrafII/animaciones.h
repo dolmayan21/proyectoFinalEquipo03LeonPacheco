@@ -1,15 +1,15 @@
 #pragma once
 
-#define NUM_FRAMES 50
+#define NUM_FRAMES 3
 
 class AnimacionSuperman {
 	public:
 	
 	/* VARIABLES A ANIMAR */
 
-		float posX = 0.0f;
-		float posY = 0.0f;
-		float posZ = 0.0f;
+		float posX = 25.25f;
+		float posY = -25.5f;
+		float posZ = 10.0f;
 
 		float rotX = 0.0f;
 		float rotY = 0.0f;
@@ -20,10 +20,11 @@ class AnimacionSuperman {
 		int finalFrameIndex = NUM_FRAMES - 1; // Indice del ultimo frame del arreglo de frames "keyFrame[]"
 		int currentFrameIndex = 0; // Indice del primer frame del arreglo de frames "keyFrame[]"
 
-		int maxSteps = 3000; // ¿ Interpolacion en cuantos pasos ?
+		int maxSteps = 100; // ¿ Interpolacion en cuantos pasos ?
 		int currSteps = 0; // ¡ Para ir variando el paso !
 
 		bool play = false; // Mientras este en true se reproduce la animacion
+		bool initialPlay = false;
 
 		int frame = 0, time, timebase = 0;
 
