@@ -31,6 +31,8 @@
 
 */
 
+#include "Main.h"
+
 #include "texture.h"
 #include "figuras.h"
 #include "Camera.h"
@@ -968,12 +970,6 @@ void display ( void ) {
 				
 			/* FIN AREA DE PRUEBAS */
 
-				
-
-
-
-
-
 			/* ENTRADA */
 
 				glPushMatrix();
@@ -1018,7 +1014,7 @@ void display ( void ) {
 
 			//		INICIO DE MODELOS EN 3DS
 
-				glPushMatrix();		// PUSH PRINCIPAL
+			glPushMatrix();		// PUSH PRINCIPAL
 				glDisable(GL_COLOR_MATERIAL);		//	ACTIVAR COLORES PARA MODELOS 3D
 
 //		BANCAS
@@ -1186,44 +1182,44 @@ void display ( void ) {
 				glPopMatrix();
 
 
-						//	TERMINA ENTRADA EN SUPERMAN
+			// TERMINA ENTRADA EN SUPERMAN
 				
-
+			// BARDA SUPERMAN
 
 				glPushMatrix();
-				glTranslatef(21, -30.0, -8);
-				glRotatef(90, 0, 1, 0);
-				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+					glTranslatef(21, -30.0, -8);
+					glRotatef(90, 0, 1, 0);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(21, -30.0, -2);
-				glRotatef(90, 0, 1, 0);
-				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+					glTranslatef(21, -30.0, -2);
+					glRotatef(90, 0, 1, 0);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(21, -30.0, 4);
-				glRotatef(90, 0, 1, 0);
-				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+					glTranslatef(21, -30.0, 4);
+					glRotatef(90, 0, 1, 0);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(21, -30.0, 10);
-				glRotatef(90, 0, 1, 0);
-				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+					glTranslatef(21, -30.0, 10);
+					glRotatef(90, 0, 1, 0);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(21, -30.0, 16);
-				glRotatef(90, 0, 1, 0);
-				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+					glTranslatef(21, -30.0, 16);
+					glRotatef(90, 0, 1, 0);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(21, -30.0, 22);
-				glRotatef(90, 0, 1, 0);
-				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+					glTranslatef(21, -30.0, 22);
+					glRotatef(90, 0, 1, 0);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
 				glPushMatrix();
@@ -1232,89 +1228,86 @@ void display ( void ) {
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(30, -30.0, 25);
-				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+					glTranslatef(30, -30.0, 25);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(36, -30.0, 25);
-				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+					glTranslatef(36, -30.0, 25);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(42, -30.0, 25);
-				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+					glTranslatef(42, -30.0, 25);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(48, -30.0, 25);
-				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+					glTranslatef(48, -30.0, 25);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(54, -30.0, 25);
-				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+					glTranslatef(54, -30.0, 25);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(60, -30.0, 25);
-				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+					glTranslatef(60, -30.0, 25);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(66, -30.0, 25);
-				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+					glTranslatef(66, -30.0, 25);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(72, -30.0, 25);
-				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+					glTranslatef(72, -30.0, 25);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(78, -30.0, 25);
-				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+					glTranslatef(78, -30.0, 25);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(84, -30.0, 25);
-				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+					glTranslatef(84, -30.0, 25);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(90, -30.0, 25);
-				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+					glTranslatef(90, -30.0, 25);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(96, -30.0, 25);
-				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+					glTranslatef(96, -30.0, 25);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(102, -30.0, 25);
-				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+					glTranslatef(102, -30.0, 25);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(108, -30.0, 25);
-				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+					glTranslatef(108, -30.0, 25);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(114, -30.0, 25);
-				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+					glTranslatef(114, -30.0, 25);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
 
-//		TERMINO BARDA SUPERMAN
+			// TERMINO BARDA SUPERMAN
 
+				glEnable(GL_COLOR_MATERIAL); //	DESACTIVAR COLORES PARA MODELOS 3D
 
-
-				glEnable(GL_COLOR_MATERIAL);		//	DESACTIVAR COLORES PARA MODELOS 3D
-				glPopMatrix();		// POP PRINCIPAL
-
-
+		glPopMatrix();		// POP PRINCIPAL
 
 			glColor3f(1.0,1.0,1.0);
 		
