@@ -52,9 +52,30 @@
 	float movX = 0.0f, movY = 0.0f, movZ = 0.0f;
 	float sideSkyBox = 0.0f;
 
+	typedef struct posRot {
+		float posX;
+		float posY;
+		float posZ;
+		float rotX;
+		float rotY;
+		float rotZ;
+	}posRot;
+
 	GLfloat g_lookupdown = 0.0f;    // Look Position In The Z-Axis
 
 /* FIN VARIABLES GLOBALES */
+
+/* MAQUINA DE ESTADOS -- AVION */
+	
+	bool playAvion = false;
+
+	enum avionEstados { AVANZA, EMP_ROT_Z, BAJA_Y, AVANZA_X_ROT_Z, AVANZA_ROT_360, GIRO_DER, GIRO_DER_BCA_ABAJO, STOP};
+	enum avionEstados edoPreAvion, edoSigAvion;
+
+	posRot avionVar;
+
+
+/* FIN MAQUINA DE ESTADOS -- AVION*/
 
 /* OBJETOS DE CLASES */
 
@@ -1052,6 +1073,21 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 	animSuperman.keyFrame[63] = { 26.25, 0.0, -25.3f, 0.0, -49.5, 0.0, 0.0, 0.0, 180.0, 0.0, 0.0, 0.0 };
 	animSuperman.keyFrame[64] = { 25.25, 0.0, -25.3f, 0.0, -48.5, 0.0, 0.0, 0.0, 270.0, 0.0, 0.0, 0.0 };
 	animSuperman.keyFrame[65] = { 25.25, 0.0, -25.3f, 0.0, -15.0, 0.0, 0.0, 0.0, 270.0, 0.0, 0.0, 0.0 };
+
+/* ANIMACION AVION -- INICIALIZACION DE VARIABLES */
+
+	edoPreAvion = AVANZA;
+	edoSigAvion = AVANZA;
+
+	avionVar.posX = -147.5;
+	avionVar.posY = 20.0;
+	avionVar.posZ = -75.0;
+
+	avionVar.rotX = 0.0;
+	avionVar.rotY = 90.0;
+	avionVar.rotZ = 45.0;
+
+/* CAMARA */
 	
 	camera.Position_Camera(45.0, -15.0f, 30.0, 45.0, -15.0f, -30.0, 0.0, 1.0, 0.0);
 	
@@ -1247,7 +1283,7 @@ void display ( void ) {
 				
 			/* EJES DE REFERENCIA */
 
-				glPushMatrix(); 
+			/*	glPushMatrix(); 
 					glDisable(GL_TEXTURE_2D);
 					glDisable(GL_LIGHTING);
 						glBegin(GL_LINES);
@@ -1264,7 +1300,7 @@ void display ( void ) {
 						glEnd();
 					glEnable(GL_TEXTURE_2D);
 					glEnable(GL_LIGHTING);
-				glPopMatrix(); 
+				glPopMatrix(); */
 		
 			/* FIN EJES DE REFERENCIA */
 
@@ -1275,13 +1311,36 @@ void display ( void ) {
 				glPushMatrix();
 					
 					glDisable(GL_COLOR_MATERIAL);
-						glTranslatef(0.0, 0.0, 0.0);
-						glRotatef(45, 1.0, 0.0, 0.0);
-						glRotatef(0.0, 0.0, 1.0, 0.0);
-						glRotatef(0.0, 0.0, 0.0, 1.0);
+						glTranslatef(avionVar.posX, avionVar.posY, avionVar.posZ);
+						glRotatef(avionVar.rotY, 0.0, 1.0, 0.0);
+						glRotatef(avionVar.rotX, 1.0, 0.0, 0.0);
+						glRotatef(avionVar.rotZ, 0.0, 0.0, 1.0);
+
+
+						glPushMatrix(); 
+							glDisable(GL_TEXTURE_2D);
+							glDisable(GL_LIGHTING);
+								glBegin(GL_LINES);
+									glColor3f(1.0f, 0.0f, 0.0f);
+										glVertex3f(0.0f,0.0f,0.0f);
+										glVertex3f(100.0f,0.0f,0.0f);
+									glColor3f(0.0f, 1.0f, 0.0f);
+										glVertex3f(0.0f,0.0f,0.0f);
+										glVertex3f(0.0f,100.0f,0.0f);
+									glColor3f(0.0f, 0.0f, 1.0f);
+										glVertex3f(0.0f,0.0f,0.0f);
+										glVertex3f(0.0f,0.0f,100.0f);
+									glColor3f(1.0f, 1.0f, 1.0f);
+								glEnd();
+							glEnable(GL_TEXTURE_2D);
+							glEnable(GL_LIGHTING);
+						glPopMatrix(); 
+
+
 						glTranslatef(2.0, -4.5, 0.0); // Reajustamos mas o menos el pivote
 						avion.GLrender(NULL, _SHADED, 1.0); // Modelo 3DS
 					glEnable(GL_COLOR_MATERIAL);
+
 				glPopMatrix();
 
 			/* FIN AVION -- ANIMACION */
@@ -2264,77 +2323,83 @@ void reshape(int width, int height) {
 
 void keyboard(unsigned char key, int x, int y) {
 	switch (key) {
-	case 27: exit(0);
-		break;
-	case 'w':   //Movimientos de camara
-	case 'W':
-		camera.Move_Camera(CAMERASPEED /*+ 2.2*/);
-		break;
+		case 27: exit(0);
+			break;
+		case 'w':   //Movimientos de camara
+		case 'W':
+			camera.Move_Camera(CAMERASPEED /*+ 2.2*/);
+			break;
 
-	case 's':
-	case 'S':
-		camera.Move_Camera(-(CAMERASPEED/* + 2.2*/));
-		break;
+		case 's':
+		case 'S':
+			camera.Move_Camera(-(CAMERASPEED/* + 2.2*/));
+			break;
 
-	case 'a':
-	case 'A':
-		camera.Strafe_Camera(-(CAMERASPEED /*+ 2.4*/));
-		break;
+		case 'a':
+		case 'A':
+			camera.Strafe_Camera(-(CAMERASPEED /*+ 2.4*/));
+			break;
 
-	case 'd':
-	case 'D':
-		camera.Strafe_Camera(CAMERASPEED /*+ 2.4*/);
-		break;
+		case 'd':
+		case 'D':
+			camera.Strafe_Camera(CAMERASPEED /*+ 2.4*/);
+			break;
 
-	case 'q':
-	case 'Q':
-		camera.UpDown_Camera(CAMERASPEED /*+ 0.5*/-0.3);
-		break;
+		case 'q':
+		case 'Q':
+			camera.UpDown_Camera(CAMERASPEED /*+ 0.5*/-0.3);
+			break;
 
-	case 'e':
-	case 'E':
-		camera.UpDown_Camera(-(CAMERASPEED /*+ 0.5*/ -0.3));
-		break;
+		case 'e':
+		case 'E':
+			camera.UpDown_Camera(-(CAMERASPEED /*+ 0.5*/ -0.3));
+			break;
+		case 'x':
+			movX += 1.0;
+			break;
+		case 'y':
+			movY += 1.0;
+			break;
+		case 'z':
+			movZ += 1.0;
+			break;
+		case 'X':
+			movX -= 1.0;
+			break;
+		case 'Y':
+			movY -= 1.0;
+			break;
+		case 'Z':
+			movZ -= 1.0;
+			break;
 
-		
+		case 'j':
+		case 'J':
 
-	case 'x':
-		movX += 1.0;
-		break;
-	case 'y':
-		movY += 1.0;
-		break;
-	case 'z':
-		movZ += 1.0;
-		break;
-	case 'X':
-		movX -= 1.0;
-		break;
-	case 'Y':
-		movY -= 1.0;
-		break;
-	case 'Z':
-		movZ -= 1.0;
-		break;
-	case 'j':
+			if (animSuperman.initialPlay == false && (animSuperman.finalFrameIndex >= 1)) { // Si la animacion esta parada y tengo almenos dos frames
 
-		if (animSuperman.initialPlay == false && (animSuperman.finalFrameIndex >= 1)) { // Si la animacion esta parada y tengo almenos dos frames
+				animSuperman.resetElements();
+				animSuperman.interpolation();
 
-			animSuperman.resetElements();
-			animSuperman.interpolation();
+				animSuperman.play = true;
+				animSuperman.initialPlay = true;
+				animSuperman.currentFrameIndex = 0;
+				animSuperman.currSteps = 0;
 
-			animSuperman.play = true;
-			animSuperman.initialPlay = true;
-			animSuperman.currentFrameIndex = 0;
-			animSuperman.currSteps = 0;
+			} else {
 
-		} else {
+				animSuperman.play ^= true;
 
-			animSuperman.play ^= true;
+			}
 
-		}
+			break;
 
-		break;
+		case 'k':
+		case 'K':
+
+			playAvion ^= true;
+
+			break;
 	}
 
 	glutPostRedisplay();
@@ -2416,6 +2481,47 @@ void animation() {
 
 	}
 
+/* ANIMACION AVION */
+
+	if (playAvion) {
+		edoPreAvion = edoSigAvion;
+
+		switch(edoPreAvion) {
+		
+			case AVANZA:
+
+				avionVar.posX = avionVar.posX + 0.5;
+				avionVar.rotZ = avionVar.rotZ - 0.3333333;
+
+				if (avionVar.posX >= -80.0)
+					edoSigAvion = EMP_ROT_Z;
+				else
+					edoSigAvion = AVANZA;
+
+				break;
+
+			case EMP_ROT_Z:
+
+				avionVar.posX++;	
+			
+				if (avionVar.posX >= -50.0)
+					edoSigAvion = BAJA_Y;
+				else
+					edoSigAvion = EMP_ROT_Z;
+
+				break;
+
+			case BAJA_Y:
+				
+				avionVar.rotX = 45.0;
+
+				break;
+
+			default:
+				break;
+		}
+	}
+
 
 	/* CALCULO DEL NUMERO DE FRAMES POR SEGUNDO */
 
@@ -2447,7 +2553,7 @@ void audio() {
 
 int main ( int argc, char** argv ) {
 	
-	audio();
+	//audio();
 
 	glutInit            (&argc, argv); // Inicializamos OpenGL
 	glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); // Display Mode (Clores RGB y alpha | Buffer Doble )
