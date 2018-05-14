@@ -99,6 +99,7 @@
 	CTexture taquilla;
 	CTexture six;
 	CTexture super;
+	CTexture asiento;
 /* FIN TEXTURAS */
 
 /* MODELOS */
@@ -925,6 +926,10 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 		super.BuildGLTexture();
 		super.ReleaseImage();
 
+		asiento.LoadTGA("texturas/asientos2.tga");
+		asiento.BuildGLTexture();
+		asiento.ReleaseImage();
+
 	/* FIN CARGA TEXTURAS */
 	
 	/* CARGA MODELOS 3DS */
@@ -1091,7 +1096,7 @@ void display ( void ) {
 
 				glPushMatrix();
 				glTranslatef(90.0f, -10.0f, 82.0f);			//  IZQUIERDO PARTE DE ARRIBA
-				glRotatef(anim_soporte2 + 50, 0.0, 0.0, 1.0);		//	CILINDRO animacion
+				glRotatef(anim_soporte + 50, 0.0, 0.0, 1.0);		//	CILINDRO animacion
 				glTranslatef(0.0f, 10.0f, 0.0f);			//  IZQUIERDO PARTE DE ARRIBA
 				glRotatef(90, 0, 1, 0);
 				fig2.cilindro(2.0, 2.5, 20);
@@ -1099,7 +1104,7 @@ void display ( void ) {
 
 				glPushMatrix();
 					glTranslatef(90.0f, -10.0f, 48.0f);			//  DERECHO PARTE DE ARRIBA
-					glRotatef(anim_soporte2 + 50, 0.0, 0.0, 1.0);		//	CILINDRO animacion
+					glRotatef(anim_soporte + 50, 0.0, 0.0, 1.0);		//	CILINDRO animacion
 					glTranslatef(0.0f, 10.0f, 0.0f);			//  DERECHO PARTE DE ARRIBA
 					glRotatef(90, 0, 1, 0);
 					fig2.cilindro(2.0, 2.5, 20);
@@ -1108,7 +1113,7 @@ void display ( void ) {
 
 				glPushMatrix();		//  IZQUIERDO PARTE DE ARRIBA
 					glTranslatef(90.0f, -10.0f, 82.0f);	
-					glRotatef(anim_soporte2 + 50, 0.0, 0.0, 1.0);		//	CILINDRO animacion
+					glRotatef(anim_soporte + 50, 0.0, 0.0, 1.0);		//	CILINDRO animacion
 					glTranslatef(0.0f, -10.0f, 0.0f);
 					glRotatef(90, 0, 1, 0);
 					fig2.cilindro(2.0, 2.5, 20);
@@ -1116,7 +1121,7 @@ void display ( void ) {
 
 				glPushMatrix();			//  DERECHO PARTE DE ARRIBA
 					glTranslatef(90.0f, -10.0f, 48.0f);			
-					glRotatef(anim_soporte2 + 50, 0.0, 0.0, 1.0);		//	CILINDRO animacion
+					glRotatef(anim_soporte + 50, 0.0, 0.0, 1.0);		//	CILINDRO animacion
 					glTranslatef(0.0f, -10.0f, 0.0f);			
 					glRotatef(90, 0, 1, 0);
 					fig2.cilindro(2.0, 2.5, 20);
@@ -1136,16 +1141,45 @@ void display ( void ) {
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(90.0f, -10.0f, 82.0f);
-
-				glRotatef(anim_soporte + 50, 0.0, 0.0, 1.0);		//posterior animacion
-				glDisable(GL_LIGHTING);
-				renders.cube(3.0, 23.0, 1.5,
-					wood.GLindex, wood.GLindex, wood.GLindex,		//	SOPORTES IZQUIERDO
-					wood.GLindex, wood.GLindex, wood.GLindex);
-				glEnable(GL_LIGHTING);
+						glTranslatef(90.0f, -10.0f, 82.0f);
+						glRotatef(anim_soporte + 50, 0.0, 0.0, 1.0);		//posterior animacion
+						glDisable(GL_LIGHTING);
+						renders.cube(3.0, 23.0, 1.5,
+							wood.GLindex, wood.GLindex, wood.GLindex,		//	SOPORTES IZQUIERDO
+							wood.GLindex, wood.GLindex, wood.GLindex);
+						glEnable(GL_LIGHTING);
 				glPopMatrix();
 				
+				//		LO QUE LE PUSE
+
+				glPushMatrix();
+
+							glTranslatef(90.0f, -10.0f, 65.0f);
+
+							glRotatef(anim_soporte + 50, 0.0, 0.0, 1.0);		//posterior animacion
+
+							glTranslatef(0.0f, -10.0f, 0.0f);
+
+						glRotatef(anim_soporte2 + 100, 0.0, 0.0, 1.0);		//posterior animacion
+						glDisable(GL_LIGHTING);
+						renders.cube(5.0, 5.0, 31.0,
+							 wood.GLindex, wood.GLindex, wood.GLindex,		//	SOPORTES IZQUIERDO
+							asiento.GLindex, wood.GLindex, wood.GLindex);
+						glEnable(GL_LIGHTING);
+				glPopMatrix();
+
+
+						//	CILINDRO DE ENMEDIO
+
+				glPushMatrix();		
+				glTranslatef(90.0f, -10.0f, 65.0f);
+				glRotatef(90, 0, 1, 0);
+				fig2.cilindro(0.5, 34.0, 20);
+				glPopMatrix();
+
+				//		FIN DE LO QUE LE PUSE
+
+
 				//	TERMINA HURACÁN
 
 
@@ -1496,6 +1530,7 @@ void display ( void ) {
 					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
+
 				glPushMatrix();
 					glTranslatef(42, -30.0, 25);
 					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
@@ -1515,6 +1550,143 @@ void display ( void ) {
 					glTranslatef(60, -30.0, 25);
 					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
+
+				//		BARDA PARA HURACAN
+				glPushMatrix();
+					glTranslatef(63, -30.0, 28);
+					glRotatef(90, 0, 1, 0);
+					barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(63, -30.0, 34);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(63, -30.0, 40);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+
+				glPushMatrix();
+				glTranslatef(63, -30.0, 46);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(63, -30.0, 52);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(63, -30.0, 58);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+
+							//	CAMINO PARA HURRICANE
+
+				glPushMatrix();
+				glTranslatef(60, -30.0, 61);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(54, -30.0, 61);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(48, -30.0, 61);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(42, -30.0, 61);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(36, -30.0, 61);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+						//	MAIN
+				glPushMatrix();
+				glTranslatef(33, -30.0, 67);
+				glRotatef(90, 0, 1, 0);
+				ent.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+						//	TERMINO MAIN
+
+				glPushMatrix();
+				glTranslatef(60, -30.0, 73);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(54, -30.0, 73);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(48, -30.0, 73);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(42, -30.0, 73);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(36, -30.0, 73);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+
+							//	FIN CAMINO
+
+				glPushMatrix();
+				glTranslatef(63, -30.0, 76);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(63, -30.0, 82);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(63, -30.0, 88);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(63, -30.0, 94);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(63, -30.0, 100);
+				glRotatef(90, 0, 1, 0);
+				barda.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+			
+				
+				//		TERMINO BARDA HURACAN
 
 				glPushMatrix();
 					glTranslatef(66, -30.0, 25);
@@ -2274,7 +2446,9 @@ void animation() {
 		nucleo = (nucleo + 1) % 360;
 		anim_soporte = (anim_soporte + 20) % 360;
 
-		anim_soporte2 = (anim_soporte2 + 20)% 360;
+		anim_soporte2 = -anim_soporte;
+
+		anim_soporte2 = (anim_soporte2 + 50)% 360;
 		
 
 		dwLastUpdateTime = dwCurrentTime;
@@ -2294,7 +2468,7 @@ void audio() {
 
 int main ( int argc, char** argv ) {
 	
-	audio();
+	//audio();
 
   glutInit            (&argc, argv); // Inicializamos OpenGL
   glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); // Display Mode (Clores RGB y alpha | Buffer Doble )
