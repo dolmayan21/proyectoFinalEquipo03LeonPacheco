@@ -40,6 +40,8 @@
 #include "animaciones.h"
 #include "cmodel/CModel.h"
 
+
+
 ////Solo para Visual Studio 2015
 //#if (_MSC_VER == 1900)
 //#   pragma comment( lib, "legacy_stdio_definitions.lib" )
@@ -101,6 +103,9 @@
 	CTexture carrMontTras;
 	CTexture carrMontSuelo;
 
+	CTexture six;
+	CTexture super;
+
 /* FIN TEXTURAS */
 
 /* MODELOS */
@@ -128,6 +133,24 @@
 
 
 /* FIN MODELOS */
+
+	//			ANIMACIONES ANIMACION
+
+	//Animación de HURACAN
+
+	
+	
+	float gira_carro = 90.0;
+
+	// Variables used to calculate frames per second: (Windows)
+	DWORD dwFrames = 0;
+	DWORD dwCurrentTime = 0;
+	DWORD dwLastUpdateTime = 0;
+	DWORD dwElapsedTime = 0;
+
+	int nucleo = 0.0;
+	int anim_soporte = 0.0;
+	int anim_soporte2 = 0.0;
 
 void renderSuperman() {
 
@@ -839,6 +862,8 @@ void renderPuntosCarriles() {
 	glPopMatrix();
 
 }
+
+
 			
 void InitGL ( GLvoid )     // Inicializamos parametros
 {
@@ -870,7 +895,7 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 		none.BuildGLTexture();
 		none.ReleaseImage();
 
-		wood.LoadTGA("texturas/wood.tga");
+		wood.LoadTGA("texturas/wood2.tga");
 		wood.BuildGLTexture();
 		wood.ReleaseImage();
 
@@ -917,7 +942,14 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 		carrMontSuelo.LoadTGA("texturas/carrMontSuelo.tga");
 		carrMontSuelo.BuildGLTexture();
 		carrMontSuelo.ReleaseImage();
+
+		six.LoadTGA("texturas/six.tga");
+		six.BuildGLTexture();
+		six.ReleaseImage();
 		
+		super.LoadTGA("texturas/super.tga");
+		super.BuildGLTexture();
+		super.ReleaseImage();
 
 	/* FIN CARGA TEXTURAS */
 	
@@ -1027,6 +1059,7 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 
 }
 
+
 void display ( void ) {
 
 	glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -1052,6 +1085,165 @@ void display ( void ) {
 				glPopMatrix();
 
 			/* FIN SKYBOX */
+
+							//	SIMBOLO SIX
+				glPushMatrix();
+					glTranslatef(-85.0f, -29.0f, -20.5f);
+					glRotatef(90, 0,1,0);
+					glDisable(GL_LIGHTING);
+					renders.cube(30.0, 0.2, 30.0,
+					six.GLindex, six.GLindex, six.GLindex, six.GLindex, six.GLindex, six.GLindex);
+					glEnable(GL_LIGHTING);
+				glPopMatrix();
+
+
+				glPushMatrix();
+					glTranslatef(30.0f, -29.0f, -80.5f);
+					glRotatef(-90, 0, 1, 0);
+					glDisable(GL_LIGHTING);
+					renders.cube(20.0, 0.2, 20.0,
+					six.GLindex, six.GLindex, six.GLindex, six.GLindex, six.GLindex, six.GLindex);
+					glEnable(GL_LIGHTING);
+				glPopMatrix();
+
+						//	ESFERA SUPERMAN
+				glPushMatrix();
+					glTranslatef(60.0f, -15.0f, -70.5f);
+					glEnable(GL_ALPHA_TEST);
+					glAlphaFunc(GL_GREATER, 0.1);
+					fig2.esfera(10.0, 10.0, 10.0, super.GLindex);
+					glDisable(GL_ALPHA_TEST);
+				glPopMatrix();				
+
+			//	TERMINA	SIMBOLOS SIX
+
+			// COMIENZA HURACÁN
+
+				glPushMatrix();
+						glTranslatef(92.0f, -29.0f, 65.5f);
+						glDisable(GL_LIGHTING);
+						renders.cube(25.0, 1.0, 45.0,
+							wood.GLindex, wood.GLindex, wood.GLindex,		//	BASE 
+							wood.GLindex, wood.GLindex, wood.GLindex);
+						glEnable(GL_LIGHTING);
+				glPopMatrix();	
+
+				glPushMatrix();
+				glTranslatef(90.0f, -19.5f, 85.0f);
+				glDisable(GL_LIGHTING);
+				renders.cube(3.0, 20.0, 1.5,
+					wood.GLindex, wood.GLindex, wood.GLindex,		//	SOPORTE IZQUIERDO
+					wood.GLindex, wood.GLindex, wood.GLindex);
+				glEnable(GL_LIGHTING);
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(90.0f, -19.5f, 45.0f);
+				glDisable(GL_LIGHTING);
+				renders.cube(3.0, 20.0, 1.5,
+					wood.GLindex, wood.GLindex, wood.GLindex,		//	SOPORTE DERECHO
+					wood.GLindex, wood.GLindex, wood.GLindex);
+				glEnable(GL_LIGHTING);
+				glPopMatrix();
+						
+					//		CILINDROS
+										
+				glPushMatrix();
+					glTranslatef(90.0f, -10.0f, 85.0f);		// IZQUIERDO
+					glRotatef(90, 0, 1, 0);
+					fig2.cilindro(2.0, 2, 20);
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(90.0f, -10.0f, 45.0f);			// DERECHO
+				glRotatef(90, 0, 1, 0);
+				fig2.cilindro(2.0, 2, 20);
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(90.0f, -10.0f, 46.0f);			// PEQUEÑO DERECHO
+				glRotatef(90, 0, 1, 0);
+				fig2.cilindro(0.5, 2, 20);
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(90.0f, -10.0f, 84.0f);			// PEQUEÑO IZQUIERDO
+				glRotatef(90, 0, 1, 0);
+				fig2.cilindro(0.5, 2, 20);
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(90.0f, -10.0f, 48.0f);		//	DERECHO
+				glRotatef(90, 0, 1, 0);
+				fig2.cilindro(2.0, 2.5, 20);
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(90.0f, -10.0f, 82.0f);			//  IZQUIERDO
+				glRotatef(90, 0, 1, 0);
+				fig2.cilindro(2.0, 2.5, 20);
+				glPopMatrix();
+
+
+				glPushMatrix();
+				glTranslatef(90.0f, -10.0f, 82.0f);			//  IZQUIERDO PARTE DE ARRIBA
+				glRotatef(anim_soporte2 + 50, 0.0, 0.0, 1.0);		//	CILINDRO animacion
+				glTranslatef(0.0f, 10.0f, 0.0f);			//  IZQUIERDO PARTE DE ARRIBA
+				glRotatef(90, 0, 1, 0);
+				fig2.cilindro(2.0, 2.5, 20);
+				glPopMatrix();
+
+				glPushMatrix();
+					glTranslatef(90.0f, -10.0f, 48.0f);			//  DERECHO PARTE DE ARRIBA
+					glRotatef(anim_soporte2 + 50, 0.0, 0.0, 1.0);		//	CILINDRO animacion
+					glTranslatef(0.0f, 10.0f, 0.0f);			//  DERECHO PARTE DE ARRIBA
+					glRotatef(90, 0, 1, 0);
+					fig2.cilindro(2.0, 2.5, 20);
+				glPopMatrix();
+				
+
+				glPushMatrix();		//  IZQUIERDO PARTE DE ARRIBA
+					glTranslatef(90.0f, -10.0f, 82.0f);	
+					glRotatef(anim_soporte2 + 50, 0.0, 0.0, 1.0);		//	CILINDRO animacion
+					glTranslatef(0.0f, -10.0f, 0.0f);
+					glRotatef(90, 0, 1, 0);
+					fig2.cilindro(2.0, 2.5, 20);
+				glPopMatrix();
+
+				glPushMatrix();			//  DERECHO PARTE DE ARRIBA
+					glTranslatef(90.0f, -10.0f, 48.0f);			
+					glRotatef(anim_soporte2 + 50, 0.0, 0.0, 1.0);		//	CILINDRO animacion
+					glTranslatef(0.0f, -10.0f, 0.0f);			
+					glRotatef(90, 0, 1, 0);
+					fig2.cilindro(2.0, 2.5, 20);
+				glPopMatrix();
+					//	FIN	CILINDROS
+
+
+				glPushMatrix();
+					glTranslatef(90.0f, -10.0f, 48.0f);
+					
+					glRotatef(anim_soporte +50, 0.0, 0.0, 1.0);		//posterior animacion
+					glDisable(GL_LIGHTING);
+					renders.cube(3.0, 23.0, 1.5,
+						wood.GLindex, wood.GLindex, wood.GLindex,		//	SOPORTES DERECHO
+						wood.GLindex, wood.GLindex, wood.GLindex);
+					glEnable(GL_LIGHTING);
+				glPopMatrix();
+
+				glPushMatrix();
+				glTranslatef(90.0f, -10.0f, 82.0f);
+
+				glRotatef(anim_soporte + 50, 0.0, 0.0, 1.0);		//posterior animacion
+				glDisable(GL_LIGHTING);
+				renders.cube(3.0, 23.0, 1.5,
+					wood.GLindex, wood.GLindex, wood.GLindex,		//	SOPORTES IZQUIERDO
+					wood.GLindex, wood.GLindex, wood.GLindex);
+				glEnable(GL_LIGHTING);
+				glPopMatrix();
+				
+			//	TERMINA HURACÁN
+
 				
 			/* EJES DE REFERENCIA */
 
@@ -1092,7 +1284,7 @@ void display ( void ) {
 					glEnable(GL_COLOR_MATERIAL);
 				glPopMatrix();
 
-				/* FIN AVION -- ANIMACION */
+			/* FIN AVION -- ANIMACION */
 
 
 			/* FIN AREA DE PRUEBAS */
@@ -1132,6 +1324,8 @@ void display ( void ) {
 				glPopMatrix();
 
 			/* TERMINA ASFALTO ESTACIONAMIENTO */
+
+		
 
 			/* ENTRADA 1*/
 
@@ -1499,8 +1693,6 @@ void display ( void ) {
 
 
 			// TERMINO BARDA SUPERMAN
-
-
 	
 //		ARBOLES
 				glPushMatrix();
@@ -1527,8 +1719,6 @@ void display ( void ) {
 				glPopMatrix();
 
 				glPushMatrix();
-//HEAD
-			//	glTranslatef(-112.0f, -30.0f, -40.5f);
 				glTranslatef(-112.0f, -30.0f, -50.5f);
 				tree1.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
@@ -2029,8 +2219,8 @@ void display ( void ) {
 // COMIENZO DE PERSONAS
 	
 				glPushMatrix();
-				glTranslatef(-20.0f, -30.0f, 70.5f);
-				glScalef(10.0,10.0,10.0);
+				glTranslatef(-20.0f, -30.0f, 65.5f);
+				glScalef(2.0,2.0,2.0);
 				people.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
 
@@ -2105,6 +2295,8 @@ void keyboard(unsigned char key, int x, int y) {
 	case 'E':
 		camera.UpDown_Camera(-(CAMERASPEED /*+ 0.5*/ -0.3));
 		break;
+
+		
 
 	case 'x':
 		movX += 1.0;
@@ -2224,6 +2416,27 @@ void animation() {
 
 	}
 
+
+	/* CALCULO DEL NUMERO DE FRAMES POR SEGUNDO */
+
+	//dwFrames++;
+	dwCurrentTime = GetTickCount(); // Even better to use timeGetTime()
+	dwElapsedTime = dwCurrentTime - dwLastUpdateTime;
+
+	if (dwElapsedTime >= 30)
+	{
+
+
+		nucleo = (nucleo + 1) % 360;
+		anim_soporte = (anim_soporte + 20) % 360;
+
+		anim_soporte2 = (anim_soporte2 + 20)% 360;
+		
+
+		dwLastUpdateTime = dwCurrentTime;
+
+	}
+
 	glutPostRedisplay();
 }
 
@@ -2234,22 +2447,22 @@ void audio() {
 
 int main ( int argc, char** argv ) {
 	
-//	audio();
+	audio();
 
-  glutInit            (&argc, argv); // Inicializamos OpenGL
-  glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); // Display Mode (Clores RGB y alpha | Buffer Doble )
-  glutInitWindowSize  (1280, 720);	// Tamaño de la Ventana
-  glutInitWindowPosition (0, 0);	//Posicion de la Ventana
-  glutCreateWindow    ("Parque de Diversiones"); // Nombre de la Ventana
-  //glutFullScreen     ( );         // Full Screen
-  InitGL ();						// Parametros iniciales de la aplicacion
-  glutDisplayFunc     ( display );  //Indicamos a Glut función de dibujo
-  glutReshapeFunc     ( reshape );	//Indicamos a Glut función en caso de cambio de tamano
-  glutKeyboardFunc    ( keyboard );	//Indicamos a Glut función de manejo de teclado
-  glutSpecialFunc     ( specialKeys );	//Otras
-  glutIdleFunc		  ( animation );
+	glutInit            (&argc, argv); // Inicializamos OpenGL
+	glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); // Display Mode (Clores RGB y alpha | Buffer Doble )
+	glutInitWindowSize  (1280, 720);	// Tamaño de la Ventana
+	glutInitWindowPosition (0, 0);	//Posicion de la Ventana
+	glutCreateWindow    ("Parque de Diversiones"); // Nombre de la Ventana
+	//glutFullScreen     ( );         // Full Screen
+	InitGL ();						// Parametros iniciales de la aplicacion
+	glutDisplayFunc     ( display );  //Indicamos a Glut función de dibujo
+	glutReshapeFunc     ( reshape );	//Indicamos a Glut función en caso de cambio de tamano
+	glutKeyboardFunc    ( keyboard );	//Indicamos a Glut función de manejo de teclado
+	glutSpecialFunc     ( specialKeys );	//Otras
+	glutIdleFunc		  ( animation );
 
-  glutMainLoop        ( );          // 
+	glutMainLoop        ( );          // 
 
-  return 0;
+	return 0;
 }
