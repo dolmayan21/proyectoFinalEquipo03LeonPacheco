@@ -40,6 +40,8 @@
 #include "animaciones.h"
 #include "cmodel/CModel.h"
 
+
+
 ////Solo para Visual Studio 2015
 //#if (_MSC_VER == 1900)
 //#   pragma comment( lib, "legacy_stdio_definitions.lib" )
@@ -96,6 +98,7 @@
 	CTexture asfalto;
 	CTexture taquilla;
 	CTexture six;
+	CTexture super;
 /* FIN TEXTURAS */
 
 /* MODELOS */
@@ -124,15 +127,20 @@
 	//			ANIMACIONES ANIMACION
 
 	//Animación de HURACAN
-	float movKit = 0.0;
-	bool g_fanimacion = false;
-	bool g_fanimacion2 = true;
-	float anim_soporte = 0.0;
-	float anim_soporte2 = 0.0;
+
+	
+	
 	float gira_carro = 90.0;
 
+	// Variables used to calculate frames per second: (Windows)
+	DWORD dwFrames = 0;
+	DWORD dwCurrentTime = 0;
+	DWORD dwLastUpdateTime = 0;
+	DWORD dwElapsedTime = 0;
 
-
+	int nucleo = 0.0;
+	int anim_soporte = 0.0;
+	int anim_soporte2 = 0.0;
 
 void renderSuperman() {
 
@@ -913,6 +921,9 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 		six.BuildGLTexture();
 		six.ReleaseImage();
 		
+		super.LoadTGA("texturas/super.tga");
+		super.BuildGLTexture();
+		super.ReleaseImage();
 
 	/* FIN CARGA TEXTURAS */
 	
@@ -977,26 +988,38 @@ void display ( void ) {
 
 			/* FIN SKYBOX */
 
-				//	SIMBOLO SIX
+							//	SIMBOLO SIX
 				glPushMatrix();
-				glTranslatef(-85.0f, -29.0f, -20.5f);
-				glRotatef(90, 0,1,0);
-				glDisable(GL_LIGHTING);
-				renders.cube(30.0, 0.2, 30.0,
+					glTranslatef(-85.0f, -29.0f, -20.5f);
+					glRotatef(90, 0,1,0);
+					glDisable(GL_LIGHTING);
+					renders.cube(30.0, 0.2, 30.0,
 					six.GLindex, six.GLindex, six.GLindex, six.GLindex, six.GLindex, six.GLindex);
-				glEnable(GL_LIGHTING);
+					glEnable(GL_LIGHTING);
 				glPopMatrix();
 
 
 				glPushMatrix();
-				glTranslatef(30.0f, -29.0f, -80.5f);
-				glRotatef(-90, 0, 1, 0);
-				glDisable(GL_LIGHTING);
-				renders.cube(20.0, 0.2, 20.0,
+					glTranslatef(30.0f, -29.0f, -80.5f);
+					glRotatef(-90, 0, 1, 0);
+					glDisable(GL_LIGHTING);
+					renders.cube(20.0, 0.2, 20.0,
 					six.GLindex, six.GLindex, six.GLindex, six.GLindex, six.GLindex, six.GLindex);
-				glEnable(GL_LIGHTING);
+					glEnable(GL_LIGHTING);
 				glPopMatrix();
-							//		SIMBOLOS SIX
+
+						//	ESFERA SUPERMAN
+				glPushMatrix();
+					glTranslatef(60.0f, -15.0f, -70.5f);
+					glEnable(GL_ALPHA_TEST);
+					glAlphaFunc(GL_GREATER, 0.1);
+					fig2.esfera(10.0, 10.0, 10.0, super.GLindex);
+					glDisable(GL_ALPHA_TEST);
+				glPopMatrix();
+
+				
+
+						//	TERMINA	SIMBOLOS SIX
 
 				// COMIENZA HURACÁN
 
@@ -1067,27 +1090,36 @@ void display ( void ) {
 
 
 				glPushMatrix();
-				glTranslatef(90.0f, -0.0f, 82.0f);			//  IZQUIERDO PARTE DE ARRIBA
+				glTranslatef(90.0f, -10.0f, 82.0f);			//  IZQUIERDO PARTE DE ARRIBA
+				glRotatef(anim_soporte2 + 50, 0.0, 0.0, 1.0);		//	CILINDRO animacion
+				glTranslatef(0.0f, 10.0f, 0.0f);			//  IZQUIERDO PARTE DE ARRIBA
 				glRotatef(90, 0, 1, 0);
 				fig2.cilindro(2.0, 2.5, 20);
 				glPopMatrix();
 
 				glPushMatrix();
-				glTranslatef(90.0f, -0.0f, 48.0f);			//  DERECHO PARTE DE ARRIBA
-				glRotatef(90, 0, 1, 0);
-				fig2.cilindro(2.0, 2.5, 20);
+					glTranslatef(90.0f, -10.0f, 48.0f);			//  DERECHO PARTE DE ARRIBA
+					glRotatef(anim_soporte2 + 50, 0.0, 0.0, 1.0);		//	CILINDRO animacion
+					glTranslatef(0.0f, 10.0f, 0.0f);			//  DERECHO PARTE DE ARRIBA
+					glRotatef(90, 0, 1, 0);
+					fig2.cilindro(2.0, 2.5, 20);
+				glPopMatrix();
+				
+
+				glPushMatrix();		//  IZQUIERDO PARTE DE ARRIBA
+					glTranslatef(90.0f, -10.0f, 82.0f);	
+					glRotatef(anim_soporte2 + 50, 0.0, 0.0, 1.0);		//	CILINDRO animacion
+					glTranslatef(0.0f, -10.0f, 0.0f);
+					glRotatef(90, 0, 1, 0);
+					fig2.cilindro(2.0, 2.5, 20);
 				glPopMatrix();
 
-				glPushMatrix();
-				glTranslatef(90.0f, -20.0f, 82.0f);			//  IZQUIERDO PARTE DE ARRIBA
-				glRotatef(90, 0, 1, 0);
-				fig2.cilindro(2.0, 2.5, 20);
-				glPopMatrix();
-
-				glPushMatrix();
-				glTranslatef(90.0f, -20.0f, 48.0f);			//  DERECHO PARTE DE ARRIBA
-				glRotatef(90, 0, 1, 0);
-				fig2.cilindro(2.0, 2.5, 20);
+				glPushMatrix();			//  DERECHO PARTE DE ARRIBA
+					glTranslatef(90.0f, -10.0f, 48.0f);			
+					glRotatef(anim_soporte2 + 50, 0.0, 0.0, 1.0);		//	CILINDRO animacion
+					glTranslatef(0.0f, -10.0f, 0.0f);			
+					glRotatef(90, 0, 1, 0);
+					fig2.cilindro(2.0, 2.5, 20);
 				glPopMatrix();
 					//	FIN	CILINDROS
 
@@ -1095,7 +1127,7 @@ void display ( void ) {
 				glPushMatrix();
 					glTranslatef(90.0f, -10.0f, 48.0f);
 					
-					//glRotatef(anim_soporte, 1.0, 0.0, 0.0);		//posterior animacion
+					glRotatef(anim_soporte +50, 0.0, 0.0, 1.0);		//posterior animacion
 					glDisable(GL_LIGHTING);
 					renders.cube(3.0, 23.0, 1.5,
 						wood.GLindex, wood.GLindex, wood.GLindex,		//	SOPORTES DERECHO
@@ -1106,7 +1138,7 @@ void display ( void ) {
 				glPushMatrix();
 				glTranslatef(90.0f, -10.0f, 82.0f);
 
-				//glRotatef(anim_soporte, 1.0, 0.0, 0.0);		//posterior animacion
+				glRotatef(anim_soporte + 50, 0.0, 0.0, 1.0);		//posterior animacion
 				glDisable(GL_LIGHTING);
 				renders.cube(3.0, 23.0, 1.5,
 					wood.GLindex, wood.GLindex, wood.GLindex,		//	SOPORTES IZQUIERDO
@@ -2129,21 +2161,7 @@ void keyboard(unsigned char key, int x, int y) {
 		camera.UpDown_Camera(-(CAMERASPEED + 0.5));
 		break;
 
-			//		ANIMACION DEL HURACAN
-
-	case 'r':
-	case 'R':
-		movKit = 0.0;
-		//g_fanimacion2 = true;
-		g_fanimacion = true;
-		gira_carro = 90.0;
-		break;
-
-	case ' ':		//Poner algo en movimiento
-		g_fanimacion ^= true; //Activamos/desactivamos la animacíon
-		break;
-
-			//	FIN ANIMACION DE HURACAN
+		
 
 	case 'x':
 		movX += 1.0;
@@ -2243,19 +2261,25 @@ void animation() {
 
 	}
 
-	if (g_fanimacion == true)
+
+	// Calculate the number of frames per one second:
+	//dwFrames++;
+	dwCurrentTime = GetTickCount(); // Even better to use timeGetTime()
+	dwElapsedTime = dwCurrentTime - dwLastUpdateTime;
+
+	if (dwElapsedTime >= 30)
 	{
-		//movKit += 1;
-		anim_soporte += 3.0;
-		if (movKit == 125) {
-			gira_carro = 90.0;
-			movKit = -125;
+
+
+		nucleo = (nucleo + 1) % 360;
+		anim_soporte = (anim_soporte + 20) % 360;
+
+		anim_soporte2 = (anim_soporte2 + 20)% 360;
 		
-			g_fanimacion = true;
-		}
+
+		dwLastUpdateTime = dwCurrentTime;
 
 	}
-
 
 
 
@@ -2270,7 +2294,7 @@ void audio() {
 
 int main ( int argc, char** argv ) {
 	
-//	audio();
+	audio();
 
   glutInit            (&argc, argv); // Inicializamos OpenGL
   glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); // Display Mode (Clores RGB y alpha | Buffer Doble )
