@@ -1286,8 +1286,37 @@ void display ( void ) {
 							wood.GLindex, wood.GLindex, wood.GLindex);
 						glEnable(GL_LIGHTING);
 				glPopMatrix();
-		
+				
 				//		LO QUE LE PUSE
+
+				glPushMatrix();
+
+							glTranslatef(90.0f, -10.0f, 65.0f);
+
+							glRotatef(anim_soporte + 50, 0.0, 0.0, 1.0);		//posterior animacion
+
+							glTranslatef(0.0f, -10.0f, 0.0f);
+
+						glRotatef(anim_soporte2 + 100, 0.0, 0.0, 1.0);		//posterior animacion
+						glDisable(GL_LIGHTING);
+						renders.cube(5.0, 5.0, 31.0,
+							 wood.GLindex, wood.GLindex, wood.GLindex,		//	SOPORTES IZQUIERDO
+							asiento.GLindex, wood.GLindex, wood.GLindex);
+						glEnable(GL_LIGHTING);
+				glPopMatrix();
+
+
+						//	CILINDRO DE ENMEDIO
+
+				glPushMatrix();		
+				glTranslatef(90.0f, -10.0f, 65.0f);
+				glRotatef(90, 0, 1, 0);
+				fig2.cilindro(0.5, 34.0, 20);
+				glPopMatrix();
+
+				//		FIN DE LO QUE LE PUSE
+			//	TERMINA HURACÁN
+
 
 				glPushMatrix();
 
@@ -2454,7 +2483,27 @@ void display ( void ) {
 // COMIENZO DE PERSONAS
 	
 				glPushMatrix();
+				glTranslatef(-20.0f, -38.0f, 65.5f);
+				glRotatef(180, 0, 1, 0);
 
+
+				glScalef(2.3, 2.3, 2.3);			///		PRUEBA
+				
+				glTranslatef(0, 4, movKit);
+
+				people.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+
+				glPopMatrix();
+
+				//			ANIMACION
+
+				/*
+				glPushMatrix();
+				glTranslatef(-20.0f, -30.0f, 65.5f);
+				glScalef(2.0,2.0,2.0);
+				people.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+				*/
 				
 
 				glTranslatef(-20.0f, -38.0f, 65.5f);
@@ -2628,7 +2677,6 @@ void keyboard(unsigned char key, int x, int y) {
 			break;
 
 			//			FIN DE ANIMACION DE PERSONA
-
 	}
 
 	glutPostRedisplay();
@@ -2771,7 +2819,6 @@ void animation() {
 
 	}
 
-	
 	//		PERSONA
 
 	if (g_persona && movKit <= 10)
@@ -2785,12 +2832,9 @@ void animation() {
 			voltear = -90.0;
 			movKit = -10;
 		}
-
+	}
 	//	voltear;
 
-	}
-
-	
 	if (g_persona2 == false && movKit <= 10)
 	{
 		movKit += 0.5;
@@ -2803,13 +2847,13 @@ void animation() {
 		}
 
 	}
-	
+
 	glutPostRedisplay();
 }
 
 void audio() {
 	PlaySound("feria.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
-	}
+}
 
 
 int main ( int argc, char** argv ) {
