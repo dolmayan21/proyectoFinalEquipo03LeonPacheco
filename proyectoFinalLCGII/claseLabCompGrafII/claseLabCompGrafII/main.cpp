@@ -28,6 +28,7 @@
 		>: Rotar camara derecha.
 		^: Rotar camara arriba.
 		v: Rotar camara abajo.
+		SPACE : Comenzar con recorrido de monito.
 
 */
 
@@ -129,19 +130,20 @@
 
 	//Animación de HURACAN
 
-	
-	
-	float gira_carro = 90.0;
-
-	// Variables used to calculate frames per second: (Windows)
 	DWORD dwFrames = 0;
 	DWORD dwCurrentTime = 0;
 	DWORD dwLastUpdateTime = 0;
 	DWORD dwElapsedTime = 0;
 
-	int nucleo = 0.0;
 	int anim_soporte = 0.0;
 	int anim_soporte2 = 0.0;
+
+	//Animacion Persona
+	float movKit = 0.0;
+	float voltear = 90.0;
+	bool g_persona = false;
+	bool g_persona2 = true;
+
 
 void renderSuperman() {
 
@@ -2251,10 +2253,31 @@ void display ( void ) {
 // COMIENZO DE PERSONAS
 	
 				glPushMatrix();
+
+				
+
+				glTranslatef(-20.0f, -38.0f, 65.5f);
+				glRotatef(180, 0, 1, 0);
+
+
+				glScalef(2.3, 2.3, 2.3);			///		PRUEBA
+				
+				glTranslatef(0, 4, movKit);
+
+				people.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+
+				glPopMatrix();
+
+				//			ANIMACION
+
+				/*
+				glPushMatrix();
 				glTranslatef(-20.0f, -30.0f, 65.5f);
 				glScalef(2.0,2.0,2.0);
 				people.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
+				*/
+
 
 // FIN DE PERSONAS
 
@@ -2333,7 +2356,31 @@ void keyboard(unsigned char key, int x, int y) {
 		camera.UpDown_Camera(-(CAMERASPEED + 0.5));
 		break;
 
+		//			ANIMACION DE PERSONA
+	case 'r':
+	case 'R':
+		movKit = 0.0;
+		g_persona2 = true;
+		g_persona = false;
+		voltear = 90.0;
+		break;
+
+	case ' ':		//Poner algo en movimiento
+		movKit = 0.0;
+		g_persona2 = true;
+		g_persona = false;
+		voltear = 90.0;
+
+
+
+		g_persona ^= true; //Activamos/desactivamos la animacíon
+		break;
+
+		//			FIN DE ANIMACION DE PERSONA
+
 		
+
+
 
 	case 'x':
 		movX += 1.0;
@@ -2442,21 +2489,50 @@ void animation() {
 	if (dwElapsedTime >= 30)
 	{
 
-
-		nucleo = (nucleo + 1) % 360;
 		anim_soporte = (anim_soporte + 20) % 360;
-
 		anim_soporte2 = -anim_soporte;
-
 		anim_soporte2 = (anim_soporte2 + 50)% 360;
-		
-
 		dwLastUpdateTime = dwCurrentTime;
+
+	}
+
+	//		PERSONA
+
+	if (g_persona && movKit <= 10)
+	{
+
+		movKit += 0.5;
+
+		if (movKit == 10) {
+			g_persona2 = false;
+			g_persona = false;
+			voltear = -90.0;
+			movKit = -10;
+		}
+
+	//	voltear;
+
+	}
+
+	
+	if (g_persona2 == false && movKit <= 10)
+	{
+		movKit += 0.5;
+
+		if (movKit == 10) {
+			voltear = 90.0;
+			movKit = -10;
+			g_persona2 = true;
+			g_persona = true;
+		}
 
 	}
 
 
 
+
+
+	
 
 	glutPostRedisplay();
 }
