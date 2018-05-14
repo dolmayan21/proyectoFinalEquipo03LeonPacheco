@@ -52,6 +52,7 @@
 
 	float movX = 0.0f, movY = 0.0f, movZ = 0.0f;
 	float sideSkyBox = 0.0f;
+	float rotEsfSup = 0.0f;
 
 	typedef struct posRot {
 		float posX;
@@ -65,20 +66,42 @@
 	GLfloat g_lookupdown = 0.0f;    // Look Position In The Z-Axis
 
 	bool playHuracan = false;
+	
 
 /* FIN VARIABLES GLOBALES */
+
+/* MAQUINA DE ESTADOS PELOTA */
+
+	float pelotaX = 0.0f, pelotaY = 0.0;
+
+	bool playPelota = false;
+
+	enum pelotaEstados { Y1_, Y2_, Y3_, Y4_, Y5_, STOOOP };
+	enum pelotaEstados edoPrePelota, edoSigPelota;
+
+
+/* FIN MAQUINA DE ESTADOS PELOTA*/
 
 /* MAQUINA DE ESTADOS -- AVION */
 	
 	bool playAvion = false;
 
-	enum avionEstados { AVANZA, EMP_ROT_Z, BAJA_Y, AVANZA_X_ROT_Z, AVANZA_ROT_360, GIRO_DER, GIRO_DER_BCA_ABAJO, STOP};
+	enum avionEstados { APXRPZ, APX, APXRN, APXRNZ, APXRNZ_2, APX_2, STOP};
 	enum avionEstados edoPreAvion, edoSigAvion;
 
 	posRot avionVar;
 
 
 /* FIN MAQUINA DE ESTADOS -- AVION*/
+
+/* MAQUINA DE ESTADOS -- RECORRIDO */
+
+	bool playRecorrido = false;
+
+	enum recorridoEstados { E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, STOOP };
+	enum recorridoEstados edoPreRec, edoSigRec;
+
+/* FIN MAQUINA DE ESTADOS -- RECORRIDO */
 
 /* OBJETOS DE CLASES */
 
@@ -129,8 +152,10 @@
 
 	CTexture six;
 	CTexture super;
-
 	CTexture asiento;
+	CTexture supermanLogo;
+
+	CTexture basketball;
 
 /* FIN TEXTURAS */
 
@@ -891,6 +916,7 @@ void renderPuntosCarriles() {
 }
 
 
+
 			
 void InitGL ( GLvoid )     // Inicializamos parametros
 {
@@ -981,6 +1007,14 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 		asiento.LoadTGA("texturas/asientos2.tga");
 		asiento.BuildGLTexture();
 		asiento.ReleaseImage();
+
+		supermanLogo.LoadTGA("texturas/supermanLogo.tga");
+		supermanLogo.BuildGLTexture();
+		supermanLogo.ReleaseImage();
+
+		basketball.LoadTGA("texturas/basketball.tga");
+		basketball.BuildGLTexture();
+		basketball.ReleaseImage();
 
 	/* FIN CARGA TEXTURAS */
 	
@@ -1086,21 +1120,36 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 
 /* ANIMACION AVION -- INICIALIZACION DE VARIABLES */
 
-	edoPreAvion = AVANZA;
-	edoSigAvion = AVANZA;
+	edoPreAvion = APXRPZ;
+	edoSigAvion = APXRPZ;
 
 	avionVar.posX = -147.5;
-	avionVar.posY = 20.0;
-	avionVar.posZ = -75.0;
+	avionVar.posY = 10.0;
+	avionVar.posZ = -38.0;
 
 	avionVar.rotX = 0.0;
 	avionVar.rotY = 90.0;
 	avionVar.rotZ = 45.0;
 
+/* ANIMACION RECORRIDO -- INICIALIZACION DE VARIABLES */
+
+	edoPreRec = E1;
+	edoSigRec = E1;
+
+/* ANIMACION PELOTA -- INICIALIZACION DE VARIABLES */
+
+	pelotaX = 0.0;
+	pelotaY = 10.0;
+
+	edoPrePelota = Y1_;
+	edoSigPelota = Y1_;
+
 /* CAMARA */
 	
-	camera.Position_Camera(45.0, -15.0f, 30.0, 45.0, -15.0f, -30.0, 0.0, 1.0, 0.0);
-	
+	/*camera.Position_Camera(45.0, -15.0f, 30.0, 45.0, -15.0f, -30.0, 0.0, 1.0, 0.0);*/
+
+	camera.Position_Camera(-115.0, 0.0f, 95.0, 115.0, 0.0f, -95.0, 0.0, 1.0, 0.0);
+
 	return;
 
 }
@@ -1132,7 +1181,34 @@ void display ( void ) {
 
 			/* FIN SKYBOX */
 
-							//	SIMBOLO SIX
+			/* ESFERA SUPERMAN */
+
+				glPushMatrix();
+					glTranslatef(30.0, -30.0, 20.0);
+					glColor3f(0.066, 0.094, 0.305);
+					fig2.cilindroVertical(1.0, 20.0, 20, 0);
+					glColor3f(1.0, 1.0, 1.0);
+					glTranslatef(0.0, 24.5, 0.0);
+					glRotatef(rotEsfSup, 0.0, 1.0, 0.0);
+					fig2.esfera(5.0, 20, 20, supermanLogo.GLindex);
+					glColor3f(1.0, 1.0, 1.0);
+				glPopMatrix();
+
+			/* TERMINA ESFERA SUPERMAN */
+
+			/* ANIMACION PELOTA */
+
+				glPushMatrix();
+					glRotatef(90.0, 0.0, 1.0, 0.0);
+					glTranslatef(0.0, -29.0, -15.0);
+					glTranslatef(pelotaX, pelotaY, 0.0);
+					fig2.esfera(1.0, 20, 20, basketball.GLindex);
+				glPopMatrix();
+
+			/* FIN ANIMACION PELOTA */
+
+			//	SIMBOLO SIX
+
 				glPushMatrix();
 					glTranslatef(-85.0f, -29.0f, -20.5f);
 					glRotatef(90, 0,1,0);
@@ -1150,16 +1226,7 @@ void display ( void ) {
 					renders.cube(20.0, 0.2, 20.0,
 					six.GLindex, six.GLindex, six.GLindex, six.GLindex, six.GLindex, six.GLindex);
 					glEnable(GL_LIGHTING);
-				glPopMatrix();
-
-						//	ESFERA SUPERMAN
-				glPushMatrix();
-					glTranslatef(60.0f, -15.0f, -70.5f);
-					glEnable(GL_ALPHA_TEST);
-					glAlphaFunc(GL_GREATER, 0.1);
-					fig2.esfera(10.0, 10.0, 10.0, super.GLindex);
-					glDisable(GL_ALPHA_TEST);
-				glPopMatrix();				
+				glPopMatrix();			
 
 			//	TERMINA	SIMBOLOS SIX
 
@@ -1373,37 +1440,19 @@ void display ( void ) {
 
 			/* AREA DE PRUEBAS */
 
+					//	ESFERA SUPERMAN
+					
+
 			/* AVION -- ANIMACION */
 
 				glPushMatrix();
 					
 					glDisable(GL_COLOR_MATERIAL);
+
 						glTranslatef(avionVar.posX, avionVar.posY, avionVar.posZ);
 						glRotatef(avionVar.rotY, 0.0, 1.0, 0.0);
 						glRotatef(avionVar.rotX, 1.0, 0.0, 0.0);
 						glRotatef(avionVar.rotZ, 0.0, 0.0, 1.0);
-
-
-						glPushMatrix(); 
-							glDisable(GL_TEXTURE_2D);
-							glDisable(GL_LIGHTING);
-								glBegin(GL_LINES);
-									glColor3f(1.0f, 0.0f, 0.0f);
-										glVertex3f(0.0f,0.0f,0.0f);
-										glVertex3f(100.0f,0.0f,0.0f);
-									glColor3f(0.0f, 1.0f, 0.0f);
-										glVertex3f(0.0f,0.0f,0.0f);
-										glVertex3f(0.0f,100.0f,0.0f);
-									glColor3f(0.0f, 0.0f, 1.0f);
-										glVertex3f(0.0f,0.0f,0.0f);
-										glVertex3f(0.0f,0.0f,100.0f);
-									glColor3f(1.0f, 1.0f, 1.0f);
-								glEnd();
-							glEnable(GL_TEXTURE_2D);
-							glEnable(GL_LIGHTING);
-						glPopMatrix(); 
-
-
 						glTranslatef(2.0, -4.5, 0.0); // Reajustamos mas o menos el pivote
 						avion.GLrender(NULL, _SHADED, 1.0); // Modelo 3DS
 					glEnable(GL_COLOR_MATERIAL);
@@ -2649,8 +2698,30 @@ void keyboard(unsigned char key, int x, int y) {
 
 			break;
 
+		case 'p':
+		case 'P':
+
+			playPelota ^= true;
+
+			break;
+
 		case 'l':
 		case 'L':
+
+			camera.mPos.x = -110.0;
+			camera.mPos.y = -27.0;
+			camera.mPos.z = 80.0;
+			camera.mView.x = 0.0;
+			camera.mView.y = -27.0;
+			camera.mView.z = 80.0;
+			g_lookupdown = 0.0;
+
+			playRecorrido ^= true;
+
+			break;
+
+		case 'h':
+		case 'H':
 
 			playHuracan ^= true;
 
@@ -2719,6 +2790,27 @@ void specialKeys(int key, int x, int y) {
 
 }
 
+float Y1(float x) {
+	return -2.5 * x * x + 10;
+}
+
+float Y2(float x) {
+	return -2 * x * x + 16 * x -24;
+}
+
+float Y3(float x) {
+	return -1.5 * x * x + 24 * x -90;
+}
+
+float Y4(float x) {
+	return -1 * x * x + 24 * x -140;
+}
+
+float Y5(float x) {
+	return -0.5 * x * x + 16 * x -126;
+}
+
+
 void animation() {
 
 /* ANIMACION SKYBOX --> MOVIMIENTO DEL CIELO */
@@ -2726,8 +2818,91 @@ void animation() {
 	if (sideSkyBox >= 1.0)
 		sideSkyBox = 0.0;
 	else
-		sideSkyBox += 0.00005;
+		sideSkyBox += 0.0005;
 
+	if (rotEsfSup >= 360)
+		rotEsfSup = 0.0;
+	else
+		rotEsfSup++;
+
+/* ANIMACION PELOTA */
+
+	if (playPelota) {
+
+		edoPrePelota = edoSigPelota;
+
+		switch(edoPrePelota) {
+			case Y1_:
+				pelotaX = pelotaX + 0.1;
+				pelotaY = Y1(pelotaX);
+
+				if (pelotaX >= 2.0)
+					edoSigPelota = Y2_;
+				else
+					edoSigPelota = Y1_;
+				break;
+
+			case Y2_:
+				pelotaX = pelotaX + 0.1;
+				pelotaY = Y2(pelotaX);
+
+				if (pelotaX >= 6.0)
+					edoSigPelota = Y3_;
+				else
+					edoSigPelota = Y2_;
+				break;
+
+			case Y3_:
+				pelotaX = pelotaX + 0.1;
+				pelotaY = Y3(pelotaX);
+
+				if (pelotaX >= 10.0)
+					edoSigPelota = Y4_;
+				else
+					edoSigPelota = Y3_;
+				break;
+
+			case Y4_:
+				pelotaX = pelotaX + 0.1;
+				pelotaY = Y4(pelotaX);
+
+				if (pelotaX >= 14.0)
+					edoSigPelota = Y5_;
+				else
+					edoSigPelota = Y4_;
+				break;
+
+			case Y5_:
+
+				pelotaX = pelotaX + 0.1;
+				pelotaY = Y5(pelotaX);
+
+				if (pelotaX >= 18.0) {
+					edoSigPelota = STOOOP;
+					playPelota = false;
+				} else {
+					edoSigPelota = Y5_;
+				}
+		
+				break;
+
+			case STOOOP:
+
+				if (playPelota) {
+
+					pelotaX = 0.0;
+					pelotaY = 10.0;
+
+					edoSigPelota = Y1_;
+				} else {
+					edoSigPelota = STOOOP;
+				}
+
+				break;
+		}
+		
+	}
+	
 /* ANIMACION SUPERMAN */	
 
 	if (animSuperman.play) {
@@ -2765,32 +2940,81 @@ void animation() {
 
 		switch(edoPreAvion) {
 		
-			case AVANZA:
+			case APXRPZ:
 
 				avionVar.posX = avionVar.posX + 0.5;
 				avionVar.rotZ = avionVar.rotZ - 0.3333333;
 
 				if (avionVar.posX >= -80.0)
-					edoSigAvion = EMP_ROT_Z;
+					edoSigAvion = APX;
 				else
-					edoSigAvion = AVANZA;
+					edoSigAvion = APXRPZ;
 
 				break;
 
-			case EMP_ROT_Z:
+			case APX:
 
 				avionVar.posX++;	
 			
-				if (avionVar.posX >= -50.0)
-					edoSigAvion = BAJA_Y;
+				if (avionVar.posX >= -40.0)
+					edoSigAvion = APXRNZ;
 				else
-					edoSigAvion = EMP_ROT_Z;
+					edoSigAvion = APX;
 
 				break;
 
-			case BAJA_Y:
+			case APXRNZ:
 				
-				avionVar.rotX = 45.0;
+				avionVar.posX++;
+				avionVar.rotZ = avionVar.rotZ  - 0.45;
+
+				if (avionVar.posX >= 60.0)
+					edoSigAvion = APXRNZ_2;
+				else
+					edoSigAvion = APXRNZ;
+
+				break;
+
+			case APXRNZ_2:
+
+				avionVar.posX++;
+				avionVar.rotZ = avionVar.rotZ - 6.3;
+
+				if (avionVar.posX >= 110.0)
+					edoSigAvion = APX_2;
+				else
+					edoSigAvion = APXRNZ_2;
+				
+				break;
+
+			case APX_2:
+
+				avionVar.posX++;
+
+				if (avionVar.posX >= 135) {
+					edoSigAvion = STOP;
+					playAvion = false;
+				} else {
+					edoSigAvion = APX_2;
+				}
+				
+				break;
+
+			case STOP:
+
+				if (playAvion = true) {
+
+					avionVar.posX = -147.5;
+					avionVar.posY = 10.0;
+					avionVar.posZ = -38.0;
+
+					edoSigAvion = APXRPZ;
+
+				} else {
+
+					edoSigAvion = STOP;
+
+				}
 
 				break;
 
@@ -2798,7 +3022,6 @@ void animation() {
 				break;
 		}
 	}
-
 
 	/* CALCULO DEL NUMERO DE FRAMES POR SEGUNDO */
 
