@@ -52,10 +52,56 @@
 
 	float movX = 0.0f, movY = 0.0f, movZ = 0.0f;
 	float sideSkyBox = 0.0f;
+	float rotEsfSup = 0.0f;
+
+	typedef struct posRot {
+		float posX;
+		float posY;
+		float posZ;
+		float rotX;
+		float rotY;
+		float rotZ;
+	}posRot;
 
 	GLfloat g_lookupdown = 0.0f;    // Look Position In The Z-Axis
 
+	bool playHuracan = false;
+	
+
 /* FIN VARIABLES GLOBALES */
+
+/* MAQUINA DE ESTADOS PELOTA */
+
+	float pelotaX = 0.0f, pelotaY = 0.0;
+
+	bool playPelota = false;
+
+	enum pelotaEstados { Y1_, Y2_, Y3_, Y4_, Y5_, STOOOP };
+	enum pelotaEstados edoPrePelota, edoSigPelota;
+
+
+/* FIN MAQUINA DE ESTADOS PELOTA*/
+
+/* MAQUINA DE ESTADOS -- AVION */
+	
+	bool playAvion = false;
+
+	enum avionEstados { APXRPZ, APX, APXRN, APXRNZ, APXRNZ_2, APX_2, STOP};
+	enum avionEstados edoPreAvion, edoSigAvion;
+
+	posRot avionVar;
+
+
+/* FIN MAQUINA DE ESTADOS -- AVION*/
+
+/* MAQUINA DE ESTADOS -- RECORRIDO */
+
+	bool playRecorrido = false;
+
+	enum recorridoEstados { E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, STOOP };
+	enum recorridoEstados edoPreRec, edoSigRec;
+
+/* FIN MAQUINA DE ESTADOS -- RECORRIDO */
 
 /* OBJETOS DE CLASES */
 
@@ -98,9 +144,19 @@
 	CTexture grass;
 	CTexture asfalto;
 	CTexture taquilla;
+
+	CTexture carrMontLat;
+	CTexture carrMontFront;
+	CTexture carrMontTras;
+	CTexture carrMontSuelo;
+
 	CTexture six;
 	CTexture super;
 	CTexture asiento;
+	CTexture supermanLogo;
+
+	CTexture basketball;
+
 /* FIN TEXTURAS */
 
 /* MODELOS */
@@ -116,13 +172,16 @@
 	CModel tree;
 	CModel ent;
 	CModel avion;
+
 	CModel barda2;
 	CModel table;
 	CModel people;
 	CModel store;
+
 	CModel car; 
 	CModel car2;
 	CModel car3;
+
 
 /* FIN MODELOS */
 
@@ -857,6 +916,7 @@ void renderPuntosCarriles() {
 }
 
 
+
 			
 void InitGL ( GLvoid )     // Inicializamos parametros
 {
@@ -920,6 +980,22 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 		taquilla.BuildGLTexture();
 		taquilla.ReleaseImage();
 
+		carrMontLat.LoadTGA("texturas/carrMontLat.tga");
+		carrMontLat.BuildGLTexture();
+		carrMontLat.ReleaseImage();
+
+		carrMontFront.LoadTGA("texturas/carrMontFront.tga");
+		carrMontFront.BuildGLTexture();
+		carrMontFront.ReleaseImage();
+
+		carrMontTras.LoadTGA("texturas/carrMontTras.tga");
+		carrMontTras.BuildGLTexture();
+		carrMontTras.ReleaseImage();
+
+		carrMontSuelo.LoadTGA("texturas/carrMontSuelo.tga");
+		carrMontSuelo.BuildGLTexture();
+		carrMontSuelo.ReleaseImage();
+
 		six.LoadTGA("texturas/six.tga");
 		six.BuildGLTexture();
 		six.ReleaseImage();
@@ -932,9 +1008,17 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 		asiento.BuildGLTexture();
 		asiento.ReleaseImage();
 
+		supermanLogo.LoadTGA("texturas/supermanLogo.tga");
+		supermanLogo.BuildGLTexture();
+		supermanLogo.ReleaseImage();
+
+		basketball.LoadTGA("texturas/basketball.tga");
+		basketball.BuildGLTexture();
+		basketball.ReleaseImage();
+
 	/* FIN CARGA TEXTURAS */
 	
-	/* CARGA MODELOS 3DS */
+/* CARGA MODELOS 3DS */
 
 	kit._3dsLoad("3ds/kitt.3ds");	
 	
@@ -952,6 +1036,7 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 	barda2._3dsLoad("3ds/fence2.3ds");
 	ent._3dsLoad("3ds/main.3ds");
 	avion._3dsLoad("3ds/airplane.3ds");
+
 	table._3dsLoad("3ds/picnic.3ds");
 	people._3dsLoad("3ds/people.3ds");
 
@@ -960,12 +1045,113 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 	car._3dsLoad("3ds/car.3ds");
 	car2._3dsLoad("3ds/car2.3ds");
 	car3._3dsLoad("3ds/car3.3ds");
-	/* FIN CARGA MODELOS 3DS*/
 
-	camera.Position_Camera(0,2.5f,3, 0,2.5f,0, 0, 1, 0);
+
+/* FIN CARGA MODELOS 3DS*/
+
+/* FRAMES SUPERMAN */
+
+	animSuperman.keyFrame[0] = { 25.25, 0.0, -25.3f, 0.0, -15.0, 0.0, 0.0, 0.0, -90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[1] = { 25.25, 0.0, -25.3f, 0.0, 9.0, 0.0, 0.0, 0.0, -90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[2] = { 26.25, 0.0, -25.3f, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[3] = { 33.0, 0.0, -25.3f, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[4] = { 33.5, 0.0, -25.0f, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 45.0, 0.0 };
+	animSuperman.keyFrame[5] = { 40.0, 0.0, -18.5f, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 45.0, 0.0 };
+	animSuperman.keyFrame[6] = { 41.0, 0.0, -18.3f, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[7] = { 45.5, 0.0, -18.3f, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[8] = { 46.5, 0.0, -18.9f, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, -45.0, 0.0 };
+	animSuperman.keyFrame[9] = { 56.5, 0.0, -28.9f, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, -45.0, 0.0 };
+	animSuperman.keyFrame[10] = { 57.0, 0.0, -29.3f, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[11] = { 65.75, 0.0, -29.3f, 0.0, 10.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[12] = { 66.75, 0.0, -29.3f, 0.0, 9.0, 0.0, 0.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[13] = { 66.75, 0.0, -29.3f, 0.0, 4.25, 0.0, 0.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[14] = { 66.75, 0.0, -29.0f, 0.0, 3.75, 0.0, 45.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[15] = { 66.75, 0.0, 2.5f, 0.0, -27.75, 0.0, 45.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[16] = { 66.75, 0.0, 2.7f, 0.0, -28.75, 0.0, 0.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[17] = { 66.75, 0.0, 2.7f, 0.0, -35.25, 0.0, 0.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[18] = { 66.75, 0.0, 2.1f, 0.0, -36.25, 0.0, -45.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[19] = { 66.75, 0.0, -18.9f, 0.0, -57.25, 0.0, -45.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[20] = { 66.75, 0.0, -19.3f, 0.0, -57.75, 0.0, 0.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[21] = { 66.75, 0.0, -19.3f, 0.0, -62.75, 0.0, 0.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[22] = { 66.75, 0.0, -19.0f, 0.0, -63.25, 0.0, 45.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[23] = { 66.75, 0.0, -13.5f, 0.0, -68.75, 0.0, 45.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[24] = { 66.75, 0.0, -13.3f, 0.0, -69.75, 0.0, 0.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[25] = { 66.75, 0.0, -13.3f, 0.0, -71.5, 0.0, 0.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[26] = { 67.75, 0.0, -13.3f, 0.0, -72.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[27] = { 83.25, 0.0, -13.3f, 0.0, -72.5, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[28] = { 83.25, 0.0, -13.3f, 0.0, -73.5, 0.0, 0.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[29] = { 83.25, 0.0, -13.3f, 0.0, -93.0, 0.0, 0.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[30] = { 83.25, 0.0, -13.3f, 0.0, -93.0, 0.0, 0.0, 0.0, 180.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[31] = { 75.25, 0.0, -13.3f, 0.0, -93.0, 0.0, 0.0, 0.0, 180.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[32] = { 73.75, 0.0, -13.3f, 0.0, -92.0, 0.0, 0.0, 0.0, 270.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[33] = { 73.75, 0.0, -13.3f, 0.0, -86.75, 0.0, 0.0, 0.0, 270.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[34] = { 73.75, 0.0, -13.9f, 0.0, -85.75, 0.0, 45.0, 0.0, 270.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[35] = { 73.75, 0.0, -18.9f, 0.0, -80.75, 0.0, 45.0, 0.0, 270.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[36] = { 73.75, 0.0, -19.3f, 0.0, -80.25, 0.0, 0.0, 0.0, 270.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[37] = { 73.75, 0.0, -19.3f, 0.0, -31.5, 0.0, 0.0, 0.0, 270.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[38] = { 74.75, 0.0, -19.3f, 0.0, -30.5, 0.0, 0.0, 0.0, 360.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[39] = { 82.5, 0.0, -19.3f, 0.0, -30.5, 0.0, 0.0, 0.0, 360.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[40] = { 83.0, 0.0, -19.0f, 0.0, -30.5, 0.0, 0.0, 0.0, 360.0, 0.0, 45.0, 0.0 };
+	animSuperman.keyFrame[41] = { 89.5, 0.0, -12.5f, 0.0, -30.5, 0.0, 0.0, 0.0, 360.0, 0.0, 45.0, 0.0 };
+	animSuperman.keyFrame[42] = { 90.5, 0.0, -12.3f, 0.0, -30.5, 0.0, 0.0, 0.0, 360.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[43] = { 100.25, 0.0, -12.3f, 0.0, -30.5, 0.0, 0.0, 0.0, 360.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[44] = { 101.25, 0.0, -12.3f, 0.0, -29.5, 0.0, 0.0, 0.0, 270.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[45] = { 101.25, 0.0, -12.3f, 0.0, -7.25, 0.0, 0.0, 0.0, 270.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[46] = { 101.25, 0.0, -12.9f, 0.0, -6.25, 0.0, 0.0, 0.0, 270.0, 0.0, -45.0, 0.0 };
+	animSuperman.keyFrame[47] = { 101.25, 0.0, -24.9f, 0.0, 5.75, 0.0, 0.0, 0.0, 270.0, 0.0, -45.0, 0.0 };
+	animSuperman.keyFrame[48] = { 101.25, 0.0, -25.3f, 0.0, 6.25, 0.0, 0.0, 0.0, 270.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[49] = { 101.25, 0.0, -25.3f, 0.0, 17.0, 0.0, 0.0, 0.0, 270.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[50] = { 100.25, 0.0, -25.3f, 0.0, 18.0, 0.0, 0.0, 0.0, 180.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[51] = { 44.75, 0.0, -25.3f, 0.0, 18.0, 0.0, 0.0, 0.0, 180.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[52] = { 43.75, 0.0, -25.3f, 0.0, 17.0, 0.0, 0.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[53] = { 43.75, 0.0, -25.3f, 0.0, -14.75, 0.0, 0.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[54] = { 43.75, 0.0, -25.0f, 0.0, -15.25, 0.0, 0.0, 0.0, 90.0, 0.0, 45.0, 0.0 };
+	animSuperman.keyFrame[55] = { 43.75, 0.0, -14.5f, 0.0, -25.75, 0.0, 0.0, 0.0, 90.0, 0.0, 45.0, 0.0 };
+	animSuperman.keyFrame[56] = { 43.75, 0.0, -14.3f, 0.0, -26.75, 0.0, 0.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[57] = { 43.75, 0.0, -14.3f, 0.0, -32.25, 0.0, 0.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[58] = { 43.75, 0.0, -14.9f, 0.0, -33.25, 0.0, 0.0, 0.0, 90.0, 0.0, -45.0, 0.0 };
+	animSuperman.keyFrame[59] = { 43.75, 0.0, -24.9f, 0.0, -43.25, 0.0, 0.0, 0.0, 90.0, 0.0, -45.0, 0.0 };
+	animSuperman.keyFrame[60] = { 43.75, 0.0, -25.3f, 0.0, -43.75, 0.0, 0.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[61] = { 43.75, 0.0, -25.3f, 0.0, -48.5, 0.0, 0.0, 0.0, 90.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[62] = { 42.75, 0.0, -25.3f, 0.0, -49.5, 0.0, 0.0, 0.0, 180.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[63] = { 26.25, 0.0, -25.3f, 0.0, -49.5, 0.0, 0.0, 0.0, 180.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[64] = { 25.25, 0.0, -25.3f, 0.0, -48.5, 0.0, 0.0, 0.0, 270.0, 0.0, 0.0, 0.0 };
+	animSuperman.keyFrame[65] = { 25.25, 0.0, -25.3f, 0.0, -15.0, 0.0, 0.0, 0.0, 270.0, 0.0, 0.0, 0.0 };
+
+/* ANIMACION AVION -- INICIALIZACION DE VARIABLES */
+
+	edoPreAvion = APXRPZ;
+	edoSigAvion = APXRPZ;
+
+	avionVar.posX = -147.5;
+	avionVar.posY = 10.0;
+	avionVar.posZ = -38.0;
+
+	avionVar.rotX = 0.0;
+	avionVar.rotY = 90.0;
+	avionVar.rotZ = 45.0;
+
+/* ANIMACION RECORRIDO -- INICIALIZACION DE VARIABLES */
+
+	edoPreRec = E1;
+	edoSigRec = E1;
+
+/* ANIMACION PELOTA -- INICIALIZACION DE VARIABLES */
+
+	pelotaX = 0.0;
+	pelotaY = 10.0;
+
+	edoPrePelota = Y1_;
+	edoSigPelota = Y1_;
+
+/* CAMARA */
+	
+	/*camera.Position_Camera(45.0, -15.0f, 30.0, 45.0, -15.0f, -30.0, 0.0, 1.0, 0.0);*/
+
+	camera.Position_Camera(-115.0, 0.0f, 95.0, 115.0, 0.0f, -95.0, 0.0, 1.0, 0.0);
 
 	return;
-	
+
 }
 
 
@@ -995,7 +1181,34 @@ void display ( void ) {
 
 			/* FIN SKYBOX */
 
-							//	SIMBOLO SIX
+			/* ESFERA SUPERMAN */
+
+				glPushMatrix();
+					glTranslatef(30.0, -30.0, 20.0);
+					glColor3f(0.066, 0.094, 0.305);
+					fig2.cilindroVertical(1.0, 20.0, 20, 0);
+					glColor3f(1.0, 1.0, 1.0);
+					glTranslatef(0.0, 24.5, 0.0);
+					glRotatef(rotEsfSup, 0.0, 1.0, 0.0);
+					fig2.esfera(5.0, 20, 20, supermanLogo.GLindex);
+					glColor3f(1.0, 1.0, 1.0);
+				glPopMatrix();
+
+			/* TERMINA ESFERA SUPERMAN */
+
+			/* ANIMACION PELOTA */
+
+				glPushMatrix();
+					glRotatef(90.0, 0.0, 1.0, 0.0);
+					glTranslatef(0.0, -29.0, -15.0);
+					glTranslatef(pelotaX, pelotaY, 0.0);
+					fig2.esfera(1.0, 20, 20, basketball.GLindex);
+				glPopMatrix();
+
+			/* FIN ANIMACION PELOTA */
+
+			//	SIMBOLO SIX
+
 				glPushMatrix();
 					glTranslatef(-85.0f, -29.0f, -20.5f);
 					glRotatef(90, 0,1,0);
@@ -1013,22 +1226,11 @@ void display ( void ) {
 					renders.cube(20.0, 0.2, 20.0,
 					six.GLindex, six.GLindex, six.GLindex, six.GLindex, six.GLindex, six.GLindex);
 					glEnable(GL_LIGHTING);
-				glPopMatrix();
+				glPopMatrix();			
 
-						//	ESFERA SUPERMAN
-				glPushMatrix();
-					glTranslatef(60.0f, -15.0f, -70.5f);
-					glEnable(GL_ALPHA_TEST);
-					glAlphaFunc(GL_GREATER, 0.1);
-					fig2.esfera(10.0, 10.0, 10.0, super.GLindex);
-					glDisable(GL_ALPHA_TEST);
-				glPopMatrix();
+			//	TERMINA	SIMBOLOS SIX
 
-				
-
-						//	TERMINA	SIMBOLOS SIX
-
-				// COMIENZA HURACÁN
+			// COMIENZA HURACÁN
 
 				glPushMatrix();
 						glTranslatef(92.0f, -29.0f, 65.5f);
@@ -1180,30 +1382,42 @@ void display ( void ) {
 				glPopMatrix();
 
 				//		FIN DE LO QUE LE PUSE
+			//	TERMINA HURACÁN
+
+
+				glPushMatrix();
+
+							glTranslatef(90.0f, -10.0f, 65.0f);
+
+							glRotatef(anim_soporte + 50, 0.0, 0.0, 1.0);		//posterior animacion
+
+							glTranslatef(0.0f, -10.0f, 0.0f);
+
+						glRotatef(anim_soporte2 + 100, 0.0, 0.0, 1.0);		//posterior animacion
+						glDisable(GL_LIGHTING);
+						renders.cube(5.0, 5.0, 31.0,
+							 wood.GLindex, wood.GLindex, wood.GLindex,		//	SOPORTES IZQUIERDO
+							asiento.GLindex, wood.GLindex, wood.GLindex);
+						glEnable(GL_LIGHTING);
+				glPopMatrix();
+
+
+						//	CILINDRO DE ENMEDIO
+
+				glPushMatrix();		
+				glTranslatef(90.0f, -10.0f, 65.0f);
+				glRotatef(90, 0, 1, 0);
+				fig2.cilindro(0.5, 34.0, 20);
+				glPopMatrix();
+
+				//		FIN DE LO QUE LE PUSE
 
 
 				//	TERMINA HURACÁN
-
-
-
-
-
-				//		ASFALTO ESTACIONAMIENTO
-				glPushMatrix();
-							
-						glTranslatef(-102.0f, -30.0f, 75.5f);
-						glScalef(35, 0.05, 45);
-						glDisable(GL_LIGHTING);
-						fig1.prisma2(asfalto.GLindex, 0);
-						glEnable(GL_LIGHTING);
 				
-				glPopMatrix();	// TERMINA ASFALTO
-				
-			
-
 			/* EJES DE REFERENCIA */
 
-				glPushMatrix(); 
+			/*	glPushMatrix(); 
 					glDisable(GL_TEXTURE_2D);
 					glDisable(GL_LIGHTING);
 						glBegin(GL_LINES);
@@ -1220,16 +1434,71 @@ void display ( void ) {
 						glEnd();
 					glEnable(GL_TEXTURE_2D);
 					glEnable(GL_LIGHTING);
-				glPopMatrix(); 
+				glPopMatrix(); */
 		
 			/* FIN EJES DE REFERENCIA */
 
 			/* AREA DE PRUEBAS */
 
-				
+					//	ESFERA SUPERMAN
+					
 
-				
+			/* AVION -- ANIMACION */
+
+				glPushMatrix();
+					
+					glDisable(GL_COLOR_MATERIAL);
+
+						glTranslatef(avionVar.posX, avionVar.posY, avionVar.posZ);
+						glRotatef(avionVar.rotY, 0.0, 1.0, 0.0);
+						glRotatef(avionVar.rotX, 1.0, 0.0, 0.0);
+						glRotatef(avionVar.rotZ, 0.0, 0.0, 1.0);
+						glTranslatef(2.0, -4.5, 0.0); // Reajustamos mas o menos el pivote
+						avion.GLrender(NULL, _SHADED, 1.0); // Modelo 3DS
+					glEnable(GL_COLOR_MATERIAL);
+
+				glPopMatrix();
+
+			/* FIN AVION -- ANIMACION */
+
+
 			/* FIN AREA DE PRUEBAS */
+
+			/* CARRITO SUPERMAN -- ANIMACION -- */
+
+				glPushMatrix();
+				
+					glEnable(GL_ALPHA_TEST);
+					glAlphaFunc(GL_GREATER, 0.1);
+
+					glTranslatef(animSuperman.posX, animSuperman.posY, animSuperman.posZ);
+					glRotatef(animSuperman.rotX, 1.0, 0.0, 0.0);
+					glRotatef(animSuperman.rotY, 0.0, 1.0, 0.0);
+					glRotatef(animSuperman.rotZ, 0.0, 0.0, 1.0);
+					
+						renders.cubeII(1.0, 1.0, 1.5,
+										none.GLindex, carrMontSuelo.GLindex, carrMontTras.GLindex,
+										carrMontFront.GLindex, carrMontLat.GLindex, carrMontLat.GLindex);
+
+					glDisable(GL_ALPHA_TEST);
+
+				glPopMatrix();
+
+			/* FIN CARRITO SUPERMAN -- ANIMACION -- */
+
+			/* ASFALTO ESTACIONAMIENTO */
+
+				glPushMatrix();
+							
+						glTranslatef(-102.0f, -29.99f, 75.5f);
+						glScalef(35, 0.05, 45);
+						glDisable(GL_LIGHTING);
+						fig1.prisma2(asfalto.GLindex, 0);
+						glEnable(GL_LIGHTING);
+				
+				glPopMatrix();
+
+			/* TERMINA ASFALTO ESTACIONAMIENTO */
 
 		
 
@@ -1737,14 +2006,6 @@ void display ( void ) {
 
 
 			// TERMINO BARDA SUPERMAN
-
-// COMIENZA AVIÓN 				
-				glPushMatrix();
-				glTranslatef(24, 10.0, 25);
-				avion.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
-				glPopMatrix();
-						
-//	TERMINA AVIÓN
 	
 //		ARBOLES
 				glPushMatrix();
@@ -1753,6 +2014,14 @@ void display ( void ) {
 				glPopMatrix();
 
 				glPushMatrix();
+
+				glTranslatef(-112.0f, -30.0f, -20.5f);
+				tree1.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+
+
+				glTranslatef(-112.0f, -30.0f, -0.5f);
+
 				glTranslatef(-112.0f, -30.0f, 10.5f);
 				tree1.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
@@ -1771,6 +2040,7 @@ void display ( void ) {
 				glTranslatef(-112.0f, -30.0f, -80.5f);
 				tree1.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
+
 				//		INDIVIDUALES
 				glPushMatrix();
 				glTranslatef(-0.0f, -30.0f, -85.5f);
@@ -1801,7 +2071,6 @@ void display ( void ) {
 				glTranslatef(-10.0f, -30.0f, 45.5f);
 				tree.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
 				glPopMatrix();
-
 
 //		TERMINA ALBOLES
 
@@ -2079,6 +2348,9 @@ void display ( void ) {
 
 // MESA 
 				glPushMatrix();
+				//HEAD
+			//	glTranslatef(-0.0f, -30.0f, 50.5f);
+
 				glTranslatef(0.0f, -30.0f, 70.5f);
 				glScalef(2.5,2.5,2.5);
 			//	glRotatef(90, 0, 1.0, 0.0);
@@ -2086,6 +2358,9 @@ void display ( void ) {
 				glPopMatrix();
 
 				glPushMatrix();
+
+				//glTranslatef(-5.0f, -30.0f, 50.5f);
+
 				glTranslatef(-10.0f, -30.0f, 65.5f);
 				glScalef(2.5, 2.5, 2.5);
 				//	glRotatef(90, 0, 1.0, 0.0);
@@ -2094,6 +2369,7 @@ void display ( void ) {
 
 
 				glPushMatrix();
+				//glTranslatef(-10.0f, -30.0f, 50.5f);
 				glTranslatef(-20.0f, -30.0f, 70.5f);
 				glScalef(2.5, 2.5, 2.5);
 				//	glRotatef(90, 0, 1.0, 0.0);
@@ -2104,7 +2380,10 @@ void display ( void ) {
 		
 //		INICIO STORE
 				glPushMatrix();
+
+				//glTranslatef(-10.0f, -30.0f, 60.5f);
 				glTranslatef(-10.0f, -30.0f, 90.0f);
+
 				glRotatef(180, 0, 1.0, 0.0);
 				glScalef(4.0,4.0,4.0);
 				store.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
@@ -2253,7 +2532,27 @@ void display ( void ) {
 // COMIENZO DE PERSONAS
 	
 				glPushMatrix();
+				glTranslatef(-20.0f, -38.0f, 65.5f);
+				glRotatef(180, 0, 1, 0);
 
+
+				glScalef(2.3, 2.3, 2.3);			///		PRUEBA
+				
+				glTranslatef(0, 4, movKit);
+
+				people.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+
+				glPopMatrix();
+
+				//			ANIMACION
+
+				/*
+				glPushMatrix();
+				glTranslatef(-20.0f, -30.0f, 65.5f);
+				glScalef(2.0,2.0,2.0);
+				people.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
+				glPopMatrix();
+				*/
 				
 
 				glTranslatef(-20.0f, -38.0f, 65.5f);
@@ -2280,11 +2579,6 @@ void display ( void ) {
 
 
 // FIN DE PERSONAS
-
-
-
-
-
 
 				glEnable(GL_COLOR_MATERIAL); //	DESACTIVAR COLORES PARA MODELOS 3D
 
@@ -2324,82 +2618,136 @@ void reshape(int width, int height) {
 
 void keyboard(unsigned char key, int x, int y) {
 	switch (key) {
-	case 27: exit(0);
-		break;
-	case 'w':   //Movimientos de camara
-	case 'W':
-		camera.Move_Camera(CAMERASPEED + 2.2);
-		break;
 
-	case 's':
-	case 'S':
-		camera.Move_Camera(-(CAMERASPEED + 2.2));
-		break;
+		case 27: exit(0);
+			break;
 
-	case 'a':
-	case 'A':
-		camera.Strafe_Camera(-(CAMERASPEED + 2.4));
-		break;
+		case 'w':   //Movimientos de camara
+		case 'W':
+			camera.Move_Camera(CAMERASPEED /*+ 2.2*/);
+			break;
 
-	case 'd':
-	case 'D':
-		camera.Strafe_Camera(CAMERASPEED + 2.4);
-		break;
+		case 's':
+		case 'S':
+			camera.Move_Camera(-(CAMERASPEED/* + 2.2*/));
+			break;
 
-	case 'q':
-	case 'Q':
-		camera.UpDown_Camera(CAMERASPEED + 0.5);
-		break;
+		case 'a':
+		case 'A':
+			camera.Strafe_Camera(-(CAMERASPEED /*+ 2.4*/));
+			break;
 
-	case 'e':
-	case 'E':
-		camera.UpDown_Camera(-(CAMERASPEED + 0.5));
-		break;
+		case 'd':
+		case 'D':
+			camera.Strafe_Camera(CAMERASPEED /*+ 2.4*/);
+			break;
 
+		case 'q':
+		case 'Q':
+			camera.UpDown_Camera(CAMERASPEED /*+ 0.5*/-0.3);
+			break;
+
+		case 'e':
+		case 'E':
+			camera.UpDown_Camera(-(CAMERASPEED /*+ 0.5*/ -0.3));
+			break;
+		case 'x':
+			movX += 1.0;
+			break;
+		case 'y':
+			movY += 1.0;
+			break;
+		case 'z':
+			movZ += 1.0;
+			break;
+		case 'X':
+			movX -= 1.0;
+			break;
+		case 'Y':
+			movY -= 1.0;
+			break;
+		case 'Z':
+			movZ -= 1.0;
+			break;
+
+		case 'j':
+		case 'J':
+
+			if (animSuperman.initialPlay == false && (animSuperman.finalFrameIndex >= 1)) { // Si la animacion esta parada y tengo almenos dos frames
+
+				animSuperman.resetElements();
+				animSuperman.interpolation();
+
+				animSuperman.play = true;
+				animSuperman.initialPlay = true;
+				animSuperman.currentFrameIndex = 0;
+				animSuperman.currSteps = 0;
+
+			} else {
+
+				animSuperman.play ^= true;
+
+			}
+
+			break;
+
+		case 'k':
+		case 'K':
+
+			playAvion ^= true;
+
+			break;
+
+		case 'p':
+		case 'P':
+
+			playPelota ^= true;
+
+			break;
+
+		case 'l':
+		case 'L':
+
+			camera.mPos.x = -110.0;
+			camera.mPos.y = -27.0;
+			camera.mPos.z = 80.0;
+			camera.mView.x = 0.0;
+			camera.mView.y = -27.0;
+			camera.mView.z = 80.0;
+			g_lookupdown = 0.0;
+
+			playRecorrido ^= true;
+
+			break;
+
+		case 'h':
+		case 'H':
+
+			playHuracan ^= true;
+
+			break;
+			
 		//			ANIMACION DE PERSONA
-	case 'r':
-	case 'R':
-		movKit = 0.0;
-		g_persona2 = true;
-		g_persona = false;
-		voltear = 90.0;
-		break;
+		case 'r':
+		case 'R':
+			movKit = 0.0;
+			g_persona2 = true;
+			g_persona = false;
+			voltear = 90.0;
+			break;
 
-	case ' ':		//Poner algo en movimiento
-		movKit = 0.0;
-		g_persona2 = true;
-		g_persona = false;
-		voltear = 90.0;
-
-
-
-		g_persona ^= true; //Activamos/desactivamos la animacíon
-		break;
-
-		//			FIN DE ANIMACION DE PERSONA
-
-		
+		case ' ':		//Poner algo en movimiento
+			movKit = 0.0;
+			g_persona2 = true;
+			g_persona = false;
+			voltear = 90.0;
 
 
 
-	case 'x':
-		movX += 1.0;
-		break;
-	case 'y':
-		movY += 1.0;
-		break;
-	case 'z':
-		movZ += 1.0;
-		break;
-	case 'X':
-		movX -= 1.0;
-		break;
-	case 'Y':
-		movY -= 1.0;
-		break;
-	case 'Z':
-		movZ -= 1.0;
-		break;
+			g_persona ^= true; //Activamos/desactivamos la animacíon
+			break;
+
+			//			FIN DE ANIMACION DE PERSONA
 	}
 
 	glutPostRedisplay();
@@ -2442,6 +2790,27 @@ void specialKeys(int key, int x, int y) {
 
 }
 
+float Y1(float x) {
+	return -2.5 * x * x + 10;
+}
+
+float Y2(float x) {
+	return -2 * x * x + 16 * x -24;
+}
+
+float Y3(float x) {
+	return -1.5 * x * x + 24 * x -90;
+}
+
+float Y4(float x) {
+	return -1 * x * x + 24 * x -140;
+}
+
+float Y5(float x) {
+	return -0.5 * x * x + 16 * x -126;
+}
+
+
 void animation() {
 
 /* ANIMACION SKYBOX --> MOVIMIENTO DEL CIELO */
@@ -2449,8 +2818,91 @@ void animation() {
 	if (sideSkyBox >= 1.0)
 		sideSkyBox = 0.0;
 	else
-		sideSkyBox += 0.00005;
+		sideSkyBox += 0.0005;
 
+	if (rotEsfSup >= 360)
+		rotEsfSup = 0.0;
+	else
+		rotEsfSup++;
+
+/* ANIMACION PELOTA */
+
+	if (playPelota) {
+
+		edoPrePelota = edoSigPelota;
+
+		switch(edoPrePelota) {
+			case Y1_:
+				pelotaX = pelotaX + 0.1;
+				pelotaY = Y1(pelotaX);
+
+				if (pelotaX >= 2.0)
+					edoSigPelota = Y2_;
+				else
+					edoSigPelota = Y1_;
+				break;
+
+			case Y2_:
+				pelotaX = pelotaX + 0.1;
+				pelotaY = Y2(pelotaX);
+
+				if (pelotaX >= 6.0)
+					edoSigPelota = Y3_;
+				else
+					edoSigPelota = Y2_;
+				break;
+
+			case Y3_:
+				pelotaX = pelotaX + 0.1;
+				pelotaY = Y3(pelotaX);
+
+				if (pelotaX >= 10.0)
+					edoSigPelota = Y4_;
+				else
+					edoSigPelota = Y3_;
+				break;
+
+			case Y4_:
+				pelotaX = pelotaX + 0.1;
+				pelotaY = Y4(pelotaX);
+
+				if (pelotaX >= 14.0)
+					edoSigPelota = Y5_;
+				else
+					edoSigPelota = Y4_;
+				break;
+
+			case Y5_:
+
+				pelotaX = pelotaX + 0.1;
+				pelotaY = Y5(pelotaX);
+
+				if (pelotaX >= 18.0) {
+					edoSigPelota = STOOOP;
+					playPelota = false;
+				} else {
+					edoSigPelota = Y5_;
+				}
+		
+				break;
+
+			case STOOOP:
+
+				if (playPelota) {
+
+					pelotaX = 0.0;
+					pelotaY = 10.0;
+
+					edoSigPelota = Y1_;
+				} else {
+					edoSigPelota = STOOOP;
+				}
+
+				break;
+		}
+		
+	}
+	
 /* ANIMACION SUPERMAN */	
 
 	if (animSuperman.play) {
@@ -2459,6 +2911,7 @@ void animation() {
 			if (animSuperman.currentFrameIndex >= animSuperman.finalFrameIndex) { /* Termino la animacion completa? */
 				printf("TERMINA ANIMACION SUPERMAN\n");
 				animSuperman.currentFrameIndex = 0;
+				animSuperman.initialPlay = false;
 				animSuperman.play = false;
 			} else { /* ¡ No ha terminado la animacion !, me preparo para nueva animacion entre frames*/
 				animSuperman.currSteps = 0; // Reseteo el contador de pasos
@@ -2480,19 +2933,112 @@ void animation() {
 
 	}
 
+/* ANIMACION AVION */
 
-	// Calculate the number of frames per one second:
+	if (playAvion) {
+		edoPreAvion = edoSigAvion;
+
+		switch(edoPreAvion) {
+		
+			case APXRPZ:
+
+				avionVar.posX = avionVar.posX + 0.5;
+				avionVar.rotZ = avionVar.rotZ - 0.3333333;
+
+				if (avionVar.posX >= -80.0)
+					edoSigAvion = APX;
+				else
+					edoSigAvion = APXRPZ;
+
+				break;
+
+			case APX:
+
+				avionVar.posX++;	
+			
+				if (avionVar.posX >= -40.0)
+					edoSigAvion = APXRNZ;
+				else
+					edoSigAvion = APX;
+
+				break;
+
+			case APXRNZ:
+				
+				avionVar.posX++;
+				avionVar.rotZ = avionVar.rotZ  - 0.45;
+
+				if (avionVar.posX >= 60.0)
+					edoSigAvion = APXRNZ_2;
+				else
+					edoSigAvion = APXRNZ;
+
+				break;
+
+			case APXRNZ_2:
+
+				avionVar.posX++;
+				avionVar.rotZ = avionVar.rotZ - 6.3;
+
+				if (avionVar.posX >= 110.0)
+					edoSigAvion = APX_2;
+				else
+					edoSigAvion = APXRNZ_2;
+				
+				break;
+
+			case APX_2:
+
+				avionVar.posX++;
+
+				if (avionVar.posX >= 135) {
+					edoSigAvion = STOP;
+					playAvion = false;
+				} else {
+					edoSigAvion = APX_2;
+				}
+				
+				break;
+
+			case STOP:
+
+				if (playAvion = true) {
+
+					avionVar.posX = -147.5;
+					avionVar.posY = 10.0;
+					avionVar.posZ = -38.0;
+
+					edoSigAvion = APXRPZ;
+
+				} else {
+
+					edoSigAvion = STOP;
+
+				}
+
+				break;
+
+			default:
+				break;
+		}
+	}
+
+	/* CALCULO DEL NUMERO DE FRAMES POR SEGUNDO */
+
 	//dwFrames++;
 	dwCurrentTime = GetTickCount(); // Even better to use timeGetTime()
 	dwElapsedTime = dwCurrentTime - dwLastUpdateTime;
 
-	if (dwElapsedTime >= 30)
-	{
+	if (playHuracan) {
 
-		anim_soporte = (anim_soporte + 20) % 360;
-		anim_soporte2 = -anim_soporte;
-		anim_soporte2 = (anim_soporte2 + 50)% 360;
-		dwLastUpdateTime = dwCurrentTime;
+		if (dwElapsedTime >= 30) {
+
+			anim_soporte = (anim_soporte + 20) % 360;
+			anim_soporte2 = -anim_soporte;
+			anim_soporte2 = (anim_soporte2 + 50) % 360;
+			dwLastUpdateTime = dwCurrentTime;
+
+		}
 
 	}
 
@@ -2509,12 +3055,9 @@ void animation() {
 			voltear = -90.0;
 			movKit = -10;
 		}
-
+	}
 	//	voltear;
 
-	}
-
-	
 	if (g_persona2 == false && movKit <= 10)
 	{
 		movKit += 0.5;
@@ -2528,38 +3071,33 @@ void animation() {
 
 	}
 
-
-
-
-
-	
-
 	glutPostRedisplay();
 }
 
 void audio() {
 	PlaySound("feria.wav", NULL, SND_ASYNC | SND_FILENAME | SND_LOOP);
-	}
+}
 
 
 int main ( int argc, char** argv ) {
 	
 	//audio();
 
-  glutInit            (&argc, argv); // Inicializamos OpenGL
-  glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); // Display Mode (Clores RGB y alpha | Buffer Doble )
-  glutInitWindowSize  (1280, 720);	// Tamaño de la Ventana
-  glutInitWindowPosition (0, 0);	//Posicion de la Ventana
-  glutCreateWindow    ("Parque de Diversiones"); // Nombre de la Ventana
-  //glutFullScreen     ( );         // Full Screen
-  InitGL ();						// Parametros iniciales de la aplicacion
-  glutDisplayFunc     ( display );  //Indicamos a Glut función de dibujo
-  glutReshapeFunc     ( reshape );	//Indicamos a Glut función en caso de cambio de tamano
-  glutKeyboardFunc    ( keyboard );	//Indicamos a Glut función de manejo de teclado
-  glutSpecialFunc     ( specialKeys );	//Otras
-  glutIdleFunc		  ( animation );
+	glutInit            (&argc, argv); // Inicializamos OpenGL
+	glutInitDisplayMode (GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH); // Display Mode (Clores RGB y alpha | Buffer Doble )
+	glutInitWindowSize  (1280, 720);	// Tamaño de la Ventana
+	glutInitWindowPosition (0, 0);	//Posicion de la Ventana
+	glutCreateWindow    ("Parque de Diversiones"); // Nombre de la Ventana
+	//glutFullScreen     ( );         // Full Screen
+	InitGL ();						// Parametros iniciales de la aplicacion
+	glutDisplayFunc     ( display );  //Indicamos a Glut función de dibujo
+	glutReshapeFunc     ( reshape );	//Indicamos a Glut función en caso de cambio de tamano
+	glutKeyboardFunc    ( keyboard );	//Indicamos a Glut función de manejo de teclado
+	glutSpecialFunc     ( specialKeys );	//Otras
+	glutIdleFunc		  ( animation );
 
-  glutMainLoop        ( );          // 
+	glutMainLoop        ( );          // 
 
-  return 0;
+	return 0;
+
 }
