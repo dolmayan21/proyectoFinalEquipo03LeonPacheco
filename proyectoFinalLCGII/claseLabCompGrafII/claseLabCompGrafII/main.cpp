@@ -96,6 +96,11 @@
 	CTexture asfalto;
 	CTexture taquilla;
 
+	CTexture carrMontLat;
+	CTexture carrMontFront;
+	CTexture carrMontTras;
+	CTexture carrMontSuelo;
+
 /* FIN TEXTURAS */
 
 /* MODELOS */
@@ -897,6 +902,21 @@ void InitGL ( GLvoid )     // Inicializamos parametros
 		taquilla.BuildGLTexture();
 		taquilla.ReleaseImage();
 
+		carrMontLat.LoadTGA("texturas/carrMontLat.tga");
+		carrMontLat.BuildGLTexture();
+		carrMontLat.ReleaseImage();
+
+		carrMontFront.LoadTGA("texturas/carrMontFront.tga");
+		carrMontFront.BuildGLTexture();
+		carrMontFront.ReleaseImage();
+
+		carrMontTras.LoadTGA("texturas/carrMontTras.tga");
+		carrMontTras.BuildGLTexture();
+		carrMontTras.ReleaseImage();
+
+		carrMontSuelo.LoadTGA("texturas/carrMontSuelo.tga");
+		carrMontSuelo.BuildGLTexture();
+		carrMontSuelo.ReleaseImage();
 		
 
 	/* FIN CARGA TEXTURAS */
@@ -1032,20 +1052,7 @@ void display ( void ) {
 				glPopMatrix();
 
 			/* FIN SKYBOX */
-
-				//		ASFALTO ESTACIONAMIENTO
-				glPushMatrix();
-							
-						glTranslatef(-102.0f, -30.0f, 75.5f);
-						glScalef(35, 0.05, 45);
-						glDisable(GL_LIGHTING);
-						fig1.prisma2(asfalto.GLindex, 0);
-						glEnable(GL_LIGHTING);
 				
-				glPopMatrix();	// TERMINA ASFALTO
-				
-			
-
 			/* EJES DE REFERENCIA */
 
 				glPushMatrix(); 
@@ -1071,67 +1078,60 @@ void display ( void ) {
 
 			/* AREA DE PRUEBAS */
 
+			/* AVION -- ANIMACION */
+
+				glPushMatrix();
+					
+					glDisable(GL_COLOR_MATERIAL);
+						glTranslatef(0.0, 0.0, 0.0);
+						glRotatef(45, 1.0, 0.0, 0.0);
+						glRotatef(0.0, 0.0, 1.0, 0.0);
+						glRotatef(0.0, 0.0, 0.0, 1.0);
+						glTranslatef(2.0, -4.5, 0.0); // Reajustamos mas o menos el pivote
+						avion.GLrender(NULL, _SHADED, 1.0); // Modelo 3DS
+					glEnable(GL_COLOR_MATERIAL);
+				glPopMatrix();
+
+				/* FIN AVION -- ANIMACION */
+
+
+			/* FIN AREA DE PRUEBAS */
+
+			/* CARRITO SUPERMAN -- ANIMACION -- */
+
 				glPushMatrix();
 				
+					glEnable(GL_ALPHA_TEST);
+					glAlphaFunc(GL_GREATER, 0.1);
+
 					glTranslatef(animSuperman.posX, animSuperman.posY, animSuperman.posZ);
 					glRotatef(animSuperman.rotX, 1.0, 0.0, 0.0);
 					glRotatef(animSuperman.rotY, 0.0, 1.0, 0.0);
 					glRotatef(animSuperman.rotZ, 0.0, 0.0, 1.0);
-					glDisable(GL_TEXTURE_2D);
-					glDisable(GL_LIGHTING);
-							glBegin(GL_LINES);
-								glColor3f(1.0, 0.0, 0.0);
-									glVertex3f(0.0f, 0.0f, 0.0f);
-									glVertex3f(2.0f, 0.0f, 0.0f);
-								glColor3f(0.0, 1.0, 0.0);
-									glVertex3f(0.0f, 0.0f, 0.0f);
-									glVertex3f(0.0f, 2.0f, 0.0f);
-								glColor3f(0.0, 0.0, 1.0);
-									glVertex3f(0.0f, 0.0f, 0.0f);
-									glVertex3f(0.0f, 0.0f, 2.0f);
-								glColor3f(1.0, 1.0, 1.0);
-							glEnd();
-						glEnable(GL_TEXTURE_2D);
-						glEnable(GL_LIGHTING);
-					renders.cube(1.0, 1.0, 1.5, 0, 0, 0, 0, 0, 0);
 					
+						renders.cubeII(1.0, 1.0, 1.5,
+										none.GLindex, carrMontSuelo.GLindex, carrMontTras.GLindex,
+										carrMontFront.GLindex, carrMontLat.GLindex, carrMontLat.GLindex);
+
+					glDisable(GL_ALPHA_TEST);
+
 				glPopMatrix();
 
-				//glPushMatrix();
-				//	glTranslatef(5.0, 0.0, 0.0);
-				////	glPushMatrix();
-				//	glRotatef(45, 0.0, 0.0, 1.0);
-				//	
-				//	
-				//		
-				//		glDisable(GL_TEXTURE_2D);
-				//		glDisable(GL_LIGHTING);
-				//			glBegin(GL_LINES);
-				//				glColor3f(1.0, 0.0, 0.0);
-				//					glVertex3f(0.0f, 0.0f, 0.0f);
-				//					glVertex3f(2.0f, 0.0f, 0.0f);
-				//				glColor3f(0.0, 1.0, 0.0);
-				//					glVertex3f(0.0f, 0.0f, 0.0f);
-				//					glVertex3f(0.0f, 2.0f, 0.0f);
-				//				glColor3f(0.0, 0.0, 1.0);
-				//					glVertex3f(0.0f, 0.0f, 0.0f);
-				//					glVertex3f(0.0f, 0.0f, 2.0f);
-				//				glColor3f(1.0, 1.0, 1.0);
-				//			glEnd();
-				//		glEnable(GL_TEXTURE_2D);
-				//		glEnable(GL_LIGHTING);
-				//			renders.cube(1.0, 1.0, 1.5, 0, 0, 0, 0, 0, 0);
-				////			glPopMatrix();
-				//glPopMatrix();
+			/* FIN CARRITO SUPERMAN -- ANIMACION -- */
 
+			/* ASFALTO ESTACIONAMIENTO */
 
-			/*	glPushMatrix();*/
-			//	glRotatef(45, 0.0, 0.0, 1.0);
-			////	glTranslatef(33.146446f, -22.646446f, 10);
-			//	
-			//	renders.cube(1.0, 1.0, 1.5, 0, 0, 0, 0, 0, 0);
-			//	glPopMatrix();
-			/* FIN AREA DE PRUEBAS */
+				glPushMatrix();
+							
+						glTranslatef(-102.0f, -29.99f, 75.5f);
+						glScalef(35, 0.05, 45);
+						glDisable(GL_LIGHTING);
+						fig1.prisma2(asfalto.GLindex, 0);
+						glEnable(GL_LIGHTING);
+				
+				glPopMatrix();
+
+			/* TERMINA ASFALTO ESTACIONAMIENTO */
 
 			/* ENTRADA 1*/
 
@@ -1500,13 +1500,7 @@ void display ( void ) {
 
 			// TERMINO BARDA SUPERMAN
 
-// COMIENZA AVIÓN 				
-				glPushMatrix();
-				glTranslatef(24, 0.0, 25);
-				avion.GLrender(NULL, _SHADED, 1.0);  //_WIRED O _POINTS
-				glPopMatrix();
-						
-//	TERMINA AVIÓN
+
 	
 //		ARBOLES
 				glPushMatrix();
